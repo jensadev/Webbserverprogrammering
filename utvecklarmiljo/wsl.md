@@ -60,7 +60,13 @@ ln -s /mnt/c/code
 ls -la
 ```
 
-List kommandot bör visa dig att länken är skapad, testa sedan att köra.
+List kommandot bör visa dig att länken är skapad.
+
+```bash
+lrwxrwxrwx 1 jens jens       11 Feb 17  2019 code -> /mnt/c/code
+```
+
+Testa sedan att navigera in i code mappen och lista innehållet.
 
 ```bash
 cd code
@@ -69,7 +75,7 @@ ls -la
 
 ## LAMP server
 
-LAMP är en förkortning för en webbserver med Linux, Apache, MySQL och PHP. Det finns flera varianter av detta då oftast första bokstaven byts ut beroende på vilket operativ system du använder, det vill säga WAMP, MAMP. Eftersom vi nu kör en Linux distribution under Windows så kommer vi att installera LAMP.
+[LAMP ](https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29)är en förkortning för en webbserver med Linux, Apache, MySQL och PHP. Det finns flera varianter av detta då oftast första bokstaven byts ut beroende på vilket operativ system du använder, det vill säga WAMP, MAMP. Eftersom vi nu kör en Linux distribution under Windows så kommer vi att installera LAMP.
 
 Enklaste sättet att göra detta på är att installera ett samlingspaket som finns i Ubuntu.
 
@@ -141,89 +147,97 @@ mysql -u username -p
 
 ### phpMyAdmin
 
- sudo apt install phpmyadmin  
+Vi kommer att arbeta med SQL direkt från MySQL klienten, då det är viktigt att förstå sig på de SQL kommandon som körs. Men för att förenkla delar av arbetet med MySQL så kommer vi att installera ett grafiskt administrationsverktyg som heter [phpMyAdmin](https://www.phpmyadmin.net/). 
 
+```bash
+sudo apt install phpmyadmin
+```
 
-Under installationen välj
+Under installationen så väljer du
 
 * apache2 server
 * Database common
 * config, generate pwd
 
-Apache2 och php använder ett system för att slå på moduler och även sidor, så för att konfigurera och starta igång phmyadmin måste vi länka denna konfiguration. Börja med att gå till mappen 
+Apache2 och PHP använder ett system för att slå på moduler och sidor, så för att konfigurera och starta igång phpMyAdmin måste vi länka denna konfiguration. För att göra det så behöver vi gå till rätt mapp och sedan skapa en symlink till konfigurationsfilen.
 
- cd /etc/apache2/sites-available  
+```bash
+cd /etc/apache2/sites-available
+sudo ln -s /etc/phpmyadmin/apache.conf phpmyadmin.conf
+ls -la
+```
 
+Nu bör du se en länk som heter phpmyadmin.conf och som pekar till källan.
 
-Skapa sedan en symlink till konfigurationsfilen
+```bash
+lrwxrwxrwx 1 root root   27 Feb 17  2019 phpmyadmin.conf -> /etc/phpmyadmin/apache.conf
+```
 
- sudo ln -s /etc/phpmyadmin/apache.conf phpmyadmin.conf  
+När länken väl finns så kan vi "slå på" sidan i Apaches konfiguration. Detta görs med `a2ensite` kommandot vilket behöver köras som sudo.
 
+```bash
+sudo a2ensite phpmyadmin
+```
 
-När länken finns så kan vi “slå på” sidan
+Starta sedan om Apache och surfa sedan till [http://localhost/phpmyadmin](http://localhost/phpmyadmin) eller [http://localhost:88/phpmyadmin](http://localhost:88/phpmyadmin) om du behövde ändra vilken porten som Apache använder.
 
- sudo a2ensite phpmyadmin  
+### Userdir
 
+För att förenkla hur du jobbar med webbservern så ska vi använda oss av en modul till apache som heter userdir. Userdir låter oss skapa en mapp som är kopplad till webbservern i vår egen hem mapp i Linux.
 
-Du ska nu kunna surfa localhost/phpmyadmin från windows, fungerar det inte så kör
+För att slå på denna mod så kör och starta sedan om Apache.
 
- sudo service apache2 restart
+```bash
+sudo a2enmod userdir
+sudo service apache2 restart
+```
 
-#### Userdir
+Du behöver sedan skapa en mapp i din home mapp som heter public\_html.
 
-För att kunna komma åt och spara dina filer så kan vi använda oss av en mod till apache som heter userdir.
+```bash
+cd
+mkdir public_html
+```
 
-För att starta denna behöver vi skriva
+Du ska nu kunna surfa till http://localhost/~USER eller http://localhost:88/~USER, där USER är ditt username.
 
- sudo a2enmod userdir
+### PHP
 
- sudo service apache2 restart  
+Hittills har vi inte behövt använda PHP till något, men för att kunna använda det från public\_html behöver vi ändra på lite konfiguration.
 
+```bash
+cd /etc/apache2/mods-available
+ls -la php*
+sudo nano phpX.X.conf # X är versionsnumret
+```
 
-Du skapar sedan en mapp i ditt home som heter public\_html,
+Notera att det kan vara en annan version av PHP, därför kollar du vilken version du behöver skriva. I filen så kommenterar du sedan ut följande rader med `#`
 
- cd
+```bash
+<IfModule mod_userdir.c>
+    <Directory /home/*/public_html>
+        php_admin_value engine Off
+    </Directory>
+</IfModule>
+```
 
- mkdir public\_html  
+ Starta sedan om Apache, så är vi nästan klar. För att se om PHP är igång från home mappen så gör följande.
 
+```bash
+cd
+cd public_html
+echo "<?php phpinfo(); ?>" > info.php
+```
 
-Du ska nu kunna surfa till localhost/~DITTUSERNAME/  
+Surfa sedan till localhost/~USER och öppna `info.php`, om det fungerar som det ska så bör du få information kring din webbserver och dess konfiguration. Funkar inte PHP, ja då skriver den ut koden du just skrev eftersom Apache inte förstår att den ska tolkas som PHP.
 
+```php
+<?php phpinfo(); ?>
+```
 
-För att kunna köra php från ditt userdir så behöver du dock göra några steg till.
+## Node.js
 
-Notera att det kan vara en annan version av php, då är det ett annat directory-namn.
-
- cd /etc/apache2/mods-available
-
- sudo nano php7.2.conf  
-
-
-Kommentera sedan ut följande rader med \#
-
-   &lt;IfModule mod\_userdir.c&gt;
-
-        &lt;Directory /home/\*/public\_html&gt;
-
-            php\_admin\_value engine Off
-
-        &lt;/Directory&gt;
-
-    &lt;/IfModule&gt;  
-
-
-Starta sedan om apache2
-
- sudo service apache2 restart  
-
-
-För att testa detta så skapar vi en fil i public\_html med namnet info.php, i den skriver du följande kod.
-
- &lt;?php phpinfo\(\); ?&gt;
-
-## Node
-
-För att installera och komma igång med webbservern Node så läs vidare här, [Node och Express](../node-och-express/)
+Apache är en webbserver och Node är en annan. Vi kommer att arbeta mer med Node i nästa avsnitt,  [Node och Express](../node-och-express/)
 
 ## GitHub
 
@@ -330,7 +344,7 @@ kommando --help
         B</td>
     </tr>
   </tbody>
-</table>Listan går att göra oändligt, läs mer [här](https://www.howtoforge.com/linux-commands/).
+</table>Listan går att göra oändlig, läs mer [här](https://www.howtoforge.com/linux-commands/).
 
 ##     
 
