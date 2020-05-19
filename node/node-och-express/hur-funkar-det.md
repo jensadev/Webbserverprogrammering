@@ -25,7 +25,7 @@ En start kan vara att konvertera redan färdiga sidor till pug, det finns ett ot
 
 Den struktur som vi kommer att använda för projektets views med Pug är att vi utgår från filen layout.pug. Denna fil anropar vi sedan genom våra andra layout filer.
 
-Så i index.pug så anropar vi layout.pug genom att skriva
+Så i `index.pug` så anropar vi `layout.pug` genom att skriva
 
 ```text
 extends layout
@@ -88,7 +88,7 @@ body
 ```
 {% endcode %}
 
-Här anger vi ett nav block följt av en include där vi läser in filen `nav.pug`. Läs mer om [Pugs arv](https://pugjs.org/language/inheritance.html). När vi nu laddar vår layout så kommer innehållet i nav.pug inkluderas innan vårt content. Nästa steg blir att skapa filen och i den kommer vi att skapa ett nav element med en lista i.
+Här anger vi ett nav block följt av en include där vi läser in filen `nav.pug`. Läs mer om [Pugs arv](https://pugjs.org/language/inheritance.html). När vi nu laddar vår layout så kommer innehållet i `nav.pug` inkluderas innan vårt content. Nästa steg blir att skapa filen och i den kommer vi att skapa ett nav element med en lista i.
 
 {% code title="views/nav.pug" %}
 ```text
@@ -190,7 +190,7 @@ Uppdatera sedan `package.json` och i script delen lägger du till följande.
 ```
 {% endcode %}
 
-Vi kan sedan köra npm run compile och den kommer att köra Sass och söka efter eventuella ändringar i källkodsfilerna. Så när vi sparar vår Sass fil, då kompileras det till css.
+Vi kan sedan köra `npm run compile` och den kommer att köra Sass och söka efter eventuella ändringar i källkodsfilerna. Så när vi sparar vår Sass fil, då kompileras det till css.
 
 ```bash
 npm run compile
