@@ -268,7 +268,7 @@ Surfa sedan till localhost/~USER och öppna `info.php`, om det fungerar som det 
 
 ## Node.js
 
-Apache är en webbserver och Node är en annan. Vi kommer att arbeta mer med Node i nästa avsnitt,  [Node och Express](../node-och-express/)
+Apache är en webbserver och Node är en annan. Vi kommer att arbeta mer med Node i nästa avsnitt,  [Node och Express](../node/node-och-express/)
 
 ## Resultat
 

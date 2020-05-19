@@ -12,9 +12,9 @@ Som exempel så letade jag reda på ett färgschema jag gillade först, vilket p
 
 Just tanken om något under vatten ledde till bilden med bubblorna, något som jag skapade i Adobe Illustrator och sparade som SVG. Jag letade upp ett par ikoner och NTI logotypen, sparade dessa som SVG och la till. 
 
-![Bubblor](../.gitbook/assets/bubbles-v2.svg)
+![Bubblor](../../.gitbook/assets/bubbles-v2.svg)
 
-![Ikon logo](../.gitbook/assets/nti_icon.svg)
+![Ikon logo](../../.gitbook/assets/nti_icon.svg)
 
 När jag arbetade med den mycket långa titeln, Webbserverprogrammering så fick jag tekniska problem. Det visade sig att ett väldigt långt ord som inte kan avstavas av webbläsaren påverkar hur hela sidan ritas ut när det finns tillsammans med `meta viewport scale`. I det här fallet påverkade det hur resten av sidan ritades ut och resultatet blev hemskt. Lösningen blev att lägga till ett bindestreck mellan Webbserver och programmering, Webbserver-programmering. Inte vad jag kanske önskat, men enklaste och bästa lösningen. Med HTML och CSS så försöker vi få text att se ut som något, vilket inte alltid fungerar som vi tänkt oss. Ibland är det inte ens möjligt, men med testning kan vi åtminstone upptäcka problem som vi på ett eller annat sätt får lösa.
 
