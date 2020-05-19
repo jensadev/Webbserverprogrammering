@@ -186,9 +186,9 @@ sudo apt install phpmyadmin
 
 Under installationen så väljer du
 
-* apache2 server
-* Database common
-* config, generate pwd
+* [ ] apache2 server
+* [ ] Database common
+* [ ] config, generate pwd
 
 Apache2 och PHP använder ett system för att slå på moduler och sidor, så för att konfigurera och starta igång phpMyAdmin måste vi länka denna konfiguration. För att göra det så behöver vi gå till rätt mapp och sedan skapa en symlink till konfigurationsfilen.
 

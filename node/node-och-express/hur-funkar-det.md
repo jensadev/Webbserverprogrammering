@@ -155,6 +155,10 @@ Detta är en uppgift med eget arbete.
 
 Du kan nu prova att lägga till en footer som ska inkluderas på varje sida, förfarandet är mer eller mindre detsamma som för navigationen. Skapa filen `views/footer.pug` och inkludera den från `views/layout.pug`. I filen skapar du ett footer element.
 
+* [ ] Skapa footer fil
+  * [ ] Skapa element och innehåll
+* [ ] Inkludera footer i layout
+
 Med den grunden på plats så kan vi börja titta på att få det att se ut som något. För detta så kommer vi att arbeta med Sass.
 
 ## Sass
@@ -246,5 +250,15 @@ Funkar det? Bra.
 Detta är en uppgift med eget arbete.
 {% endhint %}
 
-Testa nu att skapa variabler för ett par färger på sidan. Passa även på att styla user-sidans lista också. Fortsätt sedan här för att lära dig mer om [Sass](https://sass-lang.com/guide).
+Testa nu att skapa variabler för ett par färger på sidan. Passa även på att styla User-sidans lista också.
+
+{% hint style="info" %}
+Sidan [coolors.co](https://coolors.co/) har Sass export
+{% endhint %}
+
+* [ ] Välj 1-5 färger
+* [ ] Lägg till dem med variabler i din Sass
+* [ ] Styla User-sidans lista
+
+ Fortsätt sedan här för att lära dig mer om [Sass](https://sass-lang.com/guide).
 

@@ -75,6 +75,10 @@ Detta är en uppgift med eget arbete.
 
 Gör nu samma ändringar för `users.pug` och gör klart navigationen i `nav.pug`.
 
+* [ ] Skapa ett head block i `users.pug`
+* [ ] Namnge sidan i titel variabeln
+* [ ] Lägg till ytterligare länkar i `nav.pug` med det mixin vi skapat
+
 ## Stilar
 
 Slutligen så behöver vi skapa .active klassen i vår css. Med Sass så skriver vi följande kod.
