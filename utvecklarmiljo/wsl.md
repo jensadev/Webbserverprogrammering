@@ -12,118 +12,134 @@ De flesta kommandon körs i terminalfönster, det är därför väldigt viktigt 
 
 Jag kan inte skriva eller säga det nog många gånger och det är **-läs vad som sker på din skärm**.
 
-Det är självklart bra om du har en grundläggande förståelse hur du navigerar dig runt i terminalen innan du gör detta. ls -la för att kolla vad som finns i en mapp, cd för att byta osv. och kom ihåg att tabba för att underlätta för dig så att du skriver rätt.
+Det är självklart bra om du har en grundläggande förståelse hur du navigerar dig runt i terminalen innan du gör detta. Behöver du fräscha upp minnet kring det, kolla [här](wsl.md#bash).
 
 ## Installation
 
-Du behöver slå på denna feature först. I powershell med adm. rättigheter så skriver du.
+För att kunna köra WSL så behöver du slå på denna feature i Windows. Det gör du genom att starta powershell som administratör.
 
- Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux  
+```text
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+```
 
+När du kört kommandot så kommer den att be dig att starta om datorn, gör det. När din dator startat om så startar du Microsoft Store och söker efter Ubuntu.
 
-Boota om när den ber dig göra det.
+Välj Ubuntu LTS och installera. **Var noga med att skriva in ett användarnamn under installationen när den frågar.** Välj ett lösenord som du kommer ihåg!
 
-Starta microsoft-store och sök efter Ubuntu.
+När installationen är klar så startar du Ubuntu och kör följande kommandon.
 
-Hämta och installera. Var noga med att skriva in ett användarnamn när den frågar.
+```bash
+sudo apt update
+sudo apt upgrade
+```
 
-Välj ett lösenord som du kommer ihåg.  
+Ubuntu körs nu i ett fönster under windows och du har tillgång till det mesta du behöver utan att behöva virtualisera eller dual-boota. Om du behöver komma åt andra drivar eller Windows filer under Linux så hittar du dem under /mnt.
 
+```bash
+cd /mnt
+ls -la
+```
 
-I ubuntu kör
+Detta ger dig en lista över de filsystem som är mountade under Linux.
 
- sudo apt update
+## Visual Studio Code
 
- sudo apt upgrade  
+Om du inte redan har Visual Studio Code installerat så gör detta nu. Du hittar det på  [https://code.visualstudio.com/](%20https://code.visualstudio.com/)
 
+Code använder inte WSL som sitt standard shell utan det är något du behöver välja. För att byta shell i Code till WSL \(bash, Ubuntu\), så ändrar du i inställningarna.
 
-Ubuntu körs nu i ett fönster under windows och du har tillgång till det mesta du behöver utan att behöva virtualisera eller dualboota. Om du behöver komma åt andra drivar eller windows filer under linux så hitta du dem under /mnt katalogen.
+```bash
+inställningar-> sök efter terminal-> integrated-> shell: Windows, välj WSL
+```
 
- /mnt/c osv.
+Nästa steg är att skapa en symlink för din code mapp så att du enkelt kan komma åt den. Navigera till din hem mapp i WSL och skapa länken. Detta förutsätter att du har en `c:\code` mapp. Om du inte har skapat en sådan tidigare så är det dags nu. Att samla sin kod på ett ställe är både praktiskt och bra praxis. 
 
-### Visual studio code
+```bash
+cd
+ln -s /mnt/c/code
+ls -la
+```
 
-Installera vscode om du inte redan har det \(på windows alltså!\). [https://code.visualstudio.com/](https://code.visualstudio.com/)  
+List kommandot bör visa dig att länken är skapad, testa sedan att köra.
 
+```bash
+cd code
+ls -la
+```
 
-För att byta shell i VSCode till WSL \(bash från ubuntu\), 
+## LAMP server
 
-inställningar&gt;sök efter terminal&gt;hitta terminal&gt; integrated&gt; shell: Windows, välj WSL  
+LAMP är en förkortning för en webbserver med Linux, Apache, MySQL och PHP. Det finns flera varianter av detta då oftast första bokstaven byts ut beroende på vilket operativ system du använder, det vill säga WAMP, MAMP. Eftersom vi nu kör en Linux distribution under Windows så kommer vi att installera LAMP.
 
+Enklaste sättet att göra detta på är att installera ett samlingspaket som finns i Ubuntu.
 
-Nu behöver du skapa en symlink till din code mapp på c:, detta så att vi kan arbeta i den och VSCode kan hitta filerna.
+```bash
+sudo apt install lamp-server^
+```
 
-För att göra detta skriver du \(i din hem-mapp, $\),
+Svara \[Y\] på frågorna och låt den ladda ner och installera paketen. Förhoppningsvis så går det problemfritt, om det strular så prova att köra om installationen.
 
- cd
+När det är klart så behöver vi kolla om vi kan starta de två services vi behöver från LAMP, Apache och MySQL. Detta gör du genom att köra följande.
 
- ln -s /mnt/c/code code
+```bash
+sudo service mysql restart
+sudo service apache2 restart
+```
 
-### LAMP
+När en service startar och fungerar så står det \[OK\] till höger i terminalen, eventuella meddelande är varningar eller annat, men så länge det står \[OK\] så är tjänsten startad. I annat fall står det \[FAIL\].
 
-Avinstallera XAMPP \(om du har det\), exportera dina databaser om du behöver spara något och kolla om du har något arbete i htdocs.  
+Om du fick \[OK\] så kan du nu öppna en webbläsare och surfa till [http://localhost](http://localhost).
 
+Kolla vad felmeddelandet säger om det är problem. Med största sannolikhet så kommer du att få ett \[FAIL\] när du försöker starta Apache. Detta för att Windows ofta använder port 80, vilket är standardporten för en webbserver\(HTTP\). Vill du kolla vilka tjänster Windows kör så öppna en Powershell som administratör.
 
-I en admin powershell, kör netstat -aon \| findstr :80 för att se om något använder port 80. Port 80 är default för webbserver \(utan https\), vi behöver den. Det kan vara en myriad av ondskefulla tjänster som tar porten.  
+```bash
+netstat -aon | findstr :80
+```
 
+Nu finns det två sätt att lösa detta problem. Antingen så får du avsluta och stänga av de tjänster som blockerar port 80, eller så du ändra vilken port webbservern ska använda. För att ändra porten så behöver vi redigera konfigurationsfilerna för detta.
 
-I ubuntu,
+```bash
+cd /etc/apache2
+sudo nano ports.cfg
+```
 
- sudo apt install lamp-server^  
+Ändra raden där det står `Listen 80` till `Listen 88`. För att spara i nano trycker du `ctrl+o`, följt av enter, sedan `ctrl+x` för att avsluta.
 
+Testa sedan att starta om Apache igen. Om du får \[OK\] så kan du nu öppna en webbläsare och surfa till [http://localhost:88](http://localhost:88). Notera att du nu måste ange `:88` i slutet av adressen för att det ska fungera.
 
-Detta installerar paketet lamp-server, med mysql, php och apache2. Om så önskas kan mysql sedan ersättas med mariadb.  
+### MySQL
 
+Har du startat MySQL och tjänsten är igång så kan du nu använda MySQL klienten för att koppla upp dig. Det är nämligen så att det du installerat och startat är en server-tjänst för databasen MySQL. Denna server ligger nu i bakgrunden och väntar på att användas. Den använder port 3306 som standard och det är inte något vi behöver ändra. 
 
-Testa att starta upp mysql och apache2 tjänster.
+För att koppa upp oss mot server kan vi använda olika former av klienter, men för att göra det så behöver vi en användare och ett lösenord. Så första gången vi gör detta så kommer vi att använda root användaren, notera att vi gör bara detta denna gång för att skapa en annan användare. Detta är av säkerhetsskäl.
 
- sudo service mysql start
+```bash
+sudo mysql -u root
+```
 
- sudo service apache2 start  
+Vi använder här sudo\(super user\) för att komma åt servern från klienten med användaren root\(-u root\). Om det fungerar som det ska så möts du nu av en prompt `>`.
 
+Kör nu följande kommando för att skapa dig en användare. Byt ut `username` och `password` mot dina egna uppgifter. **Skriv ett lösenord som du kommer ihåg och inget “viktigt” lösenord.**
 
-När en service startar och fungerar så står det \[OK\] till höger i terminalen, ev meddelande är varningar eller annat, men så länge det står \[OK\] så är tjänsten startad.
+```sql
+GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password';
+```
 
-Om apache strejkar så står det \[FAIL\] på att starta tjänsten, det beror oftast på att port 80 är upptagen. För att ändra vilken port apache använder så får du redigera en fil.
+Kommandot skapa en användare för alla databaser på localhost med username och password. Kör följande för att avsluta. 
 
-  cd /etc/apache2
+```bash
+exit
+```
 
-  sudo nano ports.cfg  
+Du är nu redo att testa din användare med hjälp av MySQL klienten.
 
+```bash
+mysql -u username -p
+```
 
-Ändra raden där det står Listen 80 till Listen 88. Spara och starta om servicen igen.
+ Kommer du in? **Bra!**
 
-Du kommer hädanefter att behöva ange vilken port som ska användas när du surfar till din localhost, det gör du med ett kolon.  
-
-
-  [http://localhost:88](http://localhost:88)
-
-  [http://localhost:88/~username](http://localhost:88/~username)  
-
-
-Om det funkar ska du kunna surfa localhost från windows.  
-
-
-Har du startat mysql och tjänsten är igång så kan du nu använda mysql klienten för att koppla upp dig till din server, skriv
-
- sudo mysql -u root  
-
-
-Vi använder här sudo\(superuser\) för att komma åt servern från klienten och vi använder användaren root, det är inget vi ska fortsätta göra, så vi behöver skapa en användare till oss.
-
-Så när du kommer in i mysql kör följande kommando för att skapa dig en användare. Byt ut username och password mot dina uppgifter. Skriv ett lösenord som du kommer ihåg och inget “viktigt” lösenord.
-
- GRANT ALL PRIVILEGES ON \*.\* TO 'username'@'localhost' IDENTIFIED BY 'password';  
-
-
-Skriv exit för att komma ur.
-
-Du har nu skapat en user och databas-servern bör fungera. Testa det genom att köra
-
- mysql -u USERNAME -p   
-
-
- Kommer du in? Bra! Kör sedan
+### phpMyAdmin
 
  sudo apt install phpmyadmin  
 
@@ -205,96 +221,116 @@ För att testa detta så skapar vi en fil i public\_html med namnet info.php, i 
 
  &lt;?php phpinfo\(\); ?&gt;
 
-#### Laravel
+## Node
 
-Notera att även om du inte ska installera Laravel, utan att du ska köra tillexempel phpunit för tester, så krävs ett antal av extra-paketen som listas här, så följ instruktionerna.
+För att installera och komma igång med webbservern Node så läs vidare här, [Node och Express](../node-och-express/)
 
-Composer är en pakethanterare för php, \([https://getcomposer.org](https://getcomposer.org)\).
+## GitHub
 
- sudo apt install composer  
+Under WSL så är det väldigt enkelt att komma igång med Git också. Börja med att installera det.
 
+```bash
+sudo apt install git
+```
 
-För att installera laravel så krävs det ett antal paket igång i php, du kan läsa mer om det här [https://laravel.com/docs/5.7/installation](https://laravel.com/docs/5.7/installation)
+Klart, du kan nu köra git från installationen. När du försöker commita för första gången så kommer du med största sannolikhet stöta på ett problem, vilket är att git vill veta vem det är som försöker commita. Du får då köra följande kommandon med dina uppgifter.
 
-För att installera modulerna så kör du, listan på paket står lite längre ned,
-
- sudo phpenmod PAKETNAMN  
-
-
-Vi behöver ladda ned och installera paket genom apt också, 
-
- sudo apt install php-bcmath  
-
-
-Efter det kan vi slå på varje modul, du kan behöva installera dem med apt
-
-pdo, mbstring, tokenizer, xml, ctype, json, bcmath  
-
-
-Sedan kör du 
-
- composer global require laravel/installer
-
-  
-Detta kommer att ladda ned ett antal filer och installera laravel.
-
-Testa om du kan köra laravel, annars behöver vi lägga till det i din PATH.
-
-I din hem-mapp så behöver du redigera din .profile, använd cd för att komma dit
-
- nano .profile  
-
-
-Längst ned i filen så klistrar du in
-
-\# PATH
-
-export PATH="$PATH:$HOME/.config/composer/vendor/bin"  
-
-
-Detta kommer då lägga till composer mappen i din PATH utöver systemets PATH\(som finns i /etc/environment\)
-
-Logga ut och in och du ska nu kunna köra laravel kommandot.  
-
-
-Cda sedan in i code mappen, cd code och fortsätt med att skapa laravel projektet.
-
-För att skapa ett projekt kör du
-
- laravel new PROJEKTNAMN  
-
-
-Det tar en stund då den laddar ned ett stort antal paket.
-
- cd projektnamn
-
- php artisan serve  
-
-
-Funkar det inte, php artisan key:generate kan hjälpa.
-
-Du ska nu kunna skriva code . i projektets mapp och starta Visual studio code från foldern.
-
-### NodeJS
-
- sudo apt install nodejs
-
- sudo apt install npm  
-
-
-Efter det så kan du installera några av de paket vi använt globalt, dvs. med -g flaggan, det kräver sudo.
-
-pug-cli, express-generator, sass
+```bash
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+```
 
 ## Resultat
 
-Du har nu skapat en grym utvecklingsmiljö där du kan skapa både node appar men även köra databas, lamp osv. Vi slipper XAMPP som är tveksamt och kan köra det under linux istället\(där vi har mycket bättre möjligheter att uppdatera osv.\)
+Du har nu installerat och skapat en grym utvecklingsmiljö där du kan skapa både Node appar men även köra databas, LAMP och så vidare. Vi slipper krångliga Windows lösningar som XAMPP och vi kan köra programmen under WSL Linux vilket ger oss mycket större kontroll.
 
-Miljön använder linux/bash vilket är standarden inom det här området.
+Miljön använder Linux/bash vilket är standarden inom det här området och otroligt viktigt att kunna.
 
-Visual studio code låter dig utveckla projekt i alla möjliga språk.  
-  
-  
-  
+Visual Studio Code låter dig utveckla projekt i en myriad av olika språk med alla dess paket.
 
+## Bash
+
+Att kunna navigera i bash är en förutsättning för användningen av WSL. Här är några av de kommandon som du bör lära dig. De flesta kommandon i linux ger dig bra hjälp om du skriver.
+
+```bash
+kommando --help
+```
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Kommando</th>
+      <th style="text-align:left">F&#xF6;rklaring</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">sudo</td>
+      <td style="text-align:left">sudo kommando, anv&#xE4;nds n&#xE4;r du beh&#xF6;ver k&#xF6;ra n&#xE5;got
+        som superuser</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">ls -la</td>
+      <td style="text-align:left">list, visa alla filer och mappar i nuvarande mapp</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">cd</td>
+      <td style="text-align:left">
+        <p>change directory, byt mapp till den du skriver efter kommandot.</p>
+        <p>Skriver du enbart cd kommer du till din hem mapp /home/username</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">mkdir</td>
+      <td style="text-align:left">mkdir namn, skapa en ny mapp med namn</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">rm -rf</td>
+      <td style="text-align:left">remove, -rf f&#xF6;r att ta bort mappar, f&#xF6;ljt av filnamn</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">cp</td>
+      <td style="text-align:left">copy, kopiera fil A till B</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">mv</td>
+      <td style="text-align:left">move, flytta fil A till B</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">nano</td>
+      <td style="text-align:left">nano &#xE4;r ett textredigeringsprogram</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">cat</td>
+      <td style="text-align:left">cat filnamn, f&#xF6;r att skriva ut en fil i terminalen</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">history</td>
+      <td style="text-align:left">
+        <p>history ger dig en lista &#xF6;ver vilka tidigare kommadon du k&#xF6;rt.</p>
+        <p>Du kan upprepa kommandon fr&#xE5;n historia med !##, d&#xE4;r ## &#xE4;r
+          siffran</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">apt</td>
+      <td style="text-align:left">
+        <p>apt &#xE4;r Ubuntus pakethanterare som du anv&#xE4;nder f&#xF6;r att installera
+          program.</p>
+        <p>apt update, apt upgrade, apt install</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">man</td>
+      <td style="text-align:left">man kommando, ger dig manualen f&#xF6;r det kommando du namnger</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">ln -s</td>
+      <td style="text-align:left">link -s f&#xF6;r att skapa en symbolisk l&#xE4;nk, fr&#xE5;n fil A till
+        B</td>
+    </tr>
+  </tbody>
+</table>Listan går att göra oändligt, läs mer [här](https://www.howtoforge.com/linux-commands/).
+
+##     
 

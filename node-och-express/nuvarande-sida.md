@@ -32,6 +32,14 @@ Så till att börja med så behöver vi skriva denna mixin först i filen, innan
 
 Vi använder även en variabel vid namn titel för att styra vilken html som ska skapas. Denna variabel kommer från den aktiva views fil som används. Så för att lägga till en titel behöver vi redigera i både `views/layout.pug` och den aktiva sidans fil.
 
+För att använda ett mixin så skriver du.
+
+```text
++mixinname(params)
+// för hem länken
++nav-link('/', 'Hem)
+```
+
 ## Block
 
 Inuti head taggen på layout-sidan behöver vi göra följande tillägg. 
