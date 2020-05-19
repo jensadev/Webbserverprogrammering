@@ -4,7 +4,9 @@ description: 'Att skapa en active page länk med Pugs mixin, block och variabler
 
 # Nuvarande sida
 
+{% hint style="info" %}
 Samtliga ändringar för detta steg finns i följande [commit](https://github.com/jensnti/wsp1-node/commit/c7bcf747357e33fa564b2ebbfde5de738712d62f).
+{% endhint %}
 
 ## Mixin
 
@@ -65,7 +67,13 @@ block head
 
 Resultatet blir nu att på index sidan så visas titeln Webbserverprogrammering - Hem, och vår navbar känner igen titeln Hem och lägger till css klassen `active` för detta element.
 
-Gör nu samma ändring för Users sidan.
+#### users.pug
+
+{% hint style="info" %}
+Detta är en uppgift med eget arbete.
+{% endhint %}
+
+Gör nu samma ändringar för `users.pug` och gör klart navigationen i `nav.pug`.
 
 ## Stilar
 
