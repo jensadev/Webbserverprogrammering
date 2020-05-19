@@ -155,9 +155,9 @@ Detta är en uppgift med eget arbete.
 
 Du kan nu prova att lägga till en footer som ska inkluderas på varje sida, förfarandet är mer eller mindre detsamma som för navigationen. Skapa filen `views/footer.pug` och inkludera den från `views/layout.pug`. I filen skapar du ett footer element.
 
-* [ ] Skapa footer fil
-  * [ ] Skapa element och innehåll
-* [ ] Inkludera footer i layout
+* [ ] Skapa `footer.pug` fil
+* [ ] Skapa element och innehåll
+* [ ] Inkludera footer i `layout.pug`
 
 Med den grunden på plats så kan vi börja titta på att få det att se ut som något. För detta så kommer vi att arbeta med Sass.
 
