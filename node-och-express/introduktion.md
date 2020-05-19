@@ -40,7 +40,13 @@ express --help
 
 ### Ett första projekt
 
-För att skapa grunden för ett projekt så kör du enklast express i den mapp du arbetar i\(var noga\). Skapa en mapp för ditt projekt, gå in i den\(cd\) och kör Express.
+För att skapa grunden för ett projekt så kör du enklast express i den mapp du arbetar i.
+
+{% hint style="info" %}
+Var alltid väldigt noga med vars du kör kommandon, så att du inte skapar Git repon eller Express projekt i c:\
+{% endhint %}
+
+ Skapa en mapp för ditt projekt, gå in i den\(cd\) och kör Express.
 
 ```text
 mkdir PROJEKTNAMN
@@ -79,6 +85,10 @@ npm start
 ```
 
 Surfa sedan till [localhost:3000](http://localhost:3000/) och du är igång! Denna server ligger uppe så du kan även komma åt den från andra devices om du har din ip-adress.
+
+{% hint style="info" %}
+Notera hur vi anger port 3000 för att komma åt Node servern. Detta skiljer sig från HTTP standardporten som är 80.
+{% endhint %}
 
 ### Nodemon
 
@@ -183,5 +193,7 @@ router.get('/', function (req, res, next) {
 
 Själva views laddningen sker genom ett middleware i app.js som sätter path till views samt vilken motor som ska användas. Det finns många olika middleware av olika typer och det är en viktig del i Express funktion. Enkelt sagt så är middleware insticksprogram som gör något för Express och vår webbserver.
 
-Om du vill kolla koden innan jag började ändra så mycket i projektet så kolla igenom repots [commit historik](https://github.com/jensnti/wsp1-node/commits/master). De commits som ungefär visar starten är [följande](https://github.com/jensnti/wsp1-node/tree/ac1733d144ed049550e30fa2a711ae876ef9c3cd), detta för att jag gjorde en del ändringar och bytte view-motor till Pug efter att jag kört generatorn.
+{% hint style="info" %}
+Om du vill kolla koden innan jag började ändra så mycket i det här projektet så kolla igenom repots [commit historik](https://github.com/jensnti/wsp1-node/commits/master). De commits som ungefär visar starten är [följande](https://github.com/jensnti/wsp1-node/tree/ac1733d144ed049550e30fa2a711ae876ef9c3cd), detta för att jag gjorde en del ändringar och bytte view-motor till Pug efter att jag kört generatorn.
+{% endhint %}
 

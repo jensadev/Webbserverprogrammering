@@ -1,6 +1,6 @@
 # Hur funkar det?
 
-För att titta på hur det fungerar så ska vi börja ändra i koden. För att ändra på vår html och testa hur det fungerar så ska vi skapa en meny som gör att vi kan komma åt andra sidor. Express generator kommer med en router för en user sida som endast svarar med en resurs. Vi kommer att byta ut den routen för att svara med en user sida, så att vi kan testa och använda navigationen vi skapar.
+För att titta på hur Express fungerar så ska vi börja ändra i koden. För att ändra på vår html och testa hur det fungerar så ska vi skapa en meny som gör att vi kan komma åt andra sidor. Express generator kommer med en router för en user sida som endast svarar med en resurs. Vi kommer att byta ut den routen för att svara med en user sida, så att vi kan testa och använda navigationen vi skapar.
 
 ## Pug
 
@@ -127,7 +127,7 @@ block content
 
 Testa nu att surfa runt på din sida, förhoppningsvis fungerar det.
 
-För att visa vad vi kan göra med Pug tillsammans med express så ska vi nu skicka med data för ett antal users och sedan visa det med vår uppgraderade view. Börja med att skapa en array med några användare i routes filen.
+För att visa vad vi kan göra med Pug tillsammans med express så ska vi nu skicka med data för ett antal users och sedan visa det med vår uppgraderade view. Börja med att skapa en [array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) med några användare i routes filen.
 
 {% code title="routes/users.js" %}
 ```javascript
@@ -149,6 +149,10 @@ Vi skapar här en lista där vi lägger till ett li element för varje index i u
 
 ### Footer
 
+{% hint style="info" %}
+Detta är en uppgift med eget arbete.
+{% endhint %}
+
 Du kan nu prova att lägga till en footer som ska inkluderas på varje sida, förfarandet är mer eller mindre detsamma som för navigationen. Skapa filen `views/footer.pug` och inkludera den från `views/layout.pug`. I filen skapar du ett footer element.
 
 Med den grunden på plats så kan vi börja titta på att få det att se ut som något. För detta så kommer vi att arbeta med Sass.
@@ -159,13 +163,19 @@ För projektet så kommer vi att skriva Sass för att förkompilera vår css, v�
 
 Sass kan installeras med npm eller utan, för att installera paketet utan npm så går det att göra detta med apt under Ubuntu. Liknande finns förstås med Windows. Hursomhelst så kan det vara enklast att lägga till npm paketet. Vill du så kan du såklart lägga till det globalt med -g flaggan.
 
-Projektet vi arbetar med nu har en middleware installerad för att kompilera .sass filerna till .css filer, det fungerar i överlag bra, men i det här projektet ville jag dela upp filerna något och använda [Sass `@Use`](https://sass-lang.com/documentation/at-rules/use) för att inkludera filer. Detta resulterade i ett kompileringsfel med Sass middleware och fungerade inte. Av den anledningen installerade jag Sass separat och skrev ett script kommando i projektets package.json för att kompilera min css. På grund av detta kan vi behöva installera Sass.
+Projektet vi arbetar med nu har en middleware installerad för att kompilera .sass filerna till .css filer. Så om du inte behöver inkludera flera Sass filer så behöver du inte ändra något mer. 
+
+{% hint style="danger" %}
+I det här projektet ville jag dela upp min Sass kod över flera filer. Detta görs med [`@Use`](https://sass-lang.com/documentation/at-rules/use) i Sass. Detta resulterade dock i ett kompileringsfel med Sass middleware och fungerade inte. Av den anledningen installerade jag Sass separat och skrev ett script kommando i projektets package.json för att kompilera min css. 
+{% endhint %}
+
+För att installera Sass separat så kör.
 
 ```text
 npm install --save-dev sass
 ```
 
-Uppdatering till package.json, i script delen.
+Uppdatera sedan `package.json` och i script delen lägger du till följande.
 
 {% code title="package.json" %}
 ```javascript
@@ -178,7 +188,11 @@ Uppdatering till package.json, i script delen.
 
 Vi kan sedan köra npm run compile och den kommer att köra Sass och söka efter eventuella ändringar i källkodsfilerna. Så när vi sparar vår Sass fil, då kompileras det till css.
 
-Vi är nu redo att börja designa sidan. De första stilarna styr förhoppningsvis upp lite grundläggande användbarhet, som vi kan bygga vidare på. Läs mer om den här exempelsidans stilar under [Design]().
+```bash
+npm run compile
+```
+
+Vi är nu redo att börja designa sidan. De första stilarna styr förhoppningsvis upp lite grundläggande användbarhet, som vi kan bygga vidare på. Läs mer om den här exempelsidans stilar under [Design](./).
 
 ### style.sass
 

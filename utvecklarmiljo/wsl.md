@@ -4,13 +4,15 @@ description: WSL
 
 # Windows subsystem Linux
 
-_“The Windows Subsystem for Linux lets developers run GNU/Linux environment -- including most command-line tools, utilities, and applications -- directly on Windows, unmodified, without the overhead of a virtual machine.”   -_    [Microsoft.com](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+> _“The Windows Subsystem for Linux lets developers run GNU/Linux environment -- including most command-line tools, utilities, and applications -- directly on Windows, unmodified, without the overhead of a virtual machine.”   -_    [Microsoft.com](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
 I det här dokumentet finns ett stort antal instruktioner för hur du kommer igång och sätter upp en fungerande utvecklarmiljö som bygger på WSL med [Ubuntu](https://ubuntu.com/).
 
-De flesta kommandon körs i terminalfönster, det är därför väldigt viktigt att du läser vad du ska göra, att du får kommandon att fungera innan du går vidare.
+De flesta kommandon körs i terminalfönster, det är därför väldigt viktigt att du läser vad du ska göra, att du får kommandon att fungera innan du går vidare. Jag kan inte skriva eller säga det nog många gånger och det är:
 
-Jag kan inte skriva eller säga det nog många gånger och det är **-läs vad som sker på din skärm**.
+{% hint style="warning" %}
+Läs vad som sker på din skärm!
+{% endhint %}
 
 Det är självklart bra om du har en grundläggande förståelse hur du navigerar dig runt i terminalen innan du gör detta. Behöver du fräscha upp minnet kring det, kolla [här](wsl.md#bash).
 
@@ -24,7 +26,12 @@ Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-L
 
 När du kört kommandot så kommer den att be dig att starta om datorn, gör det. När din dator startat om så startar du Microsoft Store och söker efter Ubuntu.
 
-Välj Ubuntu LTS och installera. **Var noga med att skriva in ett användarnamn under installationen när den frågar.** Välj ett lösenord som du kommer ihåg!
+Välj Ubuntu LTS och installera. 
+
+{% hint style="warning" %}
+Var noga med att skriva in ett användarnamn under installationen när den frågar.   
+****Välj ett lösenord som du kommer ihåg!
+{% endhint %}
 
 När installationen är klar så startar du Ubuntu och kör följande kommandon.
 
@@ -81,7 +88,7 @@ Under WSL så är det väldigt enkelt att komma igång med Git också. Börja me
 sudo apt install git
 ```
 
-Klart, du kan nu köra git från installationen. När du försöker commita för första gången så kommer du med största sannolikhet stöta på ett problem, vilket är att git vill veta vem det är som försöker commita. Du får då köra följande kommandon med dina uppgifter.
+Klart, du kan nu köra Git från installationen. När du försöker commita för första gången så kommer du med största sannolikhet stöta på ett problem, vilket är att Git vill veta vem det är som försöker commita. Du får då köra följande kommandon med dina uppgifter.
 
 ```bash
 git config --global user.email "you@example.com"
@@ -109,7 +116,10 @@ sudo service mysql restart
 sudo service apache2 restart
 ```
 
-När en service startar och fungerar så står det \[OK\] till höger i terminalen, eventuella meddelande är varningar eller annat, men så länge det står \[OK\] så är tjänsten startad. I annat fall står det \[FAIL\].
+{% hint style="info" %}
+När en service startar och fungerar så står det \[OK\] till höger i terminalen, eventuella meddelande är varningar eller annat, men så länge det står \[OK\] så är tjänsten startad.  
+I annat fall står det \[FAIL\].
+{% endhint %}
 
 Om du fick \[OK\] så kan du nu öppna en webbläsare och surfa till [http://localhost](http://localhost).
 
@@ -142,7 +152,11 @@ sudo mysql -u root
 
 Vi använder här sudo\(super user\) för att komma åt servern från klienten med användaren root\(-u root\). Om det fungerar som det ska så möts du nu av en prompt `>`.
 
-Kör nu följande kommando för att skapa dig en användare. Byt ut `username` och `password` mot dina egna uppgifter. **Skriv ett lösenord som du kommer ihåg och inget “viktigt” lösenord.**
+Kör nu följande kommando för att skapa dig en användare. Byt ut `username` och `password` mot dina egna uppgifter.
+
+{% hint style="warning" %}
+Skriv ett lösenord som du kommer ihåg och inget “viktigt” lösenord.
+{% endhint %}
 
 ```sql
 GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password';
