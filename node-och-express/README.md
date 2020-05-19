@@ -4,5 +4,7 @@ description: Introduktionsmaterial
 
 # Node och Express
 
-Text till följande [repo ](https://github.com/jensnti/wsp1-node)
+{% hint style="info" %}
+Kod för introduktionsmaterialet hittar du [här](https://github.com/jensnti/wsp1-node).
+{% endhint %}
 
