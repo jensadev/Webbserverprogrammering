@@ -43,7 +43,7 @@ express --help
 För att skapa grunden för ett projekt så kör du enklast express i den mapp du arbetar i.
 
 {% hint style="info" %}
-Var alltid väldigt noga med vars du kör kommandon, så att du inte skapar Git repon eller Express projekt i c:\
+Var alltid väldigt noga med var du kör kommandon, så att du inte skapar Git repon eller Express projekt i c:\
 {% endhint %}
 
  Skapa en mapp för ditt projekt, gå in i den\(cd\) och kör Express.
