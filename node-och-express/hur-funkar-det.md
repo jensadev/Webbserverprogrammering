@@ -192,7 +192,7 @@ Vi kan sedan köra npm run compile och den kommer att köra Sass och söka efter
 npm run compile
 ```
 
-Vi är nu redo att börja designa sidan. De första stilarna styr förhoppningsvis upp lite grundläggande användbarhet, som vi kan bygga vidare på. Läs mer om den här exempelsidans stilar under [Design](./).
+Vi är nu redo att börja designa sidan. De första stilarna styr förhoppningsvis upp lite grundläggande användbarhet, som vi kan bygga vidare på. Läs mer om den här exempelsidans stilar under [Design](design.md).
 
 ### style.sass
 
@@ -238,5 +238,13 @@ h1
 ```
 {% endcode %}
 
-Funkar det? Testa nu att skapa variabler för ett par färger på sidan. Passa på att styla user-sidans lista också. Fortsätt sedan här för att lära dig mer om [Sass](https://sass-lang.com/guide).
+Funkar det? Bra.
+
+#### Sass-variabler och stilar
+
+{% hint style="info" %}
+Detta är en uppgift med eget arbete.
+{% endhint %}
+
+Testa nu att skapa variabler för ett par färger på sidan. Passa även på att styla user-sidans lista också. Fortsätt sedan här för att lära dig mer om [Sass](https://sass-lang.com/guide).
 
