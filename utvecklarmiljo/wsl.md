@@ -73,6 +73,23 @@ cd code
 ls -la
 ```
 
+## GitHub
+
+Under WSL så är det väldigt enkelt att komma igång med Git också. Börja med att installera det.
+
+```bash
+sudo apt install git
+```
+
+Klart, du kan nu köra git från installationen. När du försöker commita för första gången så kommer du med största sannolikhet stöta på ett problem, vilket är att git vill veta vem det är som försöker commita. Du får då köra följande kommandon med dina uppgifter.
+
+```bash
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+```
+
+Med det gjort så kör du på som vanligt med git från cmdline. [Cheat Sheet](https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf).
+
 ## LAMP server
 
 [LAMP ](https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29)är en förkortning för en webbserver med Linux, Apache, MySQL och PHP. Det finns flera varianter av detta då oftast första bokstaven byts ut beroende på vilket operativ system du använder, det vill säga WAMP, MAMP. Eftersom vi nu kör en Linux distribution under Windows så kommer vi att installera LAMP.
@@ -238,21 +255,6 @@ Surfa sedan till localhost/~USER och öppna `info.php`, om det fungerar som det 
 ## Node.js
 
 Apache är en webbserver och Node är en annan. Vi kommer att arbeta mer med Node i nästa avsnitt,  [Node och Express](../node-och-express/)
-
-## GitHub
-
-Under WSL så är det väldigt enkelt att komma igång med Git också. Börja med att installera det.
-
-```bash
-sudo apt install git
-```
-
-Klart, du kan nu köra git från installationen. När du försöker commita för första gången så kommer du med största sannolikhet stöta på ett problem, vilket är att git vill veta vem det är som försöker commita. Du får då köra följande kommandon med dina uppgifter.
-
-```bash
-git config --global user.email "you@example.com"
-git config --global user.name "Your Name"
-```
 
 ## Resultat
 
