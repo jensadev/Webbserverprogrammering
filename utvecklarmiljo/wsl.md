@@ -83,7 +83,7 @@ ln -s /mnt/c/code
 ls -la
 ```
 
-List kommandot bör visa dig att länken är skapad.
+List kommandot visar om symlinken skapats. Är den röd saknas källan och det har blivit fel.
 
 ```bash
 lrwxrwxrwx 1 jens jens       11 Feb 17  2019 code -> /mnt/c/code
@@ -104,7 +104,7 @@ Installera sedan **Git** i WSL.
 sudo apt install git
 ```
 
-När det är klart kan du köra Git. Vid din första **commit**, så kommer Git att efterfråga dina användaruppgifter. ****Ange dem med följande kommandon.
+När det är klart kan du använda Git från WSL. Git kommer att efterfråga dina användaruppgifter första gången du gör en **commit**. ****Användaruppgifterna anger du med följande kommandon.
 
 ```bash
 git config --global user.email "you@example.com"
@@ -125,10 +125,11 @@ sudo apt install lamp-server^
 
 Svara \[Y\] på frågorna och vänta på att den ska ladda ner och installera paketen. Förhoppningsvis så går det bra, strular det så prova att starta om installationen.
 
-Apache och MySQL är de två **services** som behöver startas efter att installationen är slutförd.
+### Apache
+
+Apache är en **service** som måste startas efter att installationen är slutförd.
 
 ```bash
-sudo service mysql restart
 sudo service apache2 restart
 ```
 
@@ -143,36 +144,50 @@ Fungerade det att starta din service, \[OK\], så kan du nu öppna en webbläsar
 \*\*\*\*[**localhost**](https://en.wikipedia.org/wiki/Localhost) ****är ett alias för din dators loopback interface som har ip-adressen 127.0.0.1
 {% endhint %}
 
-Om det står ett felmeddelande, \[FAIL\], så behöver det felsökas. Det vanligaste felet när du försöker starta Apache är att **port 80** är blockerad. Detta för att Windows ofta använder port 80, 80 är standardporten för en webbserver\(HTTP\). Du kan undersöka vilka tjänster Windows genom Powershell.
+Om det står ett felmeddelande, \[FAIL\], så behöver det felsökas. Det vanligaste felet när du försöker starta Apache är att **port 80** är blockerad. 
+
+{% hint style="info" %}
+En port är en adress som trafiken skickas till. En webbservers standardport är 80.
+{% endhint %}
+
+Windows använder ofta port 80 för olika tjänster. Du kan undersöka det med hjälp av Powershell.
 
 ```bash
 netstat -aon | findstr :80
 ```
 
-Det två sätt att åtgärda problemet med att Windows använder port 80. Antingen avslutar du och stänger av tjänsterna som blockerar port 80, eller så ändrar du vilken port Apache ska använda. För att konfigurera om vilken port Apache använder så utför du följande.
+Det finns två sätt att åtgärda problemet med att Windows använder port 80. Antingen avslutar du och stänger av tjänsterna som blockerar port 80, eller så ändrar du vilken port Apache ska använda. Det enklare sättet är att konfigurera om vilken port Apache använder.
 
 ```bash
 cd /etc/apache2
 sudo nano ports.cfg
 ```
 
-Ändra raden där det står `Listen 80` till `Listen 88`. För att spara i nano trycker du `ctrl+o`, följt av enter, sedan `ctrl+x` för att avsluta.
+Med textredigeringsprogrammet **Nano** ändra raden där det står `Listen 80` till `Listen 88`. Spara sedan filen i Nano genom att trycka `ctrl+o`, följt av enter och sedan `ctrl+x` för att avsluta.
 
-Testa sedan att starta om Apache igen. Om du får \[OK\] så kan du nu öppna en webbläsare och surfa till [http://localhost:88](http://localhost:88). Notera att du nu måste ange `:88` i slutet av adressen för att det ska fungera.
+Apache behöver sedan starts om. Om Apache startar och du ser \[OK\] så surfa till  [http://localhost:88](http://localhost:88) med webbläsaren. Webbservern använder nu **port 88** och du måste ange det med `:88` efter adressen.
+
+{% hint style="info" %}
+Apache-logfiler för felsökning finns under /var/log/apache2
+{% endhint %}
 
 ### MySQL
 
-Har du startat MySQL och tjänsten är igång så kan du nu använda MySQL klienten för att koppla upp dig. Det är nämligen så att det du installerat och startat är en server-tjänst för databasen MySQL. Denna server ligger nu i bakgrunden och väntar på att användas. Den använder port 3306 som standard och det är inte något vi behöver ändra. 
+Förutom Apache så behöver MySQL service startas. 
 
-För att koppa upp oss mot server kan vi använda olika former av klienter, men för att göra det så behöver vi en användare och ett lösenord. Så första gången vi gör detta så kommer vi att använda root användaren, notera att vi gör bara detta denna gång för att skapa en annan användare. Detta är av säkerhetsskäl.
+```bash
+sudo service mysql restart
+```
+
+MySQL är en **databas**-server och den är installerad som en tjänst på systemet. MySQL-servern ligger nu i bakgrunden och väntar på att användas. MySQL använder **port 3306** som standard och det behöver inte ändras.
+
+En MySQL-server används genom någon form av **klient**. Klienten kan vara ett program, en webbtjänst eller annat. För att koppla upp en klient till en MySQL-server behövs det en användare och ett lösenord. Första gången du gör detta så använder du sudo och en lokal MySQL-klient.
 
 ```bash
 sudo mysql -u root
 ```
 
-Vi använder här sudo\(super user\) för att komma åt servern från klienten med användaren root\(-u root\). Om det fungerar som det ska så möts du nu av en prompt `>`.
-
-Kör nu följande kommando för att skapa dig en användare. Byt ut `username` och `password` mot dina egna uppgifter.
+Sudo används här för att skapa en uppkoppling till MySQL-servern från MySQL-klienten med användaren root \(-u root\). Om uppkopplingen till MySQL-servern fungerade så kör följande kommando för att skapa dig en användare. Byt ut `username` och `password` mot dina egna uppgifter.
 
 {% hint style="warning" %}
 Skriv ett lösenord som du kommer ihåg och inget “viktigt” lösenord.
@@ -182,35 +197,35 @@ Skriv ett lösenord som du kommer ihåg och inget “viktigt” lösenord.
 GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password';
 ```
 
-Kommandot skapa en användare för alla databaser på localhost med username och password. Kör följande för att avsluta. 
+Kommandot skapa en användare för alla databaser på localhost med username och password. För att avsluta skriver du exit.
 
-```bash
-exit
-```
-
-Du är nu redo att testa din användare med hjälp av MySQL klienten.
+Använd sedan MySQL-klienten för att testa användaren.
 
 ```bash
 mysql -u username -p
 ```
 
- Kommer du in? **Bra!**
+Väl inne på servern så skrivs kommandon med språket [**Structured Query Language \(SQL\)**](../databas/sql.md).
+
+{% hint style="info" %}
+MySQL-logfiler för felsökning finns under /var/log/mysql
+{% endhint %}
 
 ### phpMyAdmin
 
-Vi kommer att arbeta med SQL direkt från MySQL klienten, då det är viktigt att förstå sig på de SQL kommandon som körs. Men för att förenkla delar av arbetet med MySQL så kommer vi att installera ett grafiskt administrationsverktyg som heter [phpMyAdmin](https://www.phpmyadmin.net/). 
+Från MySQL-klienten används SQL för att styra databasen och köra kommandon. Det är viktigt att du lär dig grunderna i SQL. Men för att förenkla arbetet med MySQL-servern finns det en klient som heter **phpMyAdmin**. phpMyAdmin kan installeras med apt.
 
 ```bash
 sudo apt install phpmyadmin
 ```
 
-Under installationen så väljer du
+Välj följande vid installationen:
 
 * [ ] apache2 server
 * [ ] Database common
 * [ ] config, generate pwd
 
-Apache2 och PHP använder ett system för att slå på moduler och sidor, så för att konfigurera och starta igång phpMyAdmin måste vi länka denna konfiguration. För att göra det så behöver vi gå till rätt mapp och sedan skapa en symlink till konfigurationsfilen.
+Apache2 använder ett modulärt system för konfiguration. För att slutföra installationen av phpMyAdmin måste vi skapa en symlink till konfigurationsfilen och berätta för systemet att den ska användas.
 
 ```bash
 cd /etc/apache2/sites-available
@@ -218,51 +233,49 @@ sudo ln -s /etc/phpmyadmin/apache.conf phpmyadmin.conf
 ls -la
 ```
 
-Nu bör du se en länk som heter phpmyadmin.conf och som pekar till källan.
+Kommandot skapar en symlink som heter phpmyadmin.conf och som pekar till källfilen.
 
 ```bash
 lrwxrwxrwx 1 root root   27 Feb 17  2019 phpmyadmin.conf -> /etc/phpmyadmin/apache.conf
 ```
 
-När länken väl finns så kan vi "slå på" sidan i Apaches konfiguration. Detta görs med `a2ensite` kommandot vilket behöver köras som sudo.
+Nästa steg är att aktivera konfigurationen med kommandot `a2ensite`.
 
 ```bash
 sudo a2ensite phpmyadmin
 ```
 
-Starta sedan om Apache och surfa sedan till [http://localhost/phpmyadmin](http://localhost/phpmyadmin) eller [http://localhost:88/phpmyadmin](http://localhost:88/phpmyadmin) om du behövde ändra vilken porten som Apache använder.
+Starta sedan om Apache och surfa till [http://localhost/phpmyadmin](http://localhost/phpmyadmin) eller [http://localhost:88/phpmyadmin](http://localhost:88/phpmyadmin) beroende på webbserverns port.
 
 ### Userdir
 
-För att förenkla hur du jobbar med webbservern så ska vi använda oss av en modul till apache som heter userdir. Userdir låter oss skapa en mapp som är kopplad till webbservern i vår egen hem mapp i Linux.
-
-För att slå på denna mod så kör och starta sedan om Apache.
+Linux sparar alla användares data i `/home`, det är din hem-mapp. För att förenkla arbetet med filer till webbservern används en **modul** till Apache som heter **userdir**. Userdir kopplar en mapp, **public\_html**, i hem-mappen till webbservern. 
 
 ```bash
 sudo a2enmod userdir
 sudo service apache2 restart
 ```
 
-Du behöver sedan skapa en mapp i din home mapp som heter public\_html.
+Skapa sedan mappen public\_html i hem-mappen.
 
 ```bash
 cd
 mkdir public_html
 ```
 
-Du ska nu kunna surfa till http://localhost/~USER eller http://localhost:88/~USER, där USER är ditt username.
+Surfa sedan till http://localhost/~USER eller http://localhost:88/~USER, där USER är ett Linux username.
 
 ### PHP
 
-Hittills har vi inte behövt använda PHP till något, men för att kunna använda det från public\_html behöver vi ändra på lite konfiguration.
+**PHP: Hypertext Preprocessor \(PHP\)** är ett skriptspråk för webbservrar. Det fungerar så att PHP kod tolkas och omvandlas till text. Apache behöver konfigureras för att tillåta PHP i public\_html. För att göra det behöver modulens konfigurationsfil redigeras.
 
 ```bash
 cd /etc/apache2/mods-available
 ls -la php*
-sudo nano phpX.X.conf # X är versionsnumret
+sudo nano phpX.X.conf # där X är versionsnumret
 ```
 
-Notera att det kan vara en annan version av PHP, därför kollar du vilken version du behöver skriva. I filen så kommenterar du sedan ut följande rader med `#`
+Kommentera ut följande rader med `#`.
 
 ```bash
 <IfModule mod_userdir.c>
@@ -272,7 +285,9 @@ Notera att det kan vara en annan version av PHP, därför kollar du vilken versi
 </IfModule>
 ```
 
- Starta sedan om Apache, så är vi nästan klar. För att se om PHP är igång från home mappen så gör följande.
+Apache behöver sedan startas om.
+
+Skapa sedan en ny fil i public\_html för att testa om PHP fungerar.
 
 ```bash
 cd
@@ -280,7 +295,7 @@ cd public_html
 echo "<?php phpinfo(); ?>" > info.php
 ```
 
-Surfa sedan till localhost/~USER och öppna `info.php`, om det fungerar som det ska så bör du få information kring din webbserver och dess konfiguration. Funkar inte PHP, ja då skriver den ut koden du just skrev eftersom Apache inte förstår att den ska tolkas som PHP.
+Surfa sedan till localhost/~USER/info.php med webbläsaren. Fungerar det så ser presenteras information för webbservern. När PHP inte fungerar så skrivs koden ut på det sätt den skrivs, det sker alltså ingen tolkning av Apache.
 
 ```php
 <?php phpinfo(); ?>
@@ -288,15 +303,13 @@ Surfa sedan till localhost/~USER och öppna `info.php`, om det fungerar som det 
 
 ## Node.js
 
-Apache är en webbserver och Node är en annan. Vi kommer att arbeta mer med Node i nästa avsnitt,  [Node och Express](../node/node-och-express/)
+**Node** är en annan webbserver. Node har ett eget avsnitt i denna guide,  [Node och Express](../node/node-och-express/)
 
 ## Resultat
 
-Du har nu installerat och skapat en grym utvecklingsmiljö där du kan skapa både Node appar men även köra databas, LAMP och så vidare. Vi slipper krångliga Windows lösningar som XAMPP och vi kan köra programmen under WSL Linux vilket ger oss mycket större kontroll.
+Du har nu installerat och skapat en grym utvecklingsmiljö där du kan utföra ditt utvecklingsarbete. Du slipper krångliga Windows-lösningar som XAMPP och kan köra programmen under WSL vilket ger mycket större kontroll.
 
-Miljön använder Linux/bash vilket är standarden inom det här området och otroligt viktigt att kunna.
-
-Visual Studio Code låter dig utveckla projekt i en myriad av olika språk med alla dess paket.
+Miljön använder ett shell i Linux vilket är standarden inom det här området och otroligt viktigt att behärska.
 
 ## Bash
 
@@ -379,10 +392,15 @@ kommando --help
       <td style="text-align:left">link -s f&#xF6;r att skapa en symbolisk l&#xE4;nk, fr&#xE5;n fil A till
         B</td>
     </tr>
+    <tr>
+      <td style="text-align:left">ifconfig</td>
+      <td style="text-align:left">konfigurera n&#xE4;tverks gr&#xE4;nssnitt, skriv f&#xF6;r att se nuvarande
+        konfiguration</td>
+    </tr>
   </tbody>
 </table>
 
-Listan går att göra oändlig, läs mer [här](https://www.howtoforge.com/linux-commands/).
+Listan är lång, läs mer [här](https://www.howtoforge.com/linux-commands/).
 
 ##     
 
