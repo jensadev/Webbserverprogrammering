@@ -267,7 +267,7 @@ Surfa sedan till http://localhost/~USER eller http://localhost:88/~USER, där US
 
 ### PHP
 
-**PHP: Hypertext Preprocessor \(PHP\)** är ett skriptspråk för webbservrar. Det fungerar så att PHP kod tolkas och omvandlas till text. Apache behöver konfigureras för att tillåta PHP i public\_html. För att göra det behöver modulens konfigurationsfil redigeras.
+**PHP: Hypertext Preprocessor \(PHP\)** är ett skriptspråk för webbservrar som används för att skapa **dynamiskt innehåll**. Det fungerar så att PHP kod tolkas och omvandlas till text. Apache behöver konfigureras för att tillåta PHP i public\_html. För att göra det behöver modulens konfigurationsfil redigeras.
 
 ```bash
 cd /etc/apache2/mods-available
