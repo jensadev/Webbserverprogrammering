@@ -59,6 +59,8 @@ Detta ger dig en lista över de filsystem ****som är mountade ****under Linux. 
 
 Innan du fortsätter behöver du installera **Visual Studio Code** \(förkortat till **vscode**\). Du kan hämta det [här](https://code.visualstudio.com/). 
 
+Vscode är en **integrerad utvecklingsmiljö** \(på engelska **Integrated Development Environment, IDE**\). Ett program som innehåller flera verktyg för att koda.
+
 I vscode är inte WSL dess standard shell. För att byta shell i vscode behöver du ändra inställningarna.
 
 ```bash

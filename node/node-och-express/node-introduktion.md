@@ -1,8 +1,16 @@
 # Introduktion
 
+## Vad är Node?
+
+**Node.js \(Node\)** är en server. Beskrivningen på [nodejs.org](https://nodejs.org/) kräver dock sin förklaring.
+
+> As an asynchronous event-driven JavaScript runtime, Node.js is designed to build scalable network applications.
+
+Node är byggt på en javascriptmotor för att kunna använda javascript på en server. Det funkar utmärkt för en webbserver och är ett alternativ till LAMP server.
+
 ## Installation och förberedelse
 
-Du behöver köra Ubuntu under[ Windows subsystem for Linux\(WSL\)](https://docs.microsoft.com/en-us/windows/wsl/install-win10). Vi kommer att köra [Node ](https://nodejs.org/)version 12, vilket är deras long term support\(LTS\) version\(när det här skrivs\). För att installera detta behöver vi göra lite annorlunda än vanligt med [Ubuntu](https://ubuntu.com/), detta för att standardversion för Ubuntu är mycket äldre.
+Den här guiden utgår från materialet kring [**Windows Subsystem for Linux \(WSL\)**](../../utvecklarmiljo/wsl.md). Den [Node ](https://nodejs.org/)version som kommer att användas är 12, vilket är Nodes **Long Term Support \(LTS\)** version. För att installera version 12 av Node kan vi inte använda apt install node direkt.
 
 ```text
 sudo apt update
@@ -14,25 +22,25 @@ curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 sudo apt install nodejs
 ```
 
-Nu kan du kolla din version av Node med\(bör vara 12.x\)
+Kontrollera sedan den installerade versionen av Node, bör vara 12.x.
 
 ```text
 node --version
 ```
 
-Du bör även ha [npm](https://www.npmjs.com/)\(node package manager\) installerat nu, kör\(bör vara 6.x\).
+Med node följer **Node Package Manager \(npm\),** bör vara 6.x.
 
 ```text
 npm --version
 ```
 
-Nu när vi har Node installerat tillsammans med npm så kan vi installera Express. [Express](https://expressjs.com/) är ett minimalistiskt ramverk för Node. Express låter oss skapa routes och annat för vår applikation. Vi kommer även att installera en generator för Express för att förenkla vår setup\([scaffolding](https://en.wikipedia.org/wiki/Scaffold_%28programming%29)\). Vi kommer att installera Express globalt på systemet, därför kommer du att behöva köra följande som sudo.
+Nästa steg är att installera **Express** och Express generator. [Express](https://expressjs.com/) är ett minimalistiskt ramverk för Node. Express underlättar skapandet av en webbserver med Node. Express kommer att installeras globalt på systemet, något som kräver sudo.
 
 ```text
 sudo npm i -g express express-generator
 ```
 
-För att kolla om det gick som tänkt så kan du köra.
+Kontrollera sedan att det fungerade med.
 
 ```text
 express --help
@@ -40,13 +48,13 @@ express --help
 
 ### Ett första projekt
 
-För att skapa grunden för ett projekt så kör du enklast express i den mapp du arbetar i.
+För att skapa grunden till ett webbprojekt så används Express generator.
 
 {% hint style="info" %}
-Var alltid väldigt noga med var du kör kommandon, så att du inte skapar Git repon eller Express projekt i c:\
+Var alltid väldigt noga med att köra kommandon från rätt mapp. Skapa inte Git-repon eller Express-projekt i c:\
 {% endhint %}
 
- Skapa en mapp för ditt projekt, gå in i den\(cd\) och kör Express.
+ Skapa en mapp för projektet, gå in i mappen och kör Express.
 
 ```text
 mkdir PROJEKTNAMN
@@ -54,9 +62,13 @@ cd PROJEKTNAMN
 express --view=pug --css sass --git
 ```
 
-Detta ger oss grunden för en vår app. Vi kör kommandot med tilläggen view, css och git. Detta låter oss välja vilken view motor vi vill att express ska använda, vilket är [Pug](https://pugjs.org/). Vi säger även till Express att vi ska använda Sass för css. Slutligen så skapar express en .gitignore fil åt oss så att vi inte laddar upp saker som inte har något på git att göra\(som node\_modules mappen\).
+Express generator skapar med detta kommando grund-strukturen för en app. Express generator körs med parametrarna view, css och git. 
 
-För att färdigställa installationen så behöver du installera de paket som Express använder. Paketen är listade i filen package.json som npm använder för att hålla koll på vilka paket som din app använder. Paketen är följande.
+* View väljer den motor, **templatsystem**, som Express anväder. I det här fallet Pug.
+* Css väljer att Express ska använda sig av sass för projektets stilar.
+* Git skapar en .gitignore fil i projektet för att undvika att filer som inte ska finnas på Git hamnar där\(node\_modules mappen bland annat\).
+
+Node-projekt kräver i allmänhet ett antal NPM-paket för att fungera. Express är inget undantag och för att slutföra installationen behöver NPM ladda ned de paket som Express kräver. Paketen för ett Node-projekt är alltid listade i filen **package.json**. Paketen för Express installationen är följande.
 
 {% code title="package.json" %}
 ```javascript
@@ -72,33 +84,33 @@ För att färdigställa installationen så behöver du installera de paket som E
 ```
 {% endcode %}
 
-För att installera paketen kör du.
+NPM installerar paket med följande kommando.
 
 ```text
 npm install
 ```
 
-Notera att när du kör npm install så skapas också en package-lock.json, vilket innehåller information om alla paketen du installerat. Om kommandot kördes utan några fel \(vid fel står det npm ERR!\) så kan du nu starta din server.
+När NPM kör install så skapas också en **package-lock.json**, filen innehåller information om alla paketen som installerats och de paket som de kräver för att fungera i sin tur. Om install-kommandot kördes utan fel \(vid fel står det npm ERR!\) så är servern redo.
 
 ```text
 npm start
 ```
 
-Surfa sedan till [localhost:3000](http://localhost:3000/) och du är igång! Denna server ligger uppe så du kan även komma åt den från andra devices om du har din ip-adress.
+Surfa sedan till [localhost:3000](http://localhost:3000/). Node-servern är startade och kan nu besökas med värddatorns **ip-adress** och rätt **port**.
 
 {% hint style="info" %}
-Notera hur vi anger port 3000 för att komma åt Node servern. Detta skiljer sig från HTTP standardporten som är 80.
+Port 3000 används ofta för att komma åt en utvecklar Node-servern. Detta skiljer sig från HTTP-standardporten som är 80.
 {% endhint %}
 
 ### Nodemon
 
-Ett väldigt praktiskt tillägg till Node är nodemon, det låter oss starta en server som automatiskt startar om när vi ändrar på filer. Detta gör att vi slipper sitta och starta om Node när vi ändrar i någon av projektets filer.
+Nodemon är ett paket till Node som underlättar utvecklingen av projekt. Det bevakar och lyssnar efter ändringar i serverns filer. Om filerna sparas \(ändras\) så laddas Node om.
 
 ```text
 npm install --save-dev nodemon
 ```
 
-Sedan redigerar vi package.json och gör följande ändring
+Uppdatera package.json
 
 {% code title="package.json" %}
 ```javascript
@@ -108,9 +120,11 @@ Sedan redigerar vi package.json och gör följande ändring
 ```
 {% endcode %}
 
-Testa sedan att starta servern igen och surfa till [localhost:3000](http://localhost:3000/)
+Starta sedan servern igen.
 
 ### Eslint
+
+Den utvecklarmiljö som används
 
 Det kan vara väldigt användbart och praktiskt att låta ens IDE hjälpa en med fel och kodformatering. När vi kodar Javascript så finns det ett paket som heter [Eslint](https://eslint.org/) som hjälper med detta. För att installera det så kör du följande kommando.
 
