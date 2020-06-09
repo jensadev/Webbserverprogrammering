@@ -44,7 +44,7 @@ sudo apt upgrade
 Kommandot **sudo** låter dig köra program med rättigheterna för superuser, Linux root konto. Det behövs ofta när du ska installera program. Försök undvika det om möjligt av säkerhetsskäl.
 {% endhint %}
 
-Ubuntu körs nu i ett fönster under Windows och du har tillgång till många program vi använder i webbutvecklingen. Det utan att behöva [virtualisera](https://en.wikipedia.org/wiki/Virtualization) eller [dual-boota](https://en.wikipedia.org/wiki/Multi-booting) Linux. 
+Ubuntu körs nu i ett fönster under Windows och ger dig tillgång till ett flertal program som används vid webbutveckling. Det utan att behöva [virtualisera](https://en.wikipedia.org/wiki/Virtualization) eller [dual-boota](https://en.wikipedia.org/wiki/Multi-booting) Linux. 
 
 För att komma åt andra diskar eller partitioner med Windows filer på när du kör Ubuntu så hittar du dem i /mnt.
 
@@ -75,7 +75,7 @@ Nästa steg är att skapa goda förutsättningar för att arbeta med kod i vscod
 Att samla sin kod på ett ställe är både praktiskt och bra praxis.
 {% endhint %}
 
-Vi ska sedan använda code-mappen och skapa en [**symbolisk länk**](https://sv.wikipedia.org/wiki/Symbolisk_l%C3%A4nk) **\(symlink\)** till den. Navigera till din **hem-mapp** i WSL och skapa länken med följande kommandon. 
+För att enkelt komma åt code-mappen skapar du en [**symbolisk länk**](https://sv.wikipedia.org/wiki/Symbolisk_l%C3%A4nk) **\(symlink\)** till den. Navigera till din **hem-mapp** i WSL och skapa länken med följande kommandon. 
 
 ```bash
 cd
@@ -111,13 +111,13 @@ git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 ```
 
-Med det gjort så kör du på som vanligt med Git från terminalen. [Cheat Sheet](https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf).
+De kommandon du behöver känna till för att köra Git från terminalen finns i detta [Cheat Sheet](https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf).
 
 ## LAMP server
 
-I webbserver-kursen kommer vi att prova på ett antal olika typer av **webbservrar**. [**LAMP** ](https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29)är en akronym för en av dessa och betyder en webbserver med [Linux](https://www.linux.org/), [Apache](https://www.apache.org/), [MySQL](https://www.mysql.com/) och [PHP](https://www.php.net/). Det finns flera varianter av detta då oftast första bokstaven byts ut beroende på vilket operativsystem du använder, det vill säga WAMP, MAMP. Eftersom vi nu kör en Linux distribution, Ubuntu, under Windows så kommer vi att installera LAMP.
+I webbserver-kursen kommer du att få prova på ett antal olika typer av **webbservrar**. [**LAMP** ](https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29)är en akronym för en typ av server och betyder en webbserver med [Linux](https://www.linux.org/), [Apache](https://www.apache.org/), [MySQL](https://www.mysql.com/) och [PHP](https://www.php.net/). Det finns flera varianter av **\*AMP** där första bokstaven byts ut beroende på vilket operativsystem du använder, till exempel **WAMP** och **MAMP**. Eftersom du kör en Linux distribution, Ubuntu, under Windows så installerar du en LAMP-server.
 
-Ubuntu har ett färdigt paket för en LAMP server.
+Ubuntu har en färdig samling paket för LAMP-server.
 
 ```bash
 sudo apt install lamp-server^
@@ -125,7 +125,7 @@ sudo apt install lamp-server^
 
 Svara \[Y\] på frågorna och vänta på att den ska ladda ner och installera paketen. Förhoppningsvis så går det bra, strular det så prova att starta om installationen.
 
-När det är klart så behöver vi starta de två **services** vi behöver, Apache och MySQL.
+Apache och MySQL är de två **services** som behöver startas efter att installationen är slutförd.
 
 ```bash
 sudo service mysql restart
@@ -133,19 +133,23 @@ sudo service apache2 restart
 ```
 
 {% hint style="info" %}
-När en service startar och fungerar så står det \[OK\] till höger i terminalen, eventuella meddelande är varningar eller annat, men så länge det står \[OK\] så är tjänsten startad.  
-I annat fall står det \[FAIL\].
+När en service startar och fungerar så står det \[OK\] till höger i terminalen. Eventuella meddelande är varningar eller annat. Så länge det står \[OK\] så är tjänsten startad.  
+Annars står det \[FAIL\].
 {% endhint %}
 
-Om du fick \[OK\] så kan du nu öppna en webbläsare och surfa till [http://localhost](http://localhost).
+Fungerade det att starta din service, \[OK\], så kan du nu öppna en webbläsare och surfa till [http://localhost](http://localhost).
 
-Kolla vad felmeddelandet säger om det är problem. Med största sannolikhet så kommer du att få ett \[FAIL\] när du försöker starta Apache. Detta för att Windows ofta använder port 80, vilket är standardporten för en webbserver\(HTTP\). Vill du kolla vilka tjänster Windows kör så öppna en Powershell som administratör.
+{% hint style="info" %}
+\*\*\*\*[**localhost**](https://en.wikipedia.org/wiki/Localhost) ****är ett alias för din dators loopback interface som har ip-adressen 127.0.0.1
+{% endhint %}
+
+Om det står ett felmeddelande, \[FAIL\], så behöver det felsökas. Det vanligaste felet när du försöker starta Apache är att **port 80** är blockerad. Detta för att Windows ofta använder port 80, 80 är standardporten för en webbserver\(HTTP\). Du kan undersöka vilka tjänster Windows genom Powershell.
 
 ```bash
 netstat -aon | findstr :80
 ```
 
-Nu finns det två sätt att lösa detta problem. Antingen så får du avsluta och stänga av de tjänster som blockerar port 80, eller så du ändra vilken port webbservern ska använda. För att ändra porten så behöver vi redigera konfigurationsfilerna för detta.
+Det två sätt att åtgärda problemet med att Windows använder port 80. Antingen avslutar du och stänger av tjänsterna som blockerar port 80, eller så ändrar du vilken port Apache ska använda. För att konfigurera om vilken port Apache använder så utför du följande.
 
 ```bash
 cd /etc/apache2
