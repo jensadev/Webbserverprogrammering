@@ -155,7 +155,7 @@ NPM kommer sedan att fråga om paketen ska installeras, välj ja.
 
 I projektets root har Eslint skapat en fil som heter **.eslintrc.js** med inställningarna. För att läsa mer om valet Javascript standard style så kolla [Standardjs](https://standardjs.com/rules.html). 
 
-Eslintrc kan nu redigeras för att ändra inställningarna. För att till exempel ändra formateringsregler så skapas de under rules. En sådan regel kan vara att visa fel när semi-kolon saknas.
+Eslintrc kan nu redigeras för att ändra inställningarna. För att till exempel ändra formateringsregler så finns de under rules. En sådan regel kan vara att visa fel när semi-kolon saknas.
 
 {% code title="eslintrc.js" %}
 ```javascript
@@ -168,7 +168,7 @@ rules: {
 
 ## Lär känna din app
 
-Nu är vår setup i stort sett klar för att börja ändra på vår app. Vi har installerat de paket som krävs och vi kan köra vår server. Nästa steg är att titta lite på Express filstruktur och hur du arbetar med det. Efter installationen så ser Express filstruktur ut såhär
+Applikationens grunder är nu installerade tillsammans med ett par verktyg för att underlätta utvecklingen. Nästa steg är att titta på Express filstruktur och hur du arbetar med det. Filstrukturen i Express ser ut såhär efter installationen.
 
 ```text
 bin/
@@ -189,13 +189,13 @@ app.js
 package.json
 ```
 
-I roten finns app.js och package.json samt en del andra konfigurationsfiler. När du startar servern så kör npm start scriptet från package.json. Det kör i sin tur www filen från bin/ mappen som sedan startar app.js från rooten.
+I roten finns app.js och package.json samt en del andra konfigurationsfiler. App.js är Node-serverns startpunkt. Detta föregås av att start-scriptet i package.json utgår från filen www, i bin mappen, som i sin tur ladda App.js.
 
-app.js laddar in servers routes från routes/ foldern, de tar i sin tur själva html/viewen från views/ mappen och visar detta. Statiskt innehåller finns i public/ mappen.
+App.js laddar in serverns routes från routes/ foldern. När en **route** laddas efter ett anrop till servern så viser de i sin tur HTML-templaten från views/ mappen. Statiska filer finns i public/ mappen, såsom css och bilder.
 
 ### Routes
 
-Routerna som existerar är index och users. Index hanterar anrop till / och users till /users, inte helt otippat kanske. Detta system låter oss strukturera koden och hur vi hanterar applikationens rutter. Koden för index routern ser ut som följer, på [git](https://github.com/jensnti/wsp1-node/blob/ac1733d144ed049550e30fa2a711ae876ef9c3cd/routes/index.js)
+Routerna som skapas av Express generator är index och users. Index hanterar anrop till / och users till /users. Detta system skapar strukturera för koden. Koden för index routern ser ut såhär, [Git](https://github.com/jensnti/wsp1-node/blob/ac1733d144ed049550e30fa2a711ae876ef9c3cd/routes/index.js).
 
 {% code title="routes/index.js" %}
 ```javascript
@@ -207,7 +207,7 @@ router.get('/', function (req, res, next) {
 ```
 {% endcode %}
 
-Själva views laddningen sker genom ett middleware i app.js som sätter path till views samt vilken motor som ska användas. Det finns många olika middleware av olika typer och det är en viktig del i Express funktion. Enkelt sagt så är middleware insticksprogram som gör något för Express och vår webbserver.
+Views laddas med ett så kallat **middleware** i app.js. Det sätter en **path** till views-mappen och bestämmer vilken view-motor som ska användas. Det finns ett stort antal middleware med olika funktioner och det är en viktig del av Express. Enkelt sagt så är middleware insticksprogram som utökar Express funktion.
 
 {% hint style="info" %}
 Om du vill kolla koden innan jag började ändra så mycket i det här projektet så kolla igenom repots [commit historik](https://github.com/jensnti/wsp1-node/commits/master). De commits som ungefär visar starten är [följande](https://github.com/jensnti/wsp1-node/tree/ac1733d144ed049550e30fa2a711ae876ef9c3cd), detta för att jag gjorde en del ändringar och bytte view-motor till Pug efter att jag kört generatorn.
