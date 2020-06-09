@@ -6,11 +6,11 @@
 
 > As an asynchronous event-driven JavaScript runtime, Node.js is designed to build scalable network applications.
 
-Node är byggt på en javascriptmotor för att kunna använda javascript på en server. Det funkar utmärkt för en webbserver och är ett alternativ till LAMP server.
+Node är byggt på en javascriptmotor för att kunna använda **Javascript** på en server. Node kan fungera som en en webbserver och är ett alternativ till [LAMP](../../utvecklarmiljo/wsl.md#lamp-server).
 
 ## Installation och förberedelse
 
-Den här guiden utgår från materialet kring [**Windows Subsystem for Linux \(WSL\)**](../../utvecklarmiljo/wsl.md). Den [Node ](https://nodejs.org/)version som kommer att användas är 12, vilket är Nodes **Long Term Support \(LTS\)** version. För att installera version 12 av Node kan vi inte använda apt install node direkt.
+Den här guiden utgår från materialet kring [**Windows Subsystem for Linux \(WSL\)**](../../utvecklarmiljo/wsl.md). Den [Node ](https://nodejs.org/)version som kommer att användas är 12, vilket är Nodes **Long Term Support \(LTS\)** version. För att installera version 12 av Node går det inte att köra apt install node direkt.
 
 ```text
 sudo apt update
@@ -90,13 +90,13 @@ NPM installerar paket med följande kommando.
 npm install
 ```
 
-När NPM kör install så skapas också en **package-lock.json**, filen innehåller information om alla paketen som installerats och de paket som de kräver för att fungera i sin tur. Om install-kommandot kördes utan fel \(vid fel står det npm ERR!\) så är servern redo.
+npm install skapar en fil som heter **package-lock.json**, filen innehåller information om alla paketen som installerats och de paket som de kräver för att fungera i sin tur. Om install-kommandot kördes utan fel \(vid fel står det npm ERR!\) så är servern redo.
 
 ```text
 npm start
 ```
 
-Surfa sedan till [localhost:3000](http://localhost:3000/). Node-servern är startade och kan nu besökas med värddatorns **ip-adress** och rätt **port**.
+Surfa sedan till [localhost:3000](http://localhost:3000/). Node-servern är startad och kan besökas med värddatorns **ip-adress** och rätt **port** även från andra datorer.
 
 {% hint style="info" %}
 Port 3000 används ofta för att komma åt en utvecklar Node-servern. Detta skiljer sig från HTTP-standardporten som är 80.
@@ -110,7 +110,7 @@ Nodemon är ett paket till Node som underlättar utvecklingen av projekt. Det be
 npm install --save-dev nodemon
 ```
 
-Uppdatera package.json
+Uppdatera package.json.
 
 {% code title="package.json" %}
 ```javascript
@@ -124,21 +124,21 @@ Starta sedan servern igen.
 
 ### Eslint
 
-Den utvecklarmiljö som används
+**Visual Studio Code \(vscode\)** kan användas tillsammans med en så kallad **linter** för att hitta fel och formatera kod. Eslint är en linter för Javascript. Det är väldigt praktiskt vid arbete med kod och hjälper dig som utvecklare att följa praxis och skapa kod av hög kvalité. Eslint behöver installeras för projektet.
 
-Det kan vara väldigt användbart och praktiskt att låta ens IDE hjälpa en med fel och kodformatering. När vi kodar Javascript så finns det ett paket som heter [Eslint](https://eslint.org/) som hjälper med detta. För att installera det så kör du följande kommando.
-
-```text
+```
 npm install --save-dev eslint
 ```
 
-Vi kallar på npm, med install som kommando. Till det så ger vi npm parametern --save-dev som gör att paketet sparas i package.json under dev dependencies\(kolla\). Sist så anger vi namnet på paketet. För att slutföra installationen av Eslint så behöver vi skapa en konfiguration för det, kör.
+NPM körs med install-kommandot och en parameter, `--save-dev`. Detta gör att det valda paketet sparas i package.json under dev dependencies.
+
+För att slutföra installationen av Eslint så behöver en konfigurationsfil skapas.
 
 ```text
 eslint --init
 ```
 
-Svara som följer.
+Svara följande till en början:
 
 ```text
 ? How would you like to use ESLint? To check syntax, find problems, and enforce code style
@@ -151,9 +151,11 @@ Svara som följer.
 ? What format do you want your config file to be in? JavaScript
 ```
 
-Välj sedan att installera paketen med npm, när den frågar.
+NPM kommer sedan att fråga om paketen ska installeras, välj ja.
 
-Det har nu skapats en fil som heter .eslintrc.js som innehåller dina valda inställningar. För att läsa mer om Javascript standard style så kolla [Standardjs](https://standardjs.com/rules.html). Du kan nu lägga till och ändra reglerna i den. För att lägga till formateringsregler så ändrar du under rules i filen. Till exempel brukar jag lägga till att den alltid ska ge fel på avsaknaden av semikolon. Jag har tidigare också kört med fyra spaces som indentering, men på grund av Javascript försöker jag byta till två.
+I projektets root har Eslint skapat en fil som heter **.eslintrc.js** med inställningarna. För att läsa mer om valet Javascript standard style så kolla [Standardjs](https://standardjs.com/rules.html). 
+
+Eslintrc kan nu redigeras för att ändra inställningarna. För att till exempel ändra formateringsregler så skapas de under rules. En sådan regel kan vara att visa fel när semi-kolon saknas.
 
 {% code title="eslintrc.js" %}
 ```javascript
