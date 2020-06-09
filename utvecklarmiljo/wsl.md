@@ -2,64 +2,80 @@
 description: WSL
 ---
 
-# Windows subsystem Linux
+# Windows Subsystem for Linux
 
 > _“The Windows Subsystem for Linux lets developers run GNU/Linux environment -- including most command-line tools, utilities, and applications -- directly on Windows, unmodified, without the overhead of a virtual machine.”   -_    [Microsoft.com](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
-I det här dokumentet finns ett stort antal instruktioner för hur du kommer igång och sätter upp en fungerande utvecklarmiljö som bygger på WSL med [Ubuntu](https://ubuntu.com/).
+Det här dokumentet innehåller ett flertal instruktioner för hur du kommer igång och sätter upp en fungerande utvecklarmiljö med **Windows Subsystem for Linux \(WSL\)** och [**Ubuntu**](https://ubuntu.com/).
 
-De flesta kommandon körs i terminalfönster, det är därför väldigt viktigt att du läser vad du ska göra, att du får kommandon att fungera innan du går vidare. Jag kan inte skriva eller säga det nog många gånger och det är:
+Majoriteten av de kommandon som visas kör du i **terminalen**, genom ett **shell**. Det är därför väldigt viktigt att du följer instruktionerna noggrant och att du får kommandona att fungera innan du går vidare. Jag kan inte skriva eller säga det nog många gånger och det är:
 
 {% hint style="warning" %}
-Läs vad som sker på din skärm!
+Läs vad som sker på din skärm! Nästan alla kommandon ger felmeddelanden när det inte fungerar. Många kommandon ger inte något meddelande alls när de fungerade.
 {% endhint %}
 
-Det är självklart bra om du har en grundläggande förståelse hur du navigerar dig runt i terminalen innan du gör detta. Behöver du fräscha upp minnet kring det, kolla [här](wsl.md#bash).
+För att få ut det mesta ur detta dokument och förstå så är det självklart bra om du har en grundläggande kunskap om hur du använder terminalen; **Bash** eller **Powershell**. I slutet av dokumentet finns det en samlad lista över användbara [kommandon](wsl.md#bash).
 
 ## Installation
 
-För att kunna köra WSL så behöver du slå på denna feature i Windows. Det gör du genom att starta powershell som administratör.
+Windows kräver att du slår på en feature för att kunna installera WSL. Starta Powershell som administratör och kör följande kommando.
 
 ```text
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
 ```
 
-När du kört kommandot så kommer den att be dig att starta om datorn, gör det. När din dator startat om så startar du Microsoft Store och söker efter Ubuntu.
+Windows kommer att be dig starta om datorn när kommandot är utfört. När din dator startat om så startar du sedan **Microsoft Store** och söker efter **Ubuntu**.
 
-Välj Ubuntu LTS och installera. 
+Välj senaste versionen av Ubuntu LTS och installera. 
 
-{% hint style="warning" %}
-Var noga med att skriva in ett användarnamn under installationen när den frågar.   
+{% hint style="danger" %}
+Skriv in ett användarnamn under installationen när den frågar.   
 ****Välj ett lösenord som du kommer ihåg!
 {% endhint %}
 
-När installationen är klar så startar du Ubuntu och kör följande kommandon.
+När installationen är färdig så startar du Ubuntu och kör följande kommandon med **apt**, apt är Ubuntus pakethanterare. Först uppdaterar apt Ubuntus listor över paket. Sedan uppgraderar apt de paket som behöver uppdateras.
 
 ```bash
 sudo apt update
 sudo apt upgrade
 ```
 
-Ubuntu körs nu i ett fönster under windows och du har tillgång till det mesta du behöver utan att behöva virtualisera eller dual-boota. Om du behöver komma åt andra drivar eller Windows filer under Linux så hittar du dem under /mnt.
+{% hint style="info" %}
+Kommandot **sudo** låter dig köra program med rättigheterna för superuser, Linux root konto. Det behövs ofta när du ska installera program. Försök undvika det om möjligt av säkerhetsskäl.
+{% endhint %}
+
+Ubuntu körs nu i ett fönster under Windows och du har tillgång till många program vi använder i webbutvecklingen. Det utan att behöva [virtualisera](https://en.wikipedia.org/wiki/Virtualization) eller [dual-boota](https://en.wikipedia.org/wiki/Multi-booting) Linux. 
+
+För att komma åt andra diskar eller partitioner med Windows filer på när du kör Ubuntu så hittar du dem i /mnt.
 
 ```bash
 cd /mnt
 ls -la
 ```
 
-Detta ger dig en lista över de filsystem som är mountade under Linux.
+Detta ger dig en lista över de filsystem ****som är mountade ****under Linux. Kör du en skoldator med en disk så kommer du med största sannolikhet se`c`, vilket är disken som är`c:` under Windows.
 
 ## Visual Studio Code
 
-Om du inte redan har Visual Studio Code installerat så gör detta nu. Du hittar det på  [https://code.visualstudio.com/](%20https://code.visualstudio.com/)
+Innan du fortsätter behöver du installera **Visual Studio Code** \(förkortat till **vscode**\). Du kan hämta det [här](https://code.visualstudio.com/). 
 
-Code använder inte WSL som sitt standard shell utan det är något du behöver välja. För att byta shell i Code till WSL \(bash, Ubuntu\), så ändrar du i inställningarna.
+I vscode är inte WSL dess standard shell. För att byta shell i vscode behöver du ändra inställningarna.
 
 ```bash
-inställningar-> sök efter terminal-> integrated-> shell: Windows, välj WSL
+I menyn -> Terminal -> New Terminal
 ```
 
-Nästa steg är att skapa en symlink för din code mapp så att du enkelt kan komma åt den. Navigera till din hem mapp i WSL och skapa länken. Detta förutsätter att du har en `c:\code` mapp. Om du inte har skapat en sådan tidigare så är det dags nu. Att samla sin kod på ett ställe är både praktiskt och bra praxis. 
+Vscode kommer att öppna ett nytt terminalfönster, för att välja default shell klickar du som på bilden och väljer sedan WSL.
+
+![V&#xE4;lj default shell.](../.gitbook/assets/defshell.png)
+
+Nästa steg är att skapa goda förutsättningar för att arbeta med kod i vscode. Börja med att skapa en **mapp** i `c:` med namnet `code`. Skapandet av mappen gör du i Windows. 
+
+{% hint style="info" %}
+Att samla sin kod på ett ställe är både praktiskt och bra praxis.
+{% endhint %}
+
+Vi ska sedan använda code-mappen och skapa en [**symbolisk länk**](https://sv.wikipedia.org/wiki/Symbolisk_l%C3%A4nk) **\(symlink\)** till den. Navigera till din **hem-mapp** i WSL och skapa länken med följande kommandon. 
 
 ```bash
 cd
@@ -73,7 +89,7 @@ List kommandot bör visa dig att länken är skapad.
 lrwxrwxrwx 1 jens jens       11 Feb 17  2019 code -> /mnt/c/code
 ```
 
-Testa sedan att navigera in i code mappen och lista innehållet.
+Navigera sedan in i code-mappen och lista innehållet.
 
 ```bash
 cd code
@@ -82,34 +98,34 @@ ls -la
 
 ## GitHub
 
-Under WSL så är det väldigt enkelt att komma igång med Git också. Börja med att installera det.
+Installera sedan **Git** i WSL. 
 
 ```bash
 sudo apt install git
 ```
 
-Klart, du kan nu köra Git från installationen. När du försöker commita för första gången så kommer du med största sannolikhet stöta på ett problem, vilket är att Git vill veta vem det är som försöker commita. Du får då köra följande kommandon med dina uppgifter.
+När det är klart kan du köra Git. Vid din första **commit**, så kommer Git att efterfråga dina användaruppgifter. ****Ange dem med följande kommandon.
 
 ```bash
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 ```
 
-Med det gjort så kör du på som vanligt med git från cmdline. [Cheat Sheet](https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf).
+Med det gjort så kör du på som vanligt med Git från terminalen. [Cheat Sheet](https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf).
 
 ## LAMP server
 
-[LAMP ](https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29)är en förkortning för en webbserver med Linux, Apache, MySQL och PHP. Det finns flera varianter av detta då oftast första bokstaven byts ut beroende på vilket operativ system du använder, det vill säga WAMP, MAMP. Eftersom vi nu kör en Linux distribution under Windows så kommer vi att installera LAMP.
+I webbserver-kursen kommer vi att prova på ett antal olika typer av **webbservrar**. [**LAMP** ](https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29)är en akronym för en av dessa och betyder en webbserver med [Linux](https://www.linux.org/), [Apache](https://www.apache.org/), [MySQL](https://www.mysql.com/) och [PHP](https://www.php.net/). Det finns flera varianter av detta då oftast första bokstaven byts ut beroende på vilket operativsystem du använder, det vill säga WAMP, MAMP. Eftersom vi nu kör en Linux distribution, Ubuntu, under Windows så kommer vi att installera LAMP.
 
-Enklaste sättet att göra detta på är att installera ett samlingspaket som finns i Ubuntu.
+Ubuntu har ett färdigt paket för en LAMP server.
 
 ```bash
 sudo apt install lamp-server^
 ```
 
-Svara \[Y\] på frågorna och låt den ladda ner och installera paketen. Förhoppningsvis så går det problemfritt, om det strular så prova att köra om installationen.
+Svara \[Y\] på frågorna och vänta på att den ska ladda ner och installera paketen. Förhoppningsvis så går det bra, strular det så prova att starta om installationen.
 
-När det är klart så behöver vi kolla om vi kan starta de två services vi behöver från LAMP, Apache och MySQL. Detta gör du genom att köra följande.
+När det är klart så behöver vi starta de två **services** vi behöver, Apache och MySQL.
 
 ```bash
 sudo service mysql restart
@@ -360,7 +376,9 @@ kommando --help
         B</td>
     </tr>
   </tbody>
-</table>Listan går att göra oändlig, läs mer [här](https://www.howtoforge.com/linux-commands/).
+</table>
+
+Listan går att göra oändlig, läs mer [här](https://www.howtoforge.com/linux-commands/).
 
 ##     
 

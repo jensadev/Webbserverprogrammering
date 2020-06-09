@@ -4,7 +4,7 @@
 
 ## Utvecklarmiljö <a id="utvecklarmiljo"></a>
 
-* [Windows subsystem Linux](utvecklarmiljo/wsl.md)
+* [Windows Subsystem for Linux](utvecklarmiljo/wsl.md)
 
 ## Node
 
