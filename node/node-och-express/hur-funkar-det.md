@@ -1,6 +1,6 @@
 # Hur funkar det?
 
-Det här avsnittet handlar om hur **Express** fungerar. För att förstå det så kommer du att skriva om delar av startkoden som Express generator skapat. Det första steget är att skapa en meny för sidan som kan återanvändas. Det låter oss prova att arbeta med Express **routes**, **templater** och presentation. Express generator skapar en user **router** som endast svarar med en resurs. Users routen kommer att modifieras för att presentera en sida vilken även kommer att innehålla menyn.
+Det här avsnittet handlar om hur **Express** fungerar. För att förstå det så kommer du att skriva om delar av startkoden som Express generator skapat. Du kommer att skapa en meny, redigera vyer och ändra routingen.
 
 ## Pug
 
@@ -27,7 +27,7 @@ Det går utmärkt att konvertera färdiga HTML-sidor till Pug, det finns flera v
 
 ### Layout
 
-Det här projektets view-struktur utgår från filen layout.pug. Underliggande sidor ärver **layout-filens** struktur för att skapa en färdig HTML-sida. **Nyckel-ordet** \(på engelska **keyword**\) för detta är `extends`.
+Det här projektets vy-struktur utgår från filen layout.pug. Underliggande sidor ärver **layout-vyns** struktur för att skapa en färdig HTML-sida. **Nyckelordet** \(på engelska **keyword**\) för detta är `extends`.
 
 Filen index.pug ärver från layout.pug med
 
@@ -35,7 +35,7 @@ Filen index.pug ärver från layout.pug med
 extends layout
 ```
 
-Layout-filen är projektets HTML-bas så i den filen behövs en validerande HTML grund. Öppna filen och redigera.
+Layout-vyn är projektets HTML-bas så i den filen behövs en validerande HTML grund. Öppna filen och skriv följande kod.
 
 {% code title="views/layout.pug" %}
 ```markup
@@ -52,7 +52,7 @@ html(lang='sv')
 
 ### Index
 
-**Index-filen** är webbsidans startpunkt. Den **view** som presenteras av index-filen anropas av den **route** som är kopplat till index-routen. Route filen kallar `res.render()` funktionen för att visa den view som anges, i det här fallet index.
+**Index-vyn** är webbsidans startpunkt. Index-routen anropar index-vyn och skapar den HTML-kod som webbläsaren visar. Route filen kallar `res.render()` funktionen för att visa den vy som anges, i det här fallet index.
 
 {% code title="routes/index.js" %}
 ```javascript
@@ -63,7 +63,7 @@ router.get('/', function (req, res, next) {
 ```
 {% endcode %}
 
-I [render](https://expressjs.com/en/api.html#res.render) funktionen kallas först den view som ska användas, index, sedan bifogas ett **objekt** till view-filen. Objeketet innehåller här **egenskapen** title med Express som **värde**.
+I [render](https://expressjs.com/en/api.html#res.render) funktionen kallas först den vy som ska användas, index, sedan bifogas ett **objekt** till vy-filen. Objeketet innehåller här **egenskapen** title med Express som **värde**.
 
 {% code title="views/index.pug" %}
 ```text
@@ -76,13 +76,13 @@ block content
 ```
 {% endcode %}
 
-I index-filen kan sedan det bifogade objektet användas för att dynamiskt ändra view-filen. Det kallas för template locals, läs mer om template locals [här](https://pugjs.org/language/interpolation.html).
+I index-vyn kan sedan det bifogade objektet användas för att dynamiskt ändra vy-filen. Det kallas för template locals, läs mer om template locals [här](https://pugjs.org/language/interpolation.html).
 
 ### Nav
 
-Med extends kan Pug återanvända kod. Det leder till enklare utveckling och mindre fel \([don't repeat yourself, DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)\). Ett bra exempel på detta är navigation på en webbsida. 
+Med `extends` kan Pug återanvända kod. Det leder till enklare utveckling och mindre fel \([don't repeat yourself, DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)\). Ett bra användningsfall \(engelska [use case](https://en.wikipedia.org/wiki/Use_case)\) för detta är navigation på en webbsida. 
 
-Du ska nu skapa en sid-navigation. Det första steget är att skapa ett nav **block** i layout-filen efter body-taggen.
+Du ska nu skapa en navigation. Redigera layout-vyn och skapa ett nav **block** efter body-taggen.
 
 {% code title="views/layout.pug" %}
 ```text
@@ -93,13 +93,13 @@ body
 ```
 {% endcode %}
 
-Nav blocket följs av nycket-ordet `include` som används för att läsa in innehållet från nav.pug. 
+Nav-blocket följs av nyckelordet `include` som används för att lägga till innehållet från en annan fil, nav.pug. 
 
 {% hint style="info" %}
-Läs mer om arv i [Pug](https://pugjs.org/language/inheritance.html). 
+Läs mer om [arv](https://pugjs.org/language/inheritance.html) och att [inkludera](https://pugjs.org/language/includes.html) filer i Pug.
 {% endhint %}
 
-Nästa steg blir att skapa nav-filen och HTML-koden.
+Skapa sedan nav-vyn och lägg till HTML-koden.
 
 {% code title="views/nav.pug" %}
 ```text
@@ -116,7 +116,7 @@ Spara de redigerade filerna och ladda om sidan i webbläsaren.
 
 ### Users
 
-Den user-route som Express generator skapat returnerar enbart en resurs. För att user-routen ska svara med en user-fil behöver `res.render` användas.
+Den users-route som Express generator skapat returnerar enbart en resurs. För att users-routen ska svara med en users-vy behöver `res.render` användas.
 
 {% code title="routes/users.js" %}
 ```javascript
@@ -124,7 +124,7 @@ res.render('users', {});
 ```
 {% endcode %}
 
-Koden hänvisar nu till en users-fil som behöver skapas. Utgå från index-filen.
+Koden hänvisar nu till en users-vy som behöver skapas. Basera den på index-vyn.
 
 {% code title="views/users.pug" %}
 ```text
@@ -140,7 +140,7 @@ block content
 Spara och ladda om, felsök vid behov.
 {% endhint %}
 
-För att visa Pugs och Express samspel mellan route och view ska user-sidan uppdateras för att visa ett flertal användare. Det görs med en [array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) i user-routen.
+För att visa Pugs och Express samspel mellan route och vy ska users-vyn uppdateras för att visa ett flertal användare. Skapa en [array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) i det objekt som bifogas av users-routen.
 
 {% code title="routes/users.js" %}
 ```javascript
@@ -148,7 +148,7 @@ res.render('users', {'users': ['Hans', 'Moa', 'Bengt', 'Frans', 'Lisa'] });
 ```
 {% endcode %}
 
-Så detta ger oss tillgång till denna data i `views/users.pug`. Om vi kollar på dokumentation för [iteration](https://pugjs.org/language/iteration.html) i Pugs manual så ser vi att det finns ett par exempel för hur detta kan göras. Vi kommer här att använda en iteration med formen, för varje user i users gör... Uppdatera filen med följande.
+Arrayen från users-routen kan nu användas som en template-local i users-vyn. För att visa innehållet i arrayen kommer en loop att användas. Formen för denna iteration är för varje user i users utför... Uppdatera users-vyn med följande kod.
 
 {% code title="views/users.pug" %}
 ```text
@@ -158,7 +158,11 @@ ul
 ```
 {% endcode %}
 
-Vi skapar här en lista där vi lägger till ett li element för varje index i users. Ladda om sidan och se resultatet.
+{% hint style="info" %}
+[Läs mer om iteration i Pug.](https://pugjs.org/language/iteration.html)
+{% endhint %}
+
+Först skapas ett ul-element följt av koden för loopen. I loopen skapas sedan ett li-element för varje index i users-arrayen. Ladda om sidan och se resultatet.
 
 ### Footer
 
@@ -166,13 +170,11 @@ Vi skapar här en lista där vi lägger till ett li element för varje index i u
 Detta är en uppgift med eget arbete.
 {% endhint %}
 
-Du kan nu prova att lägga till en footer som ska inkluderas på varje sida, förfarandet är mer eller mindre detsamma som för navigationen. Skapa filen `views/footer.pug` och inkludera den från `views/layout.pug`. I filen skapar du ett footer element.
+I den här uppgiften ska du skapa en footer-vy som ska inkluderas på varje sida, förfarandet är mer eller mindre detsamma som för navigationen. Skapa vy-filen views/footer.pug och inkludera den från views/layout.pug. I filen skapar du ett footer element.
 
-* [ ] Skapa `footer.pug` fil
-* [ ] Skapa element och innehåll
-* [ ] Inkludera footer i `layout.pug`
-
-Med den grunden på plats så kan vi börja titta på att få det att se ut som något. För detta så kommer vi att arbeta med Sass.
+* [ ] Skapa footer.pug fil
+* [ ] Skapa element och HTML-innehåll
+* [ ] Inkludera footer-vyn i layout.pug
 
 ## Sass
 
