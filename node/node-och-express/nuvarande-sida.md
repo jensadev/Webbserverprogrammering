@@ -10,11 +10,9 @@ Samtliga ändringar för detta steg finns i följande [commit](https://github.co
 
 ## Mixin
 
-För att testa att skapa en mixin så ska vi göra så att vi har en active navigation länk på vår sida. Vi kommer att använda oss av sidans titel som en variabel för att hitta denna.
+\*\*\*\*[**Mixins**](https://pugjs.org/language/mixins.html) är kodsnuttar i **Pug** som kan återanvändas, en sorts funktioner. För att ge exempel på hur mixins fungerar ska du skapa en active navigation länk till exempel-projektet. Sidans titel kommer att sparas som en variabel för att göra detta.
 
-En mixin är en funktion, enkelt sagt. Pug låter dig med en mixin skapa kod som kan återanvändas och kallas på vid behov.
-
-Vi kommer att skapa denna mixin i `views/nav.pug`, i ett större projekt så kan det vara värt att strukturera upp mixins och partial filer med mappar, men detta duger nu. Men något som detta kan vara värt att  spara i en mixins fil, så att du kan ta med den till andra projekt.
+Mixinet för navigationen kommer att skapas i nav-vyn. I större projekt så kan det vara värt att strukturera upp mixins och filer som är uppbrutna i flera delar med mappar. Mixins kan såklart vara värda att spara och återanvända i andra projekt och då passar det utmärkt att spara i en separat fil.
 
 {% code title="views/nav.pug" %}
 ```text
