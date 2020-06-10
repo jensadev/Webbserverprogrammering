@@ -27,7 +27,7 @@ Det går utmärkt att konvertera färdiga HTML-sidor till Pug, det finns flera v
 
 ### Layout
 
-Det här projektets view-struktur utgår från filen layout.pug. Underliggande sidor ärver **layout-filens** struktur för att skapa en färdig HTML-sida. Nyckel-ordet för detta är`extends`.
+Det här projektets view-struktur utgår från filen layout.pug. Underliggande sidor ärver **layout-filens** struktur för att skapa en färdig HTML-sida. **Nyckel-ordet** \(på engelska **keyword**\) för detta är `extends`.
 
 Filen index.pug ärver från layout.pug med
 
@@ -82,7 +82,7 @@ I index-filen kan sedan det bifogade objektet användas för att dynamiskt ändr
 
 Med extends kan Pug återanvända kod. Det leder till enklare utveckling och mindre fel \([don't repeat yourself, DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)\). Ett bra exempel på detta är navigation på en webbsida. 
 
-Du ska nu skapa en top-navigation. Det första steget är att skapa ett nav **block** i layout-filen efter body-taggen.
+Du ska nu skapa en sid-navigation. Det första steget är att skapa ett nav **block** i layout-filen efter body-taggen.
 
 {% code title="views/layout.pug" %}
 ```text
@@ -93,7 +93,13 @@ body
 ```
 {% endcode %}
 
-Här anger vi ett nav block följt av en include där vi läser in filen `nav.pug`. Läs mer om [Pugs arv](https://pugjs.org/language/inheritance.html). När vi nu laddar vår layout så kommer innehållet i `nav.pug` inkluderas innan vårt content. Nästa steg blir att skapa filen och i den kommer vi att skapa ett nav element med en lista i.
+Nav blocket följs av nycket-ordet `include` som används för att läsa in innehållet från nav.pug. 
+
+{% hint style="info" %}
+Läs mer om arv i [Pug](https://pugjs.org/language/inheritance.html). 
+{% endhint %}
+
+Nästa steg blir att skapa nav-filen och HTML-koden.
 
 {% code title="views/nav.pug" %}
 ```text
@@ -106,11 +112,11 @@ nav
 ```
 {% endcode %}
 
-Spara filerna och ladda om sidan, du kommer nu se att `nav.pug` inkluderas och att du kan följa länkarna. Klickar du på users så kommer enbart Express `res.send` resultat visas.
+Spara de redigerade filerna och ladda om sidan i webbläsaren.
 
 ### Users
 
-Vi ska nu testa att ändra den route som Express använder för users. I `routes/users.js` så ändrar vi routens respons så att vi skickar en view kallad users.
+Den user-route som Express generator skapat returnerar enbart en resurs. För att user-routen ska svara med en user-fil behöver `res.render` användas.
 
 {% code title="routes/users.js" %}
 ```javascript
@@ -118,7 +124,7 @@ res.render('users', {});
 ```
 {% endcode %}
 
-När vi skapat routen så behöver vi sedan skapa en views fil för detta, döp den till `views/users.pug`. Du kan basera denna fil på innehållet i index viewen.
+Koden hänvisar nu till en users-fil som behöver skapas. Utgå från index-filen.
 
 {% code title="views/users.pug" %}
 ```text
@@ -130,9 +136,11 @@ block content
 ```
 {% endcode %}
 
-Testa nu att surfa runt på din sida, förhoppningsvis fungerar det.
+{% hint style="info" %}
+Spara och ladda om, felsök vid behov.
+{% endhint %}
 
-För att visa vad vi kan göra med Pug tillsammans med express så ska vi nu skicka med data för ett antal users och sedan visa det med vår uppgraderade view. Börja med att skapa en [array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) med några användare i routes filen.
+För att visa Pugs och Express samspel mellan route och view ska user-sidan uppdateras för att visa ett flertal användare. Det görs med en [array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) i user-routen.
 
 {% code title="routes/users.js" %}
 ```javascript
