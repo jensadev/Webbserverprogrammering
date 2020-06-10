@@ -1,12 +1,14 @@
 # Hur funkar det?
 
-För att titta på hur Express fungerar så ska vi börja ändra i koden. För att ändra på vår html och testa hur det fungerar så ska vi skapa en meny som gör att vi kan komma åt andra sidor. Express generator kommer med en router för en user sida som endast svarar med en resurs. Vi kommer att byta ut den routen för att svara med en user sida, så att vi kan testa och använda navigationen vi skapar.
+Det här avsnittet handlar om hur **Express** fungerar. För att förstå det så kommer du att skriva om delar av startkoden som Express generator skapat. Det första steget är att skapa en meny för sidan som kan återanvändas. Det låter oss prova att arbeta med Express **routes**, **templater** och presentation. Express generator skapar en user **router** som endast svarar med en resurs. Users routen kommer att modifieras för att presentera en sida vilken även kommer att innehålla menyn.
 
 ## Pug
 
-Express stöder ett flertal olika templat-motorer, i det här exemplet så kommer vi att arbeta med en som heter Pug. Varför Pug då, mest för att jag har använt den tidigare och kört den i kursen. Det har fungerat bra och de flesta har förstått sig på den. Pug är snarlikt html och relativt enkelt att komma igång med, syntaxen är förhållandevis enkel och det gör det enkelt att komma igång.
+Express stöder ett flertal olika **templatmotorer** \(på engelska **template engine**\), den som används här är  [**Pug**](https://pugjs.org/). Pug är snarlikt html och relativt enkelt att komma igång med.
 
-Innehållet på sidan struktureras med indenteringar\(bra för att öva kodstruktur\) och html taggarna skrivs med namn, men de behöver inte avslutas. Avslutandet av taggen baseras på indenteringen. Så om jag vill lägga element i ett annat så gör jag det med indentering. Pug stödjer variabler, iteration och mixins\(funktioner typ\) bland annat.
+Innehållet på en sida med Pug struktureras med **indentering.** Text i början av en rad representerar generellt en **HTML** **tag**. Taggarna behöver inte stängas \(det sköter indenteringen\). För att **nästla** **element** indenteras de under andra taggar. Läs mer om [taggar](https://pugjs.org/language/tags.html) och [attribut](https://pugjs.org/language/attributes.html) i Pug.
+
+Pug stöder **variabler**, **iteration** och **mixins**\(funktioner\) bland annat.
 
 ```text
 div#idname
@@ -17,21 +19,23 @@ div#idname
     a(href='#') Länk i p texten
 ```
 
-Jag ska inte upprepa [dokumentationen](https://pugjs.org/api/getting-started.html) här, utan det är bäst att du tittar igenom det och sedan använder den vid behov. Det finns även ett antal extensions för [Visual studio code](https://code.visualstudio.com/) för den som vill ha stöd i sin IDE.
+Läs mer om Pug i [dokumentation](https://pugjs.org/)en och använd den vid behov. Det finns även ett antal **extensions** för [**Visual Studio Code**](https://code.visualstudio.com/) \(förkortat till **vscode**\) för att underlätta arbetet med Pug.
 
-En start kan vara att konvertera redan färdiga sidor till pug, det finns ett otal konverterare som du kan hitta genom [Google](https://www.google.com/search?q=html+to+pug&oq=html+to+pug&aqs=chrome..69i57j0l6j69i60.4848j0j7&sourceid=chrome&ie=UTF-8).
+{% hint style="info" %}
+Det går utmärkt att konvertera färdiga HTML-sidor till Pug, det finns flera verktyg för detta, [Google](https://www.google.com/search?q=html+to+pug&oq=html+to+pug&aqs=chrome..69i57j0l6j69i60.4848j0j7&sourceid=chrome&ie=UTF-8).
+{% endhint %}
 
 ### Layout
 
-Den struktur som vi kommer att använda för projektets views med Pug är att vi utgår från filen layout.pug. Denna fil anropar vi sedan genom våra andra layout filer.
+Det här projektets view-struktur utgår från filen layout.pug. Underliggande sidor ärver **layout-filens** struktur för att skapa en färdig HTML-sida. Nyckel-ordet för detta är`extends`.
 
-Så i `index.pug` så anropar vi `layout.pug` genom att skriva
+Filen index.pug ärver från layout.pug med
 
 ```text
 extends layout
 ```
 
-Layoutfilen är projektets html bas, här inkluderar du alla delar som du vill att samtliga sidor ska ärva genom extends. Så för att starta behöver vi allt annat som vi vanligtvis inkluderar i en validerande html sida. Öppna filen som skapats och kolla hur det ser ut och jämför med följande.
+Layout-filen är projektets HTML-bas så i den filen behövs en validerande HTML grund. Öppna filen och redigera.
 
 {% code title="views/layout.pug" %}
 ```markup
@@ -46,11 +50,9 @@ html(lang='sv')
 ```
 {% endcode %}
 
-Jag har utvecklat meta delen något samt lagt till språk-attributet på html elementet.
-
 ### Index
 
-När vi nu kollar på `views/index.pug` så är det viktigt att vi tittar på `routes/index.js` tillsammans med dem. Då det är routes filen som kallar på `res.render()` funktionen för att visa den view vi efterfrågar.
+**Index-filen** är webbsidans startpunkt. Den **view** som presenteras av index-filen anropas av den **route** som är kopplat till index-routen. Route filen kallar `res.render()` funktionen för att visa den view som anges, i det här fallet index.
 
 {% code title="routes/index.js" %}
 ```javascript
@@ -61,7 +63,7 @@ router.get('/', function (req, res, next) {
 ```
 {% endcode %}
 
-Om vi nu tittat på där [render](https://expressjs.com/en/api.html#res.render) funktionen kallas så ser vi att den inkluderar först den view vi ska använda och sedan så skickar den med ett objekt till viewen. I det här fallet så innehåller objektet parametern title med värdet Express.
+I [render](https://expressjs.com/en/api.html#res.render) funktionen kallas först den view som ska användas, index, sedan bifogas ett **objekt** till view-filen. Objeketet innehåller här **egenskapen** title med Express som **värde**.
 
 {% code title="views/index.pug" %}
 ```text
@@ -74,17 +76,20 @@ block content
 ```
 {% endcode %}
 
-Här ser vi även på hur Pug hanterar title värdet som vi skickade till templaten. Läs mer om hur du jobbar med template locals [här](https://pugjs.org/language/interpolation.html).
+I index-filen kan sedan det bifogade objektet användas för att dynamiskt ändra view-filen. Det kallas för template locals, läs mer om template locals [här](https://pugjs.org/language/interpolation.html).
 
 ### Nav
 
-En av fördelarna med Pug är att vi kan inkludera och extenda våra templater så vi kan återanvända kod. Det leder till enklare utveckling och mindre fel. Ett bra exempel på något som vi kan återanvända är en navigation på en webbsida. Så vi ska nu skapa och lägga till en top-navigation. Börja med att lägga till följande kod i `views/layout.pug` efter body taggen\(behåll det efterfölljande content blocket\).
+Med extends kan Pug återanvända kod. Det leder till enklare utveckling och mindre fel \([don't repeat yourself, DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)\). Ett bra exempel på detta är navigation på en webbsida. 
+
+Du ska nu skapa en top-navigation. Det första steget är att skapa ett nav **block** i layout-filen efter body-taggen.
 
 {% code title="views/layout.pug" %}
 ```text
 body
   block nav
     include nav.pug
+  block content
 ```
 {% endcode %}
 

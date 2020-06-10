@@ -64,9 +64,9 @@ express --view=pug --css sass --git
 
 Express generator skapar med detta kommando grund-strukturen för en app. Express generator körs med parametrarna view, css och git. 
 
-* View väljer den motor, **templatsystem**, som Express anväder. I det här fallet Pug.
-* Css väljer att Express ska använda sig av sass för projektets stilar.
-* Git skapar en .gitignore fil i projektet för att undvika att filer som inte ska finnas på Git hamnar där\(node\_modules mappen bland annat\).
+* View väljer den motor \(på engelska **template engine**\), **templatmotor**, som Express anväder. I det här fallet [Pug](https://pugjs.org/).
+* Css väljer att Express ska använda sig av [sass](https://sass-lang.com/) för projektets stilar.
+* Git skapar en [.gitignore](https://help.github.com/en/github/using-git/ignoring-files) fil i projektet för att undvika att filer som inte ska finnas på Git hamnar där\(node\_modules mappen bland annat\).
 
 Node-projekt kräver i allmänhet ett antal NPM-paket för att fungera. Express är inget undantag och för att slutföra installationen behöver NPM ladda ned de paket som Express kräver. Paketen för ett Node-projekt är alltid listade i filen **package.json**. Paketen för Express installationen är följande.
 
@@ -161,7 +161,7 @@ Eslintrc kan nu redigeras för att ändra inställningarna. För att till exempe
 ```javascript
 rules: {
   // "indent": ["error", 4],
-  "semi": ["error", "always"] // fel om det saknas semikolon, personlig preferens
+  "semi": ["error", "always"] // fel om det saknas semikolon
 }
 ```
 {% endcode %}
@@ -189,7 +189,7 @@ app.js
 package.json
 ```
 
-I roten finns app.js och package.json samt en del andra konfigurationsfiler. App.js är Node-serverns startpunkt. Detta föregås av att start-scriptet i package.json utgår från filen www, i bin mappen, som i sin tur ladda App.js.
+I roten finns app.js och package.json samt en del andra konfigurationsfiler. App.js är Node-serverns startpunkt. Detta föregås av att start-scriptet i package.json utgår från filen www, i bin mappen, som i sin tur ladda app.js.
 
 App.js laddar in serverns routes från routes/ foldern. När en **route** laddas efter ett anrop till servern så viser de i sin tur HTML-templaten från views/ mappen. Statiska filer finns i public/ mappen, såsom css och bilder.
 
