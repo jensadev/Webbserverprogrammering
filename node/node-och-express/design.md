@@ -1,39 +1,61 @@
 ---
-description: Lite kort om projekt-repots design.
+description: Lite kort om exempel-projektets design.
 ---
 
 # Design
 
 ## Idé
 
-För det här projektet så skapade jag ett par skisser med [Figma](https://www.figma.com/), du hittar dem [här](https://www.figma.com/file/tngmvFgOZ96E1xHm9Igr9o/Webbserver-node?node-id=0%3A1). Design är svårt och ett evigt pillande fram och tillbaka mellan olika ställningstaganden. Under processen så märker en ofta också problem med designen, vilket kan vara både estetiska och tekniska. Men i detta arbetet så förbättrar vi produkten stegvis.
+För projektets design så användes [**Figma**](https://www.figma.com/), skisserna finns [här](https://www.figma.com/file/tngmvFgOZ96E1xHm9Igr9o/Webbserver-node?node-id=0%3A1). Det kan underlätta att använda ett digitalt skiss-verktyg, men oftast är det enklast att börja med penna och papper. Design är svårt och en iterativ process som innehåller många ställningstaganden. Under processen så framträder ofta problem med designen, både estetiska och tekniska. Produkten förbättras på så vis stegvis.
 
-Som exempel så letade jag reda på ett färgschema jag gillade först, vilket påminde mig om något under vatten. Jag gillar det, men hur jag använder det på sidan får problem med kontrast. Så jag skruvade lite på hur kontrasterna, men inte så mycket som krävs av de testverktyg jag använder, eftersom jag tyckte jag förlorade känslan. Här gjorde jag en avvägning att behålla min design och inte skrota den på grund av testresultatet. Men det är viktigt att göra detta val tidigt, så att du inte behöver ändra färgerna på hela webbplatsen när du kodat färdigt, för att du aldrig kollade kontrasten. Här underlättar det väldigt mycket också om du använder Sass och tilldelar färgerna till variabler. Du kan dessutom använda Sass [funktioner](https://sass-lang.com/documentation/modules/color) för att manipulera färgerna.
+### Färg
 
-Just tanken om något under vatten ledde till bilden med bubblorna, något som jag skapade i Adobe Illustrator och sparade som SVG. Jag letade upp ett par ikoner och NTI logotypen, sparade dessa som SVG och la till. 
+Design-processen för exempel-projektet började med valet av ett **färgschema**. Färgerna har känslan om något under vatten. 
+
+![F&#xE4;rgschemat](../../.gitbook/assets/figmacolors.png)
+
+Användaren är på djupt vatten, ny kunskap, osäkerhet, men samtidigt lugna och sköna färger, trygghet. 
+
+> Allt kommer att bli bra.
+
+När ett färgschema har valts för en sida är det viktigt att testa **användbarheten**. [Wave](https://www.d.umn.edu/itss/training/online/wave/) och [Lighthouse](https://developers.google.com/web/tools/lighthouse) är exempel på verktyg för att testa användbarheten. Testerna för exempel-projektet visade att **kontrasten** inte var tillräcklig. Kontrasten skulle behöva ökas markant för att åtgärda problemet, något som resulterade i att sidan tappar undervattenskänslan. Det leder alltså till ett ställningstagande för design eller användbarhet. Jag gör här valet att behålla designen trots testresultatet. 
+
+{% hint style="info" %}
+Testa tidigt och ofta!
+{% endhint %}
+
+Rent praktiskt kan Sass-variabler underlätta arbetet med färger. Sass har även [moduler](https://sass-lang.com/documentation/modules/color) för att manipulera färg.
+
+### Bild
+
+Undervattenskänslan i färgschemat ledde sedan till bilden med bubblorna. Bilden skapades i **Adobe Illustrator** med **formatet** [**SVG**](https://developer.mozilla.org/en-US/docs/Web/SVG). Utöver det används ikoner från Material.io och NTI Gymnasiets logotyp, alla i SVG formatet.  
 
 ![Bubblor](../../.gitbook/assets/bubbles-v2.svg)
 
 ![Ikon logo](../../.gitbook/assets/nti_icon.svg)
 
-När jag arbetade med den mycket långa titeln, Webbserverprogrammering så fick jag tekniska problem. Det visade sig att ett väldigt långt ord som inte kan avstavas av webbläsaren påverkar hur hela sidan ritas ut när det finns tillsammans med `meta viewport scale`. I det här fallet påverkade det hur resten av sidan ritades ut och resultatet blev hemskt. Lösningen blev att lägga till ett bindestreck mellan Webbserver och programmering, Webbserver-programmering. Inte vad jag kanske önskat, men enklaste och bästa lösningen. Med HTML och CSS så försöker vi få text att se ut som något, vilket inte alltid fungerar som vi tänkt oss. Ibland är det inte ens möjligt, men med testning kan vi åtminstone upptäcka problem som vi på ett eller annat sätt får lösa.
+### Text
 
-Det här är exempel på avvägningar som behöver göras oavsett om en har skisser att utgå från eller inte. Men att utgå från en skiss och en ide, ger dig ett stöd som alltid underlättar. Att formulera din ide och slipa på den är en del i en process som fortsätts när du kodar din webbsida och att göra det i flera steg leder så gott som alltid till ett bättre slutresultat.
+Det praktiska arbetet med sidans titel, Webbserverprogrammering, ledde till ett intressant problem. Det visade sig att ett väldigt långt ord som inte kan avstavas av webbläsaren påverkar hur hela sidan ritas ut när  `meta viewport scale` används. Resultatet blev hemskt och behövde åtgärdas. Lösningen blev att lägga till ett bindestreck mellan Webbserver och programmering, Webbserver-programmering. Rent språkmässigt fel för svenskan, men den enklaste och bästa lösningen. En bra illustration av att med HTML och CSS så skapas komplexa layouter, vilket inte alltid fungerar som tänkt. Ibland är den tänkta designen inte genomförbar, därför är det viktigt att genom testning upptäcka problem.
+
+Jag hoppas att dessa exempel från designprocessen kan hjälpa. De är val som behöver göras oavsett om en har skisser att utgå från eller inte. Men att utgå från skisser och design-idéer, ger ett stöd som alltid underlättar. Att planera vad du ska skapa och slipa på det är en del i en process. Processen fortsätter sedan under webbplatsens kodande. Att arbeta med processen i flera steg och att testa leder så gott som alltid till ett bättre slutresultat.
 
 {% hint style="info" %}
 Kom ihåg att sidan ska gå att använda, annars är det en meningslös produkt.
 {% endhint %}
 
-## Från html till webbplats
+## Från HTML till webbplats
 
-På det stora hela så handlar det om att stegvis börja skapa sin skiss med hjälp av css stilar. Några viktiga saker att ha i åtanke är att inte försöka designa utan innehåll. Placeringen av element i html är beroende av andra element, så ditt innehåll kommer alltid påverka placeringen. Det andra är att det är väldigt viktigt att strukturen är korrekt och att elementen är korrekt stängda. Annars blir det väldigt svårt med stilarna och det kommer förmodligen resultera i att det inte blir som du önskar. För att göra detta så rekommenderar jag att du [validerar](https://validator.nu/) regelbundet.
+På det stora hela så handlar det om att stegvis arbeta utifrån existerande skisser med HTML och CSS. Tänk på att inte försöka designa HTML utan innehåll. Placeringen av element i HTML-kod är beroende av andra element, så innehållet kommer alltid påverka placeringen.
 
-Undvik att positionera absolut och tänk alltid på att ändra storleken på din webbläsare, för du kan inte förutsätta att användaren alltid kör samma upplösning som du.
+Var noga med att strukturera sidan korrekt och att HTML-elementen är korrekt stängda. Om elementen inte är stänga kan det bli väldigt svårt med stilarna. Det kan även leda till att stilar och annat inte visas med önskat resultat. Testa tidigt och ofta, [validera](https://validator.nu/) koden regelbundet.
 
-Kom även ihåg att inte fastna i evigheter på detaljer innan du ens har någon design.
+Undvik även att positionera element absolut och tänk alltid på att ändra storleken på webbläsarfönstret, du kan inte förutsätta att användaren alltid kör samma upplösning som du.
+
+Fastna inte heller i evigheter på detaljer innan du ens har någon design. Gå vidare, du kan alltid komma tillbaka.
 
 {% hint style="info" %}
-Minimum viable product, MVP. Designa helheten så att det går att använda först. Gör sedan klart allteftersom.
+**Minimum Viable Product \(MVP\)**. Designa helheten så att det går att använda först. Gör sedan klart allteftersom.
 {% endhint %}
 
 
