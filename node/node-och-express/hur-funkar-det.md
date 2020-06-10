@@ -180,15 +180,13 @@ I den här uppgiften ska du skapa en footer-vy som ska inkluderas på varje sida
 
 \*\*\*\*[**Sass** ](https://sass-lang.com/)är en språk-utökning för att skapa **css.** Sass förkompileras till färdig css.
 
-Sass kan installeras med **Node Package Manager \(NPM\)** eller utan, för att installera paketet utan NPM så använd förslagsvis **apt** i **Ubuntu**. Här följer instruktioner för att installera Sass med NPM.
-
-När projektet skapades med Express generator installerades middleware för att kompilera Sass-filer till css-filer. Om projektet inte behöver inkludera flera sass filer fungerar det utmärkt.
+Express generator installerar middleware för att kompilera Sass-filer till css-filer. Om projektet inte behöver inkludera flera sass filer fungerar det utmärkt.
 
 {% hint style="danger" %}
-I det här projektet kan Sass-koden delas upp i flera filer. Detta görs med [`@Use`](https://sass-lang.com/documentation/at-rules/use) regeln. Användandet av @use resulterade dock i kompileringsfel med Sass middleware och fungerade inte. Om du behöver använda flera Sass-filer behöver du installera Sass separat och kompilera det manuellt.
+I det här projektet kan Sass-koden delas upp i flera filer. Detta görs med [`@Use`](https://sass-lang.com/documentation/at-rules/use) regeln. Användandet av @use kan dock skapa kompileringsfel med Sass middleware. Om du behöver använda flera Sass-filer behöver du installera Sass separat och kompilera din css manuellt.
 {% endhint %}
 
-För att installera Sass separat kör.
+För att installera Sass kan **Node Package Manager \(NPM\)** eller **apt** i **Ubuntu** användas. Här följer instruktioner för att installera Sass med NPM.
 
 ```text
 npm install --save-dev sass
@@ -260,6 +258,10 @@ h1
   font-family: $font
 ```
 {% endcode %}
+
+{% hint style="info" %}
+[För att dela upp sass i flera filer se Git.](https://github.com/jensnti/wsp1-node/tree/master/public/stylesheets)
+{% endhint %}
 
 #### Arbeta med Sass
 
