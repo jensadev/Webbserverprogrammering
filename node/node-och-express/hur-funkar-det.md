@@ -178,23 +178,23 @@ I den här uppgiften ska du skapa en footer-vy som ska inkluderas på varje sida
 
 ## Sass
 
-För projektet så kommer vi att skriva Sass för att förkompilera vår css, våra stilar.
+\*\*\*\*[**Sass** ](https://sass-lang.com/)är en språk-utökning för att skapa **css.** Sass förkompileras till färdig css.
 
-Sass kan installeras med npm eller utan, för att installera paketet utan npm så går det att göra detta med apt under Ubuntu. Liknande finns förstås med Windows. Hursomhelst så kan det vara enklast att lägga till npm paketet. Vill du så kan du såklart lägga till det globalt med -g flaggan.
+Sass kan installeras med **Node Package Manager \(NPM\)** eller utan, för att installera paketet utan NPM så använd förslagsvis **apt** i **Ubuntu**. Här följer instruktioner för att installera Sass med NPM.
 
-Projektet vi arbetar med nu har en middleware installerad för att kompilera .sass filerna till .css filer. Så om du inte behöver inkludera flera Sass filer så behöver du inte ändra något mer. 
+När projektet skapades med Express generator installerades middleware för att kompilera Sass-filer till css-filer. Om projektet inte behöver inkludera flera sass filer fungerar det utmärkt.
 
 {% hint style="danger" %}
-I det här projektet ville jag dela upp min Sass kod över flera filer. Detta görs med [`@Use`](https://sass-lang.com/documentation/at-rules/use) i Sass. Detta resulterade dock i ett kompileringsfel med Sass middleware och fungerade inte. Av den anledningen installerade jag Sass separat och skrev ett script kommando i projektets package.json för att kompilera min css. 
+I det här projektet kan Sass-koden delas upp i flera filer. Detta görs med [`@Use`](https://sass-lang.com/documentation/at-rules/use) regeln. Användandet av @use resulterade dock i kompileringsfel med Sass middleware och fungerade inte. Om du behöver använda flera Sass-filer behöver du installera Sass separat och kompilera det manuellt.
 {% endhint %}
 
-För att installera Sass separat så kör.
+För att installera Sass separat kör.
 
 ```text
 npm install --save-dev sass
 ```
 
-Uppdatera sedan `package.json` och i script delen lägger du till följande.
+Uppdatera sedan `package.json` med följande script.
 
 {% code title="package.json" %}
 ```javascript
@@ -205,17 +205,21 @@ Uppdatera sedan `package.json` och i script delen lägger du till följande.
 ```
 {% endcode %}
 
-Vi kan sedan köra `npm run compile` och den kommer att köra Sass och söka efter eventuella ändringar i källkodsfilerna. Så när vi sparar vår Sass fil, då kompileras det till css.
+Nu kan scriptet startas och Sass kommer bevaka filerna efter ändringar när de sparas för att då kompilera dem till css.
 
 ```bash
 npm run compile
 ```
 
-Vi är nu redo att börja designa sidan. De första stilarna styr förhoppningsvis upp lite grundläggande användbarhet, som vi kan bygga vidare på. Läs mer om den här exempelsidans stilar under [Design](design.md).
+Systemet är nu redo för css-stilar.
+
+{% hint style="info" %}
+[Läs mer om exemplets design här.](design.md)
+{% endhint %}
 
 ### style.sass
 
-Syntaxen för att skriva Sass skiljer något från vanlig css, men grunden är desamma. Det är tämligen likt Pug då det förlitar sig på korrekt indentering för att fungera och strukturera. Öppna dokumentet och skriv in följande.
+Sass syntax skiljer något från css, men grunderna är liknande. Precis som Pug förlitar sig Sass på korrekt indentering för att fungera och strukturera. Öppna filen och skriv in följande.
 
 {% code title="public/stylesheets/style.sass" %}
 ```css
@@ -244,9 +248,9 @@ nav > ul
 ```
 {% endcode %}
 
-Detta ger dig lite grundläggande stilar som formaterar dina dokument. Du har en navigation, main och en footer. Placeringen av elementen sker med flexbox. Testa nu med att lägga till en egen font från [Google fonts](https://fonts.google.com/), då behöver du dels länka den i din layout, men även inkludera den i Sass dokumentet.
+De här stilarna ger en grundläggande formatering. Placeringen av elementen sker med [**flexbox**](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox). Prova att lägga till en font med [Google fonts](https://fonts.google.com/). Fonten behöver då länkas i layout-vyn, och Sass-stilen behöver uppdateras.
 
-När du lägger till fonten i ditt dokument så kan du med fördel skapa en variabel för detta, så att du kan återanvända fonten. I filen skriver du då.
+För egenskaper som upprepas i Sass-kod är det praktiskt att skapa [**variabler**](https://sass-lang.com/documentation/variables). Det gör att du slipper upprepa kod och enkelt kan ändra värden.
 
 {% code title="public/stylesheets/style.sass" %}
 ```css
@@ -257,23 +261,21 @@ h1
 ```
 {% endcode %}
 
-Funkar det? Bra.
-
-#### Sass-variabler och stilar
+#### Arbeta med Sass
 
 {% hint style="info" %}
 Detta är en uppgift med eget arbete.
 {% endhint %}
 
-Testa nu att skapa variabler för ett par färger på sidan. Passa även på att styla User-sidans lista också.
+Testa nu att skapa variabler för ett par färger på sidan. Passa även på att styla User-vyns lista också.
 
 {% hint style="info" %}
-Sidan [coolors.co](https://coolors.co/) har Sass export
+Sidan [coolors.co](https://coolors.co/) har Sass export.
 {% endhint %}
 
 * [ ] Välj 1-5 färger
-* [ ] Lägg till dem med variabler i din Sass
-* [ ] Styla User-sidans lista
+* [ ] Lägg till dem med variabler
+* [ ] Styla User-vyns
 
- Fortsätt sedan här för att lära dig mer om [Sass](https://sass-lang.com/guide).
+ Läs mer om [Sass](https://sass-lang.com/guide).
 
