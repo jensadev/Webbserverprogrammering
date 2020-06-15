@@ -12,7 +12,11 @@ Koden för det här avsnittet finner du i denna [commit](https://github.com/jens
 
 \*\*\*\*[**Mixins**](https://pugjs.org/language/mixins.html) är kodsnuttar i **Pug** som kan återanvändas, en sorts funktioner. För att ge exempel på hur mixins fungerar kommer du att skapa en active navigation länk till exempel-projektet.
 
-Mixinet för navigationen kommer att skapas i nav-vyn. I större projekt så kan det vara värt att strukturera upp mixins och filer som är uppbrutna i flera delar med mappar. Mixins kan såklart vara värda att spara och återanvända i andra projekt och då passar det utmärkt att spara i en separat fil.
+Mixin kan antingen skapas i en enskild fil eller i en pug-templat. I det här exemplet skapas detta mixin i nav-vyn. Skriv mixin koden överst i filen.
+
+{% hint style="info" %}
+Mixins kan sparas i separata filer så att du kan återanvända dem mellan olika projekt.
+{% endhint %}
 
 {% code title="views/nav.pug" %}
 ```text
@@ -25,24 +29,24 @@ mixin nav-link(href, name)
 ```
 {% endcode %}
 
-Så till att börja med så behöver vi skriva denna mixin först i filen, innan annan kod. Vår mixin tar två argument, precis som en funktion kan göra.
+Studera koden ovan. Nav-link är namnet på den mixin som skapas. Denna mixin tar två **parametrar** \(argument\). Detta är som en [**funktion**](https://sv.wikipedia.org/wiki/Funktion_%28programmering%29) i de flesta programmeringsspråk.
 
 * href, för den faktiska länken som ska användas
 * name, för titeln som ska visas på länken
 
-Vi använder även en variabel vid namn titel för att styra vilken html som ska skapas. Denna variabel kommer från den aktiva views fil som används. Så för att lägga till en titel behöver vi redigera i både `views/layout.pug` och den aktiva sidans fil.
+I koden används title **variabeln** från layout-vyns head **block**. Variabeln sätts till olika värden beroende på vilken aktiv vy som visas. Detta behöver läggas till i layout-vyn samt den aktiva sidan.
 
-För att använda ett mixin så skriver du.
+För att använda ett mixin är koden.
 
 ```text
 +mixinname(params)
-// för hem länken
+// dvs. för hem länken
 +nav-link('/', 'Hem)
 ```
 
 ## Block
 
-Inuti head taggen på layout-sidan behöver vi göra följande tillägg. 
+I head-taggen på layout-vyn så lägger du till.
 
 {% code title="views/layout.pug" %}
 ```text
@@ -51,9 +55,7 @@ block head
 ```
 {% endcode %}
 
-Vi skapar en variabel, `title` och ger den värdet Webbserverprogrammering. Det låter alla underliggande sidor komma åt head blocket och byta ut innehållet i det.
-
-Vi kan då låta den aktiva sidan vi laddat byta ut värdet på title och på så vis göra den aktiv med vårt tidigare mixin. Gör följande ändring.
+Först skapas ett **block** med namnet head, i detta initieras en variabel med namnet title som tilldelas värdet Webbserverprogrammering.  Det låter alla sidor som ärver av layout-vyn byta ut innehållet i head blocket. På det sättet kan variabeln tilldelas ett nytt värde i vy filerna.
 
 {% code title="views/index.pug" %}
 ```text
@@ -63,7 +65,7 @@ block head
 ```
 {% endcode %}
 
-Resultatet blir nu att på index sidan så visas titeln Webbserverprogrammering - Hem, och vår navbar känner igen titeln Hem och lägger till css klassen `active` för detta element.
+Resultatet blir nu att på index sidan så visas titeln Webbserverprogrammering - Hem, samt att sidans navigation kan kontrollera titel-variabelns värde och lägga till css-klassen active på nuvarande sida.
 
 #### users.pug
 
@@ -71,15 +73,15 @@ Resultatet blir nu att på index sidan så visas titeln Webbserverprogrammering 
 Detta är en uppgift med eget arbete.
 {% endhint %}
 
-Gör nu samma ändringar för `users.pug` och gör klart navigationen i `nav.pug`.
+Färdigställ navigationen och koden i users-vyn.
 
-* [ ] Skapa ett head block i `users.pug`
-* [ ] Namnge sidan i titel variabeln
-* [ ] Lägg till ytterligare länkar i `nav.pug` med det mixin vi skapat
+* [ ] Skapa ett head block i filen users.pug
+* [ ] Använd en titel-variabel för att ge sidan en titel.
+* [ ] Skapa en länk till en Om-sida i navigationen. 
 
 ## Stilar
 
-Slutligen så behöver vi skapa .active klassen i vår css. Med Sass så skriver vi följande kod.
+Active-klassens syfte är att ge användaren visuell återkoppling kring vilken sida som är aktiv. Klassen behöver alltså skilja sig från övriga länkar. Skriv följande kod.
 
 {% code title="public/stylesheets/style.sass" %}
 ```text
@@ -90,5 +92,5 @@ Slutligen så behöver vi skapa .active klassen i vår css. Med Sass så skriver
 ```
 {% endcode %}
 
-Notera hur vi gör ett indrag och lägger till `:hover` regeln med ett & tecken. Sass tolkar det och skapar klasserna `.active` och `.active:hover` från det.
+Notera strukturen och indenteringen. För att skapa `:hover` regeln i dokumentet används &-tecknet samt indraget. Sass tolkar det och skapar klasserna `.active` och `.active:hover` utifrån detta.
 
