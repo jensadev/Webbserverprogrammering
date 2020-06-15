@@ -8,7 +8,7 @@ description: WSL
 
 Det här dokumentet innehåller ett flertal instruktioner för hur du kommer igång och sätter upp en fungerande utvecklarmiljö med **Windows Subsystem for Linux \(WSL\)** och [**Ubuntu**](https://ubuntu.com/).
 
-Majoriteten av de kommandon som visas kör du i **terminalen**, genom ett **shell**. Det är därför väldigt viktigt att du följer instruktionerna noggrant och att du får kommandona att fungera innan du går vidare. Jag kan inte skriva eller säga det nog många gånger och det är:
+Majoriteten av de kommandon som visas kör du i **terminalen**, genom ett **skal** \(engelska **shell\)**. Det är därför väldigt viktigt att du följer instruktionerna noggrant och att du får kommandona att fungera innan du går vidare. Jag kan inte skriva eller säga det nog många gånger och det är:
 
 {% hint style="warning" %}
 Läs vad som sker på din skärm! Nästan alla kommandon ger felmeddelanden när det inte fungerar. Många kommandon ger inte något meddelande alls när de fungerade.
@@ -46,18 +46,18 @@ Kommandot **sudo** låter dig köra program med rättigheterna för superuser, L
 
 Ubuntu körs nu i ett fönster under Windows och ger dig tillgång till ett flertal program som används vid webbutveckling. Det utan att behöva [virtualisera](https://en.wikipedia.org/wiki/Virtualization) eller [dual-boota](https://en.wikipedia.org/wiki/Multi-booting) Linux. 
 
-För att komma åt andra diskar eller partitioner med Windows filer på när du kör Ubuntu så hittar du dem i /mnt.
+För att komma åt andra **diskar** eller **partitioner** med Windows filer på när du kör Ubuntu så hittar du dem i /mnt.
 
 ```bash
 cd /mnt
 ls -la
 ```
 
-Detta ger dig en lista över de filsystem ****som är mountade ****under Linux. Kör du en skoldator med en disk så kommer du med största sannolikhet se`c`, vilket är disken som är`c:` under Windows.
+List kommandot visar de **filsystem** som är aktiva under Linux. Kör du en skoldator med en disk så kommer du med största sannolikhet se`c`, vilket är disken som är`c:` under Windows.
 
 ## Visual Studio Code
 
-Innan du fortsätter behöver du installera **Visual Studio Code** \(förkortat till **vscode**\). Du kan hämta det [här](https://code.visualstudio.com/). 
+Innan du fortsätter behöver du installera **Visual Studio Code** \(förkortat till **vscode**\). Hämta vscode [här](https://code.visualstudio.com/). 
 
 Vscode är en **integrerad utvecklingsmiljö** \(på engelska **Integrated Development Environment, IDE**\). Ett program som innehåller flera verktyg för att koda.
 
@@ -91,7 +91,7 @@ List kommandot visar om symlinken skapats. Är den röd saknas källan och det h
 lrwxrwxrwx 1 jens jens       11 Feb 17  2019 code -> /mnt/c/code
 ```
 
-Navigera sedan in i code-mappen och lista innehållet.
+Öppna code-mappen och lista innehållet.
 
 ```bash
 cd code
@@ -100,24 +100,24 @@ ls -la
 
 ## GitHub
 
-Installera sedan **Git** i WSL. 
+För att använda **GIT** med WSL behöder det installeras. 
 
 ```bash
 sudo apt install git
 ```
 
-När det är klart kan du använda Git från WSL. Git kommer att efterfråga dina användaruppgifter första gången du gör en **commit**. ****Användaruppgifterna anger du med följande kommandon.
+Git kan nu användas från WSL. När du gör din första **commit** kommer Git efterfråga dina användaruppgifter. Användaruppgifterna anger du med följande kommandon.
 
 ```bash
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 ```
 
-De kommandon du behöver känna till för att köra Git från terminalen finns i detta [Cheat Sheet](https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf).
+Gits terminal-kommandon finns i detta [Cheat Sheet](https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf).
 
 ## LAMP server
 
-I webbserver-kursen kommer du att få prova på ett antal olika typer av **webbservrar**. [**LAMP** ](https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29)är en akronym för en typ av server och betyder en webbserver med [Linux](https://www.linux.org/), [Apache](https://www.apache.org/), [MySQL](https://www.mysql.com/) och [PHP](https://www.php.net/). Det finns flera varianter av **\*AMP** där första bokstaven byts ut beroende på vilket operativsystem du använder, till exempel **WAMP** och **MAMP**. Eftersom du kör en Linux distribution, Ubuntu, under Windows så installerar du en LAMP-server.
+I webbserver-kursen kommer du att få prova på ett antal olika typer av **webbservrar**. [**LAMP** ](https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29)är en akronym för en typ av server och betyder en webbserver med [**Linux**](https://www.linux.org/), [**Apache**](https://www.apache.org/), [**MySQL**](https://www.mysql.com/) och [**PHP**](https://www.php.net/). Det finns flera varianter av **\*AMP** där första bokstaven byts ut beroende på vilket operativsystem du använder, till exempel **WAMP** och **MAMP**. Eftersom du kör en Linux distribution, Ubuntu, under Windows så installerar du en LAMP-server.
 
 Ubuntu har en färdig samling paket för LAMP-server.
 
@@ -129,7 +129,9 @@ Svara \[Y\] på frågorna och vänta på att den ska ladda ner och installera pa
 
 ### Apache
 
-Apache är en **service** som måste startas efter att installationen är slutförd.
+Apache är ett open source webbserver-projekt som har funnits sedan 1995. Apache är den absolut vanligast förekommande webbservern på internet. I en LAMP-server så är alltså Apache själva webbservern.
+
+Apache startas på Ubuntu som en **service.**
 
 ```bash
 sudo service apache2 restart
@@ -175,13 +177,15 @@ Apache-logfiler för felsökning finns under /var/log/apache2
 
 ### MySQL
 
-Förutom Apache så behöver MySQL service startas. 
+MySQL är en **databashanterare** som använder språket **Structured Query Language \(SQL\)**. Precis som Apache är MySQL ett open source-projekt som började 1995. MySQL är den **databasserver** som används i LAMP.
+
+På Ubuntu startas **MySQL-server** som en service.
 
 ```bash
 sudo service mysql restart
 ```
 
-MySQL är en **databas**-server och den är installerad som en tjänst på systemet. MySQL-servern ligger nu i bakgrunden och väntar på att användas. MySQL använder **port 3306** som standard och det behöver inte ändras.
+MySQL-servern ligger nu i bakgrunden och väntar på att användas. MySQL använder **port 3306** som standard och det behöver inte ändras.
 
 En MySQL-server används genom någon form av **klient**. Klienten kan vara ett program, en webbtjänst eller annat. För att koppla upp en klient till en MySQL-server behövs det en användare och ett lösenord. Första gången du gör detta så använder du sudo och en lokal MySQL-klient.
 
@@ -207,7 +211,7 @@ Använd sedan MySQL-klienten för att testa användaren.
 mysql -u username -p
 ```
 
-Väl inne på servern så skrivs kommandon med språket [**Structured Query Language \(SQL\)**](../databas/sql.md).
+Väl inne på servern så skrivs kommandon med [SQL](../databas/sql.md).
 
 {% hint style="info" %}
 MySQL-logfiler för felsökning finns under /var/log/mysql

@@ -5,12 +5,12 @@ description: 'Att skapa en active page länk med Pugs mixin, block och variabler
 # Nuvarande sida
 
 {% hint style="info" %}
-Samtliga ändringar för detta steg finns i följande [commit](https://github.com/jensnti/wsp1-node/commit/c7bcf747357e33fa564b2ebbfde5de738712d62f).
+Koden för det här avsnittet finner du i denna [commit](https://github.com/jensnti/wsp1-node/commit/c7bcf747357e33fa564b2ebbfde5de738712d62f).
 {% endhint %}
 
 ## Mixin
 
-\*\*\*\*[**Mixins**](https://pugjs.org/language/mixins.html) är kodsnuttar i **Pug** som kan återanvändas, en sorts funktioner. För att ge exempel på hur mixins fungerar ska du skapa en active navigation länk till exempel-projektet. Sidans titel kommer att sparas som en variabel för att göra detta.
+\*\*\*\*[**Mixins**](https://pugjs.org/language/mixins.html) är kodsnuttar i **Pug** som kan återanvändas, en sorts funktioner. För att ge exempel på hur mixins fungerar kommer du att skapa en active navigation länk till exempel-projektet.
 
 Mixinet för navigationen kommer att skapas i nav-vyn. I större projekt så kan det vara värt att strukturera upp mixins och filer som är uppbrutna i flera delar med mappar. Mixins kan såklart vara värda att spara och återanvända i andra projekt och då passar det utmärkt att spara i en separat fil.
 
