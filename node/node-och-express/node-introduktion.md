@@ -6,7 +6,7 @@
 
 > As an asynchronous event-driven JavaScript runtime, Node.js is designed to build scalable network applications.
 
-Node är byggt på en javascriptmotor för att kunna använda **Javascript** på en server. Node kan fungera som en en webbserver och är ett alternativ till [LAMP](../../utvecklarmiljo/wsl.md#lamp-server).
+Node är byggt på en javascriptmotor \([Chromes V8](https://v8.dev/)\) för att kunna använda **Javascript** på en server. Node kan fungera som en en webbserver och fyller samma roll som Apache i [LAMP](../../utvecklarmiljo/wsl.md#lamp-server).
 
 ## Installation och förberedelse
 

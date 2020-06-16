@@ -275,9 +275,8 @@ Testa nu att skapa variabler för ett par färger på sidan. Passa även på att
 Sidan [coolors.co](https://coolors.co/) har Sass export.
 {% endhint %}
 
-* [ ] Välj 1-5 färger
-* [ ] Lägg till dem med variabler
-* [ ] Styla User-vyns
+* [ ] Välj 1-5 färger och skapa varaibler för dem
+* [ ] Styla Users-vyn
 
  Läs mer om [Sass](https://sass-lang.com/guide).
 

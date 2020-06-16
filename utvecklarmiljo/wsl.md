@@ -227,9 +227,9 @@ sudo apt install phpmyadmin
 
 Välj följande vid installationen:
 
-* [ ] apache2 server
-* [ ] Database common
-* [ ] config, generate pwd
+1. apache2 server
+2. Database common
+3. config, generate password
 
 Apache2 använder ett modulärt system för konfiguration. För att slutföra installationen av phpMyAdmin måste vi skapa en symlink till konfigurationsfilen och berätta för systemet att den ska användas.
 
