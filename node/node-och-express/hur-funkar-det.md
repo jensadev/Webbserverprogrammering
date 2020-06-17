@@ -1,4 +1,4 @@
-# Hur funkar det?
+# Hur fungerar det?
 
 Det här avsnittet handlar om hur **Express** fungerar. För att förstå det så kommer du att skriva om delar av startkoden som Express generator skapat. Du kommer att skapa en meny, redigera vyer och ändra routingen.
 

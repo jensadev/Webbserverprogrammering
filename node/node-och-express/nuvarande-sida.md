@@ -2,7 +2,7 @@
 description: 'Att skapa en active page länk med Pugs mixin, block och variabler.'
 ---
 
-# Nuvarande sida
+# Aktiv sida
 
 {% hint style="info" %}
 Koden för det här avsnittet finner du i denna [commit](https://github.com/jensnti/wsp1-node/commit/c7bcf747357e33fa564b2ebbfde5de738712d62f).

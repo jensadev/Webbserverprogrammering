@@ -71,13 +71,13 @@ Vscode kommer att öppna ett nytt terminalfönster, för att välja default shel
 
 ![V&#xE4;lj default shell.](../.gitbook/assets/defshell.png)
 
-Nästa steg är att skapa goda förutsättningar för att arbeta med kod i vscode. Börja med att skapa en **mapp** i `c:` med namnet `code`. Skapandet av mappen gör du i Windows. 
+Nästa steg är att skapa goda förutsättningar för att arbeta med kod i vscode. Börja med att skapa en **mapp** i c: med namnet code. Skapandet av mappen gör du i Windows. 
 
 {% hint style="info" %}
-Att samla sin kod på ett ställe är både praktiskt och bra praxis.
+Att samla kod på ett ställe är både praktiskt och bra praxis.
 {% endhint %}
 
-För att enkelt komma åt code-mappen skapar du en [**symbolisk länk**](https://sv.wikipedia.org/wiki/Symbolisk_l%C3%A4nk) **\(symlink\)** till den. Navigera till din **hem-mapp** i WSL och skapa länken med följande kommandon. 
+För att enkelt komma åt code-mappen ska du skapa en [**symbolisk länk**](https://sv.wikipedia.org/wiki/Symbolisk_l%C3%A4nk) **\(symlink\)** till den. Navigera till **hem-mappen** i WSL och skapa länken såhär:
 
 ```bash
 cd
@@ -145,7 +145,7 @@ Annars står det \[FAIL\].
 Fungerade det att starta din service, \[OK\], så kan du nu öppna en webbläsare och surfa till [http://localhost](http://localhost).
 
 {% hint style="info" %}
-\*\*\*\*[**localhost**](https://en.wikipedia.org/wiki/Localhost) ****är ett alias för din dators loopback interface som har ip-adressen 127.0.0.1
+\*\*\*\*[**localhost**](https://en.wikipedia.org/wiki/Localhost) ****är ett alias för din dators loopback interface som har ip-adressen 127.0.0.1.
 {% endhint %}
 
 Om det står ett felmeddelande, \[FAIL\], så behöver det felsökas. Det vanligaste felet när du försöker starta Apache är att **port 80** är blockerad. 
@@ -172,7 +172,7 @@ Med textredigeringsprogrammet **Nano** ändra raden där det står `Listen 80` t
 Apache behöver sedan starts om. Om Apache startar och du ser \[OK\] så surfa till  [http://localhost:88](http://localhost:88) med webbläsaren. Webbservern använder nu **port 88** och du måste ange det med `:88` efter adressen.
 
 {% hint style="info" %}
-Apache-logfiler för felsökning finns under /var/log/apache2
+Apache-logfiler för felsökning finns under /var/log/apache2.
 {% endhint %}
 
 ### MySQL
@@ -214,7 +214,7 @@ mysql -u username -p
 Väl inne på servern så skrivs kommandon med [SQL](../databas/sql.md).
 
 {% hint style="info" %}
-MySQL-logfiler för felsökning finns under /var/log/mysql
+MySQL-logfiler för felsökning finns under /var/log/mysql.
 {% endhint %}
 
 ### phpMyAdmin
@@ -227,9 +227,9 @@ sudo apt install phpmyadmin
 
 Välj följande vid installationen:
 
-1. apache2 server
-2. Database common
-3. config, generate password
+1. apache2 server.
+2. Database common.
+3. config, generate password.
 
 Apache2 använder ett modulärt system för konfiguration. För att slutföra installationen av phpMyAdmin måste vi skapa en symlink till konfigurationsfilen och berätta för systemet att den ska användas.
 
