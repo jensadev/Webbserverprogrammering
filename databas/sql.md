@@ -40,6 +40,10 @@ Om du lyckas koppla upp dig så bör du nu se mysql-prompten.
 mysql>
 ```
 
+{% hint style="info" %}
+En databasserver kan användas av många olika klienter.
+{% endhint %}
+
 ## Kommandon
 
 ### Skapa och använda en databas
