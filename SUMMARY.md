@@ -22,6 +22,7 @@
 
 * [SQL](databas/sql.md)
 * [SQL och Node](databas/sql-och-node.md)
+* [Databasdesign](databas/databasdesign.md)
 
 ## Säkerhet <a id="sakerhet"></a>
 
