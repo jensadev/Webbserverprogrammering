@@ -85,7 +85,7 @@ ln -s /mnt/c/code
 ls -la
 ```
 
-List kommandot visar om symlinken skapats. Är den röd saknas källan och det har blivit fel.
+List kommandot visar om symlinken skapats. Är den röd saknas källan och det har blivit fel. Det ser ut såhär.
 
 ```bash
 lrwxrwxrwx 1 jens jens       11 Feb 17  2019 code -> /mnt/c/code
