@@ -71,13 +71,13 @@ Vscode kommer att öppna ett nytt terminalfönster, för att välja default shel
 
 ![V&#xE4;lj default shell.](../.gitbook/assets/defshell.png)
 
-Nästa steg är att skapa goda förutsättningar för att arbeta med kod i vscode. Börja med att skapa en **mapp** i c: med namnet code. Skapandet av mappen gör du i Windows. 
+Nästa steg är att skapa goda förutsättningar för att arbeta med kod i vscode. Börja med att skapa en **mapp** i c: med namnet code \(om du inte har en sedan tidigare\). Skapandet av mappen gör du i Windows. 
 
 {% hint style="info" %}
 Att samla kod på ett ställe är både praktiskt och bra praxis.
 {% endhint %}
 
-För att enkelt komma åt code-mappen ska du skapa en [**symbolisk länk**](https://sv.wikipedia.org/wiki/Symbolisk_l%C3%A4nk) **\(symlink\)** till den. Navigera till **hem-mappen** i WSL och skapa länken såhär:
+För att enkelt komma åt code-mappen ska du skapa en [**symbolisk länk**](https://sv.wikipedia.org/wiki/Symbolisk_l%C3%A4nk) **\(symlink\)** till den. Navigera till **hem-mappen** i WSL/Ubuntu och skapa länken såhär:
 
 ```bash
 cd
@@ -164,7 +164,7 @@ Det finns två sätt att åtgärda problemet med att Windows använder port 80. 
 
 ```bash
 cd /etc/apache2
-sudo nano ports.cfg
+sudo nano ports.conf
 ```
 
 Med textredigeringsprogrammet **Nano** ändra raden där det står `Listen 80` till `Listen 88`. Spara sedan filen i Nano genom att trycka `ctrl+o`, följt av enter och sedan `ctrl+x` för att avsluta.
