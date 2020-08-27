@@ -200,7 +200,8 @@ Skriv ett lösenord som du kommer ihåg och inget “viktigt” lösenord.
 {% endhint %}
 
 ```sql
-GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password';
+CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost';
 ```
 
 Kommandot skapa en användare för alla databaser på localhost med username och password. För att avsluta skriver du exit.
