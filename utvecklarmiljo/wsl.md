@@ -56,10 +56,14 @@ Ubuntu körs nu i ett fönster under Windows och ger dig tillgång till ett fler
 
 För att komma åt andra **diskar** eller **partitioner** med Windows filer på när du kör Ubuntu så hittar du dem i /mnt.
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 cd /mnt
 ls -la
 ```
+{% endtab %}
+{% endtabs %}
 
 List kommandot visar de **filsystem** som är aktiva under Linux. Kör du en skoldator med en disk så kommer du med största sannolikhet se`c`, vilket är disken som är`c:` under Windows.
 
@@ -71,9 +75,9 @@ Vscode är en **integrerad utvecklingsmiljö** \(på engelska **Integrated Devel
 
 I vscode är inte WSL dess standard shell. För att byta shell i vscode behöver du ändra inställningarna.
 
-```bash
-I menyn -> Terminal -> New Terminal
-```
+{% hint style="info" %}
+**I menyn -&gt; Terminal -&gt; New Terminal**
+{% endhint %}
 
 Vscode kommer att öppna ett nytt terminalfönster, för att välja default shell klickar du som på bilden och väljer sedan WSL.
 
@@ -87,13 +91,17 @@ Att samla kod på ett ställe är både praktiskt och bra praxis.
 
 För att enkelt komma åt code-mappen ska du skapa en [**symbolisk länk**](https://sv.wikipedia.org/wiki/Symbolisk_l%C3%A4nk) **\(symlink\)** till den. Navigera till **hem-mappen** i WSL/Ubuntu och skapa länken såhär:
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 cd
 ln -s /mnt/c/code
 ls -la
 ```
+{% endtab %}
+{% endtabs %}
 
-List kommandot visar om symlinken skapats. Är den röd saknas källan och det har blivit fel. Det ser ut såhär.
+List kommandot visar om symlinken skapats. Är den röd saknas källan och det har blivit fel. Du kan se hur det ser ut här nedanför.
 
 ```bash
 lrwxrwxrwx 1 jens jens       11 Feb 17  2019 code -> /mnt/c/code
@@ -101,25 +109,41 @@ lrwxrwxrwx 1 jens jens       11 Feb 17  2019 code -> /mnt/c/code
 
 Öppna code-mappen och lista innehållet.
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 cd code
 ls -la
 ```
+{% endtab %}
+{% endtabs %}
 
 ## GitHub
 
 För att använda **GIT** med WSL behöder det installeras. 
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 sudo apt install git
 ```
+{% endtab %}
+{% endtabs %}
 
 Git kan nu användas från WSL. När du gör din första **commit** kommer Git efterfråga dina användaruppgifter. Användaruppgifterna anger du med följande kommandon.
 
+{% hint style="info" %}
+Många program i Linux-miljö ger inget meddelande när de lyckas. 
+{% endhint %}
+
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 ```
+{% endtab %}
+{% endtabs %}
 
 Gits terminal-kommandon finns i detta [Cheat Sheet](https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf).
 
@@ -129,9 +153,13 @@ I webbserver-kursen kommer du att få prova på ett antal olika typer av **webbs
 
 Ubuntu har en färdig samling paket för LAMP-server.
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 sudo apt install lamp-server^
 ```
+{% endtab %}
+{% endtabs %}
 
 Svara \[Y\] på frågorna och vänta på att den ska ladda ner och installera paketen. Förhoppningsvis så går det bra, strular det så prova att starta om installationen.
 
@@ -141,9 +169,13 @@ Apache är ett open source webbserver-projekt som har funnits sedan 1995. Apache
 
 Apache startas på Ubuntu som en **service.**
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 sudo service apache2 restart
 ```
+{% endtab %}
+{% endtabs %}
 
 {% hint style="info" %}
 När en service startar och fungerar så står det \[OK\] till höger i terminalen. Eventuella meddelande är varningar eller annat. Så länge det står \[OK\] så är tjänsten startad.  
@@ -164,16 +196,24 @@ En port är en adress som trafiken skickas till. En webbservers standardport är
 
 Windows använder ofta port 80 för olika tjänster. Du kan undersöka det med hjälp av Powershell.
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 netstat -aon | findstr :80
 ```
+{% endtab %}
+{% endtabs %}
 
 Det finns två sätt att åtgärda problemet med att Windows använder port 80. Antingen avslutar du och stänger av tjänsterna som blockerar port 80, eller så ändrar du vilken port Apache ska använda. Det enklare sättet är att konfigurera om vilken port Apache använder.
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 cd /etc/apache2
 sudo nano ports.conf
 ```
+{% endtab %}
+{% endtabs %}
 
 Med textredigeringsprogrammet **Nano** ändra raden där det står `Listen 80` till `Listen 88`. Spara sedan filen i Nano genom att trycka `ctrl+o`, följt av enter och sedan `ctrl+x` för att avsluta.
 
@@ -189,17 +229,25 @@ MySQL är en **databashanterare** som använder språket **Structured Query Lang
 
 På Ubuntu startas **MySQL-server** som en service.
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 sudo service mysql restart
 ```
+{% endtab %}
+{% endtabs %}
 
 MySQL-servern ligger nu i bakgrunden och väntar på att användas. MySQL använder **port 3306** som standard och det behöver inte ändras.
 
 En MySQL-server används genom någon form av **klient**. Klienten kan vara ett program, en webbtjänst eller annat. För att koppla upp en klient till en MySQL-server behövs det en användare och ett lösenord. Första gången du gör detta så använder du sudo och en lokal MySQL-klient.
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 sudo mysql -u root
 ```
+{% endtab %}
+{% endtabs %}
 
 Sudo används här för att skapa en uppkoppling till MySQL-servern från MySQL-klienten med användaren root \(-u root\). Om uppkopplingen till MySQL-servern fungerade så kör följande kommando för att skapa dig en användare. Byt ut `username` och `password` mot dina egna uppgifter.
 
@@ -207,18 +255,26 @@ Sudo används här för att skapa en uppkoppling till MySQL-servern från MySQL-
 Skriv ett lösenord som du kommer ihåg och inget “viktigt” lösenord.
 {% endhint %}
 
+{% tabs %}
+{% tab title="SQL" %}
 ```sql
 CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost';
 ```
+{% endtab %}
+{% endtabs %}
 
 Kommandot skapa en användare för alla databaser på localhost med username och password. För att avsluta skriver du exit.
 
 Använd sedan MySQL-klienten för att testa användaren.
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 mysql -u username -p
 ```
+{% endtab %}
+{% endtabs %}
 
 Väl inne på servern så skrivs kommandon med [SQL](../databas/sql.md).
 
@@ -230,9 +286,13 @@ MySQL-logfiler för felsökning finns under /var/log/mysql.
 
 Från MySQL-klienten används SQL för att styra databasen och köra kommandon. Det är viktigt att du lär dig grunderna i SQL. Men för att förenkla arbetet med MySQL-servern finns det en klient som heter **phpMyAdmin**. phpMyAdmin kan installeras med apt.
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 sudo apt install phpmyadmin
 ```
+{% endtab %}
+{% endtabs %}
 
 Välj följande vid installationen:
 
@@ -242,13 +302,17 @@ Välj följande vid installationen:
 
 Apache2 använder ett modulärt system för konfiguration. För att slutföra installationen av phpMyAdmin måste vi skapa en symlink till konfigurationsfilen och berätta för systemet att den ska användas.
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 cd /etc/apache2/sites-available
 sudo ln -s /etc/phpmyadmin/apache.conf phpmyadmin.conf
 ls -la
 ```
+{% endtab %}
+{% endtabs %}
 
-Kommandot skapar en symlink som heter phpmyadmin.conf och som pekar till källfilen.
+Kommandot skapar en symlink som heter phpmyadmin.conf och som pekar till källfilen. Du kan se hur det ser ut här nedanför.
 
 ```bash
 lrwxrwxrwx 1 root root   27 Feb 17  2019 phpmyadmin.conf -> /etc/phpmyadmin/apache.conf
@@ -256,9 +320,13 @@ lrwxrwxrwx 1 root root   27 Feb 17  2019 phpmyadmin.conf -> /etc/phpmyadmin/apac
 
 Nästa steg är att aktivera konfigurationen med kommandot `a2ensite`.
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 sudo a2ensite phpmyadmin
 ```
+{% endtab %}
+{% endtabs %}
 
 Starta sedan om Apache och surfa till [http://localhost/phpmyadmin](http://localhost/phpmyadmin) eller [http://localhost:88/phpmyadmin](http://localhost:88/phpmyadmin) beroende på webbserverns port.
 
@@ -266,17 +334,25 @@ Starta sedan om Apache och surfa till [http://localhost/phpmyadmin](http://local
 
 Linux sparar alla användares data i `/home`, det är din hem-mapp. För att förenkla arbetet med filer till webbservern används en **modul** till Apache som heter **userdir**. Userdir kopplar en mapp, **public\_html**, i hem-mappen till webbservern. 
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 sudo a2enmod userdir
 sudo service apache2 restart
 ```
+{% endtab %}
+{% endtabs %}
 
 Skapa sedan mappen public\_html i hem-mappen.
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 cd
 mkdir public_html
 ```
+{% endtab %}
+{% endtabs %}
 
 Surfa sedan till http://localhost/~USER eller http://localhost:88/~USER, där USER är ett Linux username.
 
@@ -284,14 +360,19 @@ Surfa sedan till http://localhost/~USER eller http://localhost:88/~USER, där US
 
 **PHP: Hypertext Preprocessor \(PHP\)** är ett skriptspråk för webbservrar som används för att skapa **dynamiskt innehåll**. Det fungerar så att PHP kod tolkas och omvandlas till text. Apache behöver konfigureras för att tillåta PHP i public\_html. För att göra det behöver modulens konfigurationsfil redigeras.
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 cd /etc/apache2/mods-available
 ls -la php*
 sudo nano phpX.X.conf # där X är versionsnumret
 ```
+{% endtab %}
+{% endtabs %}
 
 Kommentera ut följande rader med `#`.
 
+{% code title="phpX.X.conf" %}
 ```bash
 <IfModule mod_userdir.c>
     <Directory /home/*/public_html>
@@ -299,22 +380,29 @@ Kommentera ut följande rader med `#`.
     </Directory>
 </IfModule>
 ```
+{% endcode %}
 
 Apache behöver sedan startas om.
 
 Skapa sedan en ny fil i public\_html för att testa om PHP fungerar.
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 cd
 cd public_html
 echo "<?php phpinfo(); ?>" > info.php
 ```
+{% endtab %}
+{% endtabs %}
 
 Surfa sedan till localhost/~USER/info.php med webbläsaren. Fungerar det så ser presenteras information för webbservern. När PHP inte fungerar så skrivs koden ut på det sätt den skrivs, det sker alltså ingen tolkning av Apache.
 
+{% code title="info.php" %}
 ```php
 <?php phpinfo(); ?>
 ```
+{% endcode %}
 
 ## Node.js
 
@@ -330,9 +418,13 @@ Miljön använder ett shell i Linux vilket är standarden inom det här området
 
 Att kunna navigera i bash är en förutsättning för användningen av WSL. Här är några av de kommandon som du bör lära dig. De flesta kommandon i linux ger dig bra hjälp om du skriver.
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 kommando --help
 ```
+{% endtab %}
+{% endtabs %}
 
 <table>
   <thead>
