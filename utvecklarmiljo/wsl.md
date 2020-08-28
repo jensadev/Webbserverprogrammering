@@ -20,9 +20,13 @@ För att få ut det mesta ur detta dokument och förstå så är det självklart
 
 Windows kräver att du slår på en feature för att kunna installera WSL. Starta Powershell som administratör och kör följande kommando.
 
+{% tabs %}
+{% tab title="Windows powershell" %}
 ```text
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
 ```
+{% endtab %}
+{% endtabs %}
 
 Windows kommer att be dig starta om datorn när kommandot är utfört. När din dator startat om så startar du sedan **Microsoft Store** och söker efter **Ubuntu**.
 
@@ -35,10 +39,14 @@ Skriv in ett användarnamn under installationen när den frågar.
 
 När installationen är färdig så startar du Ubuntu och kör följande kommandon med **apt**, apt är Ubuntus pakethanterare. Först uppdaterar apt Ubuntus listor över paket. Sedan uppgraderar apt de paket som behöver uppdateras.
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 sudo apt update
 sudo apt upgrade
 ```
+{% endtab %}
+{% endtabs %}
 
 {% hint style="info" %}
 Kommandot **sudo** låter dig köra program med rättigheterna för superuser, Linux root konto. Det behövs ofta när du ska installera program. Försök undvika det om möjligt av säkerhetsskäl.
