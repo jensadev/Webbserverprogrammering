@@ -16,23 +16,35 @@ För att använda MySQL så behöver du köra dess klient och server. I avsnitte
 
 Följande kommandon körs i **bash**.
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 sudo service mysql restart
 ```
+{% endtab %}
+{% endtabs %}
 
 Om du får ett \[ OK \] i terminalen har mysql **tjänsten** startats. Vill du kontrollera det ytterligare så kan du använda ett program som **htop** eller köra följande kommando, resultatet bör visa en eller flera **mysqld** processer.
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 ps auxf | grep mysql
 ```
+{% endtab %}
+{% endtabs %}
 
 ### Starta klienten
 
 När mysql-klienten startas behöver du ange en användare och ett lösenord. Kör följande för att koppla upp dig till din server på **localhost**.
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 mysql -u username -p
 ```
+{% endtab %}
+{% endtabs %}
 
 Om du lyckas koppla upp dig så bör du nu se mysql-prompten.
 
@@ -54,10 +66,14 @@ SQL-kommandon skrivs ofta i VERSALER, men språket i sig är inte **skifteskäns
 
 För att arbeta med en relationsdatabas behöver du först skapa eller välja en databas. Följande kommandon körs i mysql-prompten. Character set och det som följer sätter **teckenkodningen** till MySQLs implementering av **UTF-8**.
 
+{% tabs %}
+{% tab title="SQL" %}
 ```sql
  CREATE DATABASE databasnamn CHARACTER SET UTF8mb4 COLLATE utf8mb4_0900_ai_ci;
  USE databasnamn;
 ```
+{% endtab %}
+{% endtabs %}
 
 {% hint style="info" %}
 SQL-kommandon avslutas med ett **semikolon**, ;. Om du missar ett semikolon kommer prompten fortsätta kommandot på nya rader. Detta gör att du kan dela upp SQL kommandon på flera rader när du skriver dem. Skriv ett semikolon för att avsluta kommandot.
@@ -65,9 +81,13 @@ SQL-kommandon avslutas med ett **semikolon**, ;. Om du missar ett semikolon komm
 
 För att lista alla tillgängliga databaser på servern.
 
+{% tabs %}
+{% tab title="SQL" %}
 ```sql
 SHOW databases;
 ```
+{% endtab %}
+{% endtabs %}
 
 ### Skapa en tabell i en databas
 
@@ -79,16 +99,22 @@ Kontrollera att du har valt en databas.
 
 Create table skapar en tabell med angivet namn med en tillhörande kolumn. Hela kommandot skrivs här på tre rader.
 
+{% tabs %}
+{% tab title="SQL" %}
 ```sql
 CREATE TABLE tabellnamn (id INT UNSIGNED AUTO_INCREMENT, PRIMARY KEY(id)) 
 ENGINE = innodb
 DEFAULT CHARSET = utf8mb4;
 ```
+{% endtab %}
+{% endtabs %}
 
 Kolumnen som skapats har namnet id och är av typen **int** \(**heltal**, engelska **integer**\). Id kolumnen är även satt att vara **unsigned**, vilket gör att enbart icke negativa tal är tillåtna. **Auto increment** gör att databasen hanterar värdet på kolumnen, värdet uppdateras automatiskt med 1 för varje ny rad.
 
 För att se en tabells innehåll används.
 
+{% tabs %}
+{% tab title="SQL" %}
 ```sql
 DESCRIBE tabellnamn;
 
@@ -99,14 +125,20 @@ DESCRIBE tabellnamn;
 +-------+--------------+------+-----+---------+----------------+
 1 row in set (0.00 sec)
 ```
+{% endtab %}
+{% endtabs %}
 
 ### Kolumner
 
 För att skapa fler kolumner i en tabell så används **alter** tillsammans med **add**. Alter-kommandot kräver en tabell och ett kommando. Add-kommandot kräver ett namn, en datatyp och eventuellt andra parametrar.
 
+{% tabs %}
+{% tab title="SQL" %}
 ```sql
 ALTER TABLE tabellnamn ADD kolumn datatyp parametrar;
 ```
+{% endtab %}
+{% endtabs %}
 
 ## Datatyper
 
