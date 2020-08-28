@@ -12,7 +12,9 @@ Node är byggt på en javascriptmotor \([Chromes V8](https://v8.dev/)\) för att
 
 Den här guiden utgår från materialet kring [**Windows Subsystem for Linux \(WSL\)**](../../utvecklarmiljo/wsl.md). Den [Node ](https://nodejs.org/)version som kommer att användas är 12, vilket är Nodes **Long Term Support \(LTS\)** version. För att installera version 12 av Node går det inte att köra apt install node direkt.
 
-```text
+{% tabs %}
+{% tab title="Bash" %}
+```bash
 sudo apt update
 sudo apt upgrade
 
@@ -21,30 +23,48 @@ curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 
 sudo apt install nodejs
 ```
+{% endtab %}
+{% endtabs %}
 
 Kontrollera sedan den installerade versionen av Node, bör vara 12.x.
 
-```text
+{% tabs %}
+{% tab title="Bash" %}
+```bash
 node --version
 ```
+{% endtab %}
+{% endtabs %}
 
 Med node följer **Node Package Manager \(npm\),** bör vara 6.x.
 
-```text
+{% tabs %}
+{% tab title="Bash" %}
+```bash
 npm --version
 ```
+{% endtab %}
+{% endtabs %}
 
 Nästa steg är att installera **Express** och Express generator. [Express](https://expressjs.com/) är ett minimalistiskt ramverk för Node. Express underlättar skapandet av en webbserver med Node. Express kommer att installeras globalt på systemet, något som kräver sudo.
 
-```text
+{% tabs %}
+{% tab title="Bash" %}
+```bash
 sudo npm i -g express express-generator
 ```
+{% endtab %}
+{% endtabs %}
 
 Kontrollera sedan att det fungerade med.
 
-```text
+{% tabs %}
+{% tab title="Bash" %}
+```bash
 express --help
 ```
+{% endtab %}
+{% endtabs %}
 
 ### Ett första projekt
 
@@ -56,11 +76,15 @@ Var alltid väldigt noga med att köra kommandon från rätt mapp. Skapa inte Gi
 
  Skapa en mapp för projektet, gå in i mappen och kör Express.
 
-```text
+{% tabs %}
+{% tab title="Bash" %}
+```bash
 mkdir PROJEKTNAMN
 cd PROJEKTNAMN
 express --view=pug --css sass --git
 ```
+{% endtab %}
+{% endtabs %}
 
 Express generator skapar med detta kommando grund-strukturen för en app. Express generator körs med parametrarna view, css och git. 
 
@@ -86,15 +110,23 @@ Node-projekt kräver i allmänhet ett antal NPM-paket för att fungera. Express 
 
 NPM installerar paket med följande kommando.
 
-```text
+{% tabs %}
+{% tab title="Bash" %}
+```bash
 npm install
 ```
+{% endtab %}
+{% endtabs %}
 
 npm install skapar en fil som heter **package-lock.json**, filen innehåller information om alla paketen som installerats och de paket som de kräver för att fungera i sin tur. Om install-kommandot kördes utan fel \(vid fel står det npm ERR!\) så är servern redo.
 
-```text
+{% tabs %}
+{% tab title="Bash" %}
+```bash
 npm start
 ```
+{% endtab %}
+{% endtabs %}
 
 Surfa sedan till [localhost:3000](http://localhost:3000/). Node-servern är startad och kan besökas med värddatorns **ip-adress** och rätt **port** även från andra datorer.
 
@@ -106,9 +138,13 @@ Port 3000 används ofta för att komma åt en utvecklar Node-servern. Detta skil
 
 Nodemon är ett paket till Node som underlättar utvecklingen av projekt. Det bevakar och lyssnar efter ändringar i serverns filer. Om filerna sparas \(ändras\) så laddas Node om.
 
-```text
+{% tabs %}
+{% tab title="Bash" %}
+```bash
 npm install --save-dev nodemon
 ```
+{% endtab %}
+{% endtabs %}
 
 Uppdatera package.json.
 
@@ -124,21 +160,27 @@ Starta sedan servern igen.
 
 ### Eslint
 
-**Visual Studio Code \(vscode\)** kan användas tillsammans med en så kallad **linter** för att hitta fel och formatera kod. Eslint är en linter för Javascript. Det är väldigt praktiskt vid arbete med kod och hjälper dig som utvecklare att följa praxis och skapa kod av hög kvalité. Eslint behöver installeras för projektet.
+**Visual Studio Code \(vscode\)** kan användas tillsammans med en så kallad **linter** för att hitta fel och formatera kod. Eslint är en linter för Javascript. Det är väldigt praktiskt vid arbete med kod och hjälper dig som utvecklare att följa praxis och skapa kod av hög kvalité. För att kunna köra Eslint kan det behöva installeras globalt, det gör vi med -g parametern.
 
-```
+{% tabs %}
+{% tab title="Bash" %}
+```bash
 sudo npm -g install eslint
 ```
+{% endtab %}
+{% endtabs %}
 
-NPM körs med install-kommandot och en parameter, `--save-dev`. Detta gör att det valda paketet sparas i package.json under dev dependencies.
+För att slutföra installationen av Eslint så behöver en konfigurationsfil skapas. Var noga med att vara i projektmappen när du kör kommandot.
 
-För att slutföra installationen av Eslint så behöver en konfigurationsfil skapas.
-
-```text
+{% tabs %}
+{% tab title="Bash" %}
+```bash
 eslint --init
 ```
+{% endtab %}
+{% endtabs %}
 
-Svara följande till en början:
+Svara följande:
 
 ```text
 ? How would you like to use ESLint? To check syntax, find problems, and enforce code style
@@ -153,7 +195,7 @@ Svara följande till en början:
 
 NPM kommer sedan att fråga om paketen ska installeras, välj ja.
 
-I projektets root har Eslint skapat en fil som heter **.eslintrc.js** med inställningarna. För att läsa mer om valet Javascript standard style så kolla [Standardjs](https://standardjs.com/rules.html). 
+I projektets root har Eslint skapat en fil som heter **.eslintrc.js** med inställningarna. Mer information kring  Javascript standard style hittar du på [Standardjs](https://standardjs.com/rules.html). 
 
 Eslintrc kan nu redigeras för att ändra inställningarna. För att till exempel ändra formateringsregler så finns de under rules. En sådan regel kan vara att visa fel när semi-kolon saknas.
 
@@ -166,7 +208,11 @@ rules: {
 ```
 {% endcode %}
 
-Till sist så behöver du installera eslint extension i vscode.
+Till sist så behöver du installera eslint **extension** \(svenska **tillägg**\) i Vscode. Extensions finns i sidomenyn.
+
+![Extensions i Vscode.](../../.gitbook/assets/extensions.png)
+
+Sök efter eslint och installera följande tillägg.
 
 ![](../../.gitbook/assets/eslint.png)
 
@@ -201,6 +247,7 @@ App.js laddar in serverns routes från routes/ foldern. När en **route** laddas
 
 Routerna som skapas av Express generator är index och users. Index hanterar anrop till / och users till /users. Applikationens router laddas och kopplas till en adress i app.js. 
 
+{% code title="app.js" %}
 ```javascript
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -208,6 +255,7 @@ const usersRouter = require('./routes/users');
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 ```
+{% endcode %}
 
 Routerna innehåller i sin tur koden för att hantera anropen. Detta system skapar struktur för koden. Koden för index-routen ser ut såhär, på [Git](https://github.com/jensnti/wsp1-node/blob/ac1733d144ed049550e30fa2a711ae876ef9c3cd/routes/index.js).
 
