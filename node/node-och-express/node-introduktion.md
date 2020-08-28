@@ -127,7 +127,7 @@ Starta sedan servern igen.
 **Visual Studio Code \(vscode\)** kan användas tillsammans med en så kallad **linter** för att hitta fel och formatera kod. Eslint är en linter för Javascript. Det är väldigt praktiskt vid arbete med kod och hjälper dig som utvecklare att följa praxis och skapa kod av hög kvalité. Eslint behöver installeras för projektet.
 
 ```
-npm install --save-dev eslint
+sudo npm -g install eslint
 ```
 
 NPM körs med install-kommandot och en parameter, `--save-dev`. Detta gör att det valda paketet sparas i package.json under dev dependencies.
