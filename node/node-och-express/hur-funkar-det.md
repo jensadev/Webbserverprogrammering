@@ -31,9 +31,11 @@ Det här projektets vy-struktur utgår från filen layout.pug. Underliggande sid
 
 Filen index.pug ärver från layout.pug med
 
+{% code title="views/index.pug" %}
 ```text
 extends layout
 ```
+{% endcode %}
 
 Layout-vyn är projektets HTML-bas så i den filen behövs en validerande HTML grund. Öppna filen och skriv följande kod.
 
@@ -188,9 +190,13 @@ I det här projektet kan Sass-koden delas upp i flera filer. Detta görs med [`@
 
 För att installera Sass kan **Node Package Manager \(NPM\)** eller **apt** i **Ubuntu** användas. Här följer instruktioner för att installera Sass med NPM.
 
-```text
+{% tabs %}
+{% tab title="Bash" %}
+```bash
 npm install --save-dev sass
 ```
+{% endtab %}
+{% endtabs %}
 
 Uppdatera sedan `package.json` med följande script.
 
@@ -205,9 +211,13 @@ Uppdatera sedan `package.json` med följande script.
 
 Nu kan scriptet startas och Sass kommer bevaka filerna efter ändringar när de sparas för att då kompilera dem till css.
 
+{% tabs %}
+{% tab title="Bash" %}
 ```bash
 npm run compile
 ```
+{% endtab %}
+{% endtabs %}
 
 Systemet är nu redo för css-stilar.
 
