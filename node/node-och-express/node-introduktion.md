@@ -166,6 +166,10 @@ rules: {
 ```
 {% endcode %}
 
+Till sist så behöver du installera eslint extension i vscode.
+
+![](../../.gitbook/assets/eslint.png)
+
 ## Lär känna din app
 
 Applikationens grunder är nu installerade tillsammans med ett par verktyg för att underlätta utvecklingen. Nästa steg är att titta på Express filstruktur och hur du arbetar med det. Filstrukturen i Express ser ut såhär efter installationen.
