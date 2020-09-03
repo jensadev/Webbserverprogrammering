@@ -97,7 +97,7 @@ För att spara data behöver först en tabell skapas. När en tabell skapas krä
 Kontrollera att du har valt en databas.
 {% endhint %}
 
-Create table skapar en tabell med angivet namn med en tillhörande kolumn. Hela kommandot skrivs här på tre rader.
+CREATE TABLE skapar en tabell med angivet namn med en tillhörande kolumn. Hela kommandot skrivs här på tre rader.
 
 {% tabs %}
 {% tab title="SQL" %}
@@ -142,13 +142,23 @@ ALTER TABLE tabellnamn ADD kolumn datatyp parametrar;
 
 ## Datatyper
 
-Varje kolumn i en relationsdatabas har en datatyp som definierar vilka värden som kan sparas i kolumnen. Några vanliga typer att börja med är:
+Varje kolumn i en relationsdatabas har en datatyp som definierar vilken typ av värd som kan sparas. Några vanliga typer att börja med är:
 
-* int, heltal.
-* decimal\(p, s\), kräver att precisionen och storleken anges.
-* varchar\(l\), en sträng med variabel storlek, kräver att längden anges. 
-* text, för större strängar.
-* timestamp, en datumstämpel.
+* INT, heltal.
+* DECIMAL\(p, s\), kräver att precisionen och storleken anges.
+* VARCHAR\(l\), en sträng med variabel storlek, kräver att längden anges. 
+* TEXT, för större strängar.
+* TIMESTAMP, en datumstämpel.
+
+Följande exempel skapar en textkolumn i databasen med datatypen varchar.
+
+{% tabs %}
+{% tab title="SQL" %}
+```sql
+ALTER TABLE users ADD name VARCHAR(30);
+```
+{% endtab %}
+{% endtabs %}
 
 {% hint style="info" %}
 [På W3Schools finns en lista över datatyperna med beskrivningar.](https://www.w3schools.com/sql/sql_datatypes.asp)
@@ -156,15 +166,75 @@ Varje kolumn i en relationsdatabas har en datatyp som definierar vilka värden s
 
 ## Parametrar
 
-Det
+Utöver namnet på kolumnen samt datatypen kan en eller fler parametrar användas.
 
-* null, kolumnens värde kan vara tomt
-* not null, kolumnens värde får inte vara tomt
-* unsigned
-* auto\_increment
-* unique
+* NULL, kolumnens värde kan vara tomt.
+* NOT NULL, kolumnens värde får inte vara tomt.
+* UNSIGNED, ändrar en numerär kolumn så att den enbart kan innehålla icke negativa värden.
+* AUTO\_INCREMENT, använder databasens räknare för värdet.
+* UNIQUE, värdet måste vara unikt.
+
+Följande exempel skapar en unik kolumn.
+
+{% tabs %}
+{% tab title="SQL" %}
+```sql
+ALTER TABLE users ADD email VARCHAR(255) UNIQUE;
+```
+{% endtab %}
+{% endtabs %}
 
 ## Kommandon, fortsättning
 
+* USE databasnamn, använd databas.
+* SHOW databases eller tables, visa val.
+* DESCRIBE tabell, beskriver eller visar en tabells struktur.
+* DROP databas eller tabell, ta bort val.
+* ALTER TABLE tabellnamn DROP kolumn, ta bort val.
+* SELECT kolumner FROM tabellnamn, för att välja data.
+
 ## Kommandon, skapa data
+
+För att skapa data i en kolumn används INSERT.
+
+{% tabs %}
+{% tab title="SQL" %}
+```sql
+INSERT INTO users (name, email) VALUES ("username","username@test.se");
+```
+{% endtab %}
+{% endtabs %}
+
+För att välja data används SELECT kommandot, det returnerar ett resultat. Select väljer kolumner från en tabell, det går antingen att specificera dessa eller använda ett **wildcard**, \*.
+
+{% tabs %}
+{% tab title="SQL" %}
+```sql
+SELECT name, email FROM users;
+SELECT * FROM users;
+```
+{% endtab %}
+{% endtabs %}
+
+Utöver detta så kan den valda datan sorteras och begränsas. För att välja den senaste raden.
+
+{% tabs %}
+{% tab title="SQL" %}
+```sql
+SELECT kolumn FROM tabell ORDER BY kolumn DESC LIMIT 1;
+```
+{% endtab %}
+{% endtabs %}
+
+* ORDER BY kolumn, sorterar resultatet efter vald kolumn.
+* DESC eller ASC väljer sorteringsordningen.
+* LIMIT \#, begränsa resultatet till \# antal rader.
+
+### Specifika rader
+
+För att välja specifika rader i databasen så väljs dem utifrån värdet. Då används WHERE.
+
+```sql
+SELECT * FROM users WHERE name = 'username';
+```
 
