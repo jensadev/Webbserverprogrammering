@@ -10,7 +10,9 @@ Innehållet på en sida med Pug struktureras med **indentering.** Text i början
 
 Pug stöder **variabler**, **iteration** och **mixins**\(funktioner\) bland annat.
 
-```text
+{% tabs %}
+{% tab title="Pug" %}
+```markup
 div#idname
   h1.classname Rubrik
   p.class1.class2 Brödtext
@@ -18,6 +20,8 @@ div#idname
   p Lorem...
     a(href='#') Länk i p texten
 ```
+{% endtab %}
+{% endtabs %}
 
 Läs mer om Pug i [dokumentation](https://pugjs.org/)en och använd den vid behov. Det finns även ett antal **extensions** för [**Visual Studio Code**](https://code.visualstudio.com/) \(förkortat till **vscode**\) för att underlätta arbetet med Pug.
 
