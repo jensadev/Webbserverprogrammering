@@ -191,44 +191,7 @@ I den här uppgiften ska du skapa en footer-vy som ska inkluderas på varje sida
 Express generator installerar middleware för att kompilera Sass-filer till css-filer. Om projektet inte behöver inkludera flera sass filer fungerar det utmärkt.
 
 {% hint style="danger" %}
-I det här projektet kan Sass-koden delas upp i flera filer. Detta görs med [`@Use`](https://sass-lang.com/documentation/at-rules/use) regeln. Användandet av @use kan dock skapa kompileringsfel med Sass middleware. Om du behöver använda flera Sass-filer behöver du installera Sass separat och kompilera din css manuellt.
-{% endhint %}
-
-För att installera Sass kan **Node Package Manager \(NPM\)** eller **apt** i **Ubuntu** användas. Här följer instruktioner för att installera Sass med NPM.
-
-{% tabs %}
-{% tab title="Bash" %}
-```bash
-npm install --save-dev sass
-```
-{% endtab %}
-{% endtabs %}
-
-Uppdatera sedan `package.json` med följande script.
-
-{% code title="package.json" %}
-```javascript
-"scripts": {
-  "start": "nodemon ./bin/www",
-  "compile": "sass --watch public/stylesheets/"
-},
-```
-{% endcode %}
-
-Nu kan scriptet startas och Sass kommer bevaka filerna efter ändringar när de sparas för att då kompilera dem till css.
-
-{% tabs %}
-{% tab title="Bash" %}
-```bash
-npm run compile
-```
-{% endtab %}
-{% endtabs %}
-
-Systemet är nu redo för css-stilar.
-
-{% hint style="info" %}
-[Läs mer om exemplets design här.](design.md)
+I det här projektet kan Sass-koden delas upp i flera filer. Detta görs med [`@use`](https://sass-lang.com/documentation/at-rules/use) regeln, men node-sass-middleware som experess använder har ett äldre syntax. Därför behöver projektet använda `@import` istället för `@use`.
 {% endhint %}
 
 ### style.sass
@@ -263,6 +226,13 @@ nav > ul
 {% endcode %}
 
 De här stilarna ger en grundläggande formatering. Placeringen av elementen sker med [**flexbox**](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox). Prova att lägga till en font med [Google fonts](https://fonts.google.com/). Fonten behöver då länkas i layout-vyn, och Sass-stilen behöver uppdateras.
+
+{% code title="views/layout.pug" %}
+```css
+head
+  link(href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet")
+```
+{% endcode %}
 
 För egenskaper som upprepas i Sass-kod är det praktiskt att skapa [**variabler**](https://sass-lang.com/documentation/variables). Det gör att du slipper upprepa kod och enkelt kan ändra värden.
 

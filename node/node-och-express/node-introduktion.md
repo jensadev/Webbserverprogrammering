@@ -81,7 +81,7 @@ Var alltid väldigt noga med att köra kommandon från rätt mapp. Skapa inte Gi
 ```bash
 mkdir PROJEKTNAMN
 cd PROJEKTNAMN
-express --view=pug --css sass --git
+express --view pug --css sass --git
 ```
 {% endtab %}
 {% endtabs %}
