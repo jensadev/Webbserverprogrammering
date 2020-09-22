@@ -126,7 +126,9 @@ Den users-route som Express generator skapat returnerar enbart en resurs. För a
 
 {% code title="routes/users.js" %}
 ```javascript
-res.render('users', {});
+router.get('/', function(req, res, next) {
+  res.render('users', {});
+});
 ```
 {% endcode %}
 
