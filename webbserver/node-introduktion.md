@@ -281,14 +281,14 @@ Om du vill kolla koden innan jag började ändra i det här projektet så kolla 
 
 ### En egen route
 
-För att skapa en route så kan vi redigera filen index.js i routes mappen. Vi utgår från en kopia av den existerande routen. Routes url kommer att vara /test och den kommer 
+För att skapa en route så kan vi redigera filen index.js i routes mappen. Kopiera GET routen för / och klistra in den efter den existerande routen. 
 
 {% code title="routes/index.js" %}
 ```javascript
 /* GET home page. */
 router.get('/test', function (req, res, next) {
   // render view med data
-  res.render('test', { data: 'Detta är en testroute.' });
+  res.send('Detta är en ny testroute.');
 });
 ```
 {% endcode %}

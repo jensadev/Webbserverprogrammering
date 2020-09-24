@@ -51,7 +51,7 @@ I head-taggen på layout-vyn så lägger du till.
 {% code title="views/layout.pug" %}
 ```text
 block head
-  title= Webbserverprogrammering
+  title Webbserverprogrammering
 ```
 {% endcode %}
 
