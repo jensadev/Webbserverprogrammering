@@ -279,3 +279,17 @@ En view laddas med ett så kallat **middleware** i app.js. Det sätter en **path
 Om du vill kolla koden innan jag började ändra i det här projektet så kolla igenom repots [commit-historik](https://github.com/jensnti/wsp1-node/commits/master). De commits som visar starten är [följande](https://github.com/jensnti/wsp1-node/tree/ac1733d144ed049550e30fa2a711ae876ef9c3cd), detta för att jag gjorde en del ändringar och bytte view-motor till Pug efter att jag kört Express generator.
 {% endhint %}
 
+### En egen route
+
+För att skapa en route så kan vi redigera filen index.js i routes mappen. Vi utgår från en kopia av den existerande routen. Routes url kommer att vara /test och den kommer 
+
+{% code title="routes/index.js" %}
+```javascript
+/* GET home page. */
+router.get('/test', function (req, res, next) {
+  // render view med data
+  res.render('test', { data: 'Detta är en testroute.' });
+});
+```
+{% endcode %}
+
