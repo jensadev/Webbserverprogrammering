@@ -10,13 +10,12 @@
 
 * [Viktiga begrepp](teknisk-orientering/viktiga-begrepp.md)
 
-## Node
+## Webbserver
 
-* [Node och Express](node/node-och-express/README.md)
-  * [Introduktion](node/node-och-express/node-introduktion.md)
-  * [Hur fungerar det?](node/node-och-express/hur-funkar-det.md)
-  * [Design](node/node-och-express/design.md)
-  * [Aktiv sida](node/node-och-express/nuvarande-sida.md)
+* [Introduktion](webbserver/node-introduktion.md)
+* [Hur fungerar det?](webbserver/hur-funkar-det.md)
+* [Design](webbserver/design.md)
+* [Aktiv sida](webbserver/nuvarande-sida.md)
 
 ## Databas
 
