@@ -281,7 +281,7 @@ Om du vill kolla koden innan jag började ändra i det här projektet så kolla 
 
 ### En egen route
 
-För att skapa en route så kan vi redigera filen index.js i routes mappen. Kopiera GET routen för / och klistra in den efter den existerande routen. 
+För att skapa en route så kan vi redigera filen index.js i routes mappen. Kopiera GET routen för / och klistra in den efter den existerande routen. Routen vi skapar är för en GET request till /test och den svarar med text.
 
 {% code title="routes/index.js" %}
 ```javascript
