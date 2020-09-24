@@ -14,7 +14,7 @@
 
 * [Introduktion](webbserver/node-introduktion.md)
 * [Hur fungerar det?](webbserver/hur-funkar-det.md)
-* [Design](webbserver/design.md)
+* [Design - inte så webbserver](webbserver/design.md)
 * [Aktiv sida](webbserver/nuvarande-sida.md)
 
 ## Databas

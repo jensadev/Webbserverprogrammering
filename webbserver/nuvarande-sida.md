@@ -84,7 +84,7 @@ Färdigställ navigationen och koden i users-vyn.
 Active-klassens syfte är att ge användaren visuell återkoppling kring vilken sida som är aktiv. Klassen behöver alltså skilja sig från övriga länkar. Skriv följande kod.
 
 {% code title="public/stylesheets/style.sass" %}
-```text
+```css
   .active
     color: $active-color
     &:hover
