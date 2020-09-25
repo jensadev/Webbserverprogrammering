@@ -265,3 +265,7 @@ SELECT meeps.*, users.name FROM meeps JOIN users ON meeps.user_id = users.id;
 
 Notera att vi specifierar vilka kolumner vi väljer från tabellerna och syntaxen för detta.
 
+## Mysql cmdline
+
+
+
