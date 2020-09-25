@@ -20,6 +20,7 @@
 ## Databas
 
 * [SQL](databas/sql.md)
+* [Ett exempel](databas/ett-exempel.md)
 * [SQL och Node](databas/sql-och-node.md)
 * [Databasdesign](databas/databasdesign.md)
 
