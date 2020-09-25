@@ -245,5 +245,23 @@ select * from meeps;
 
 ## Join
 
+För att koppla ihop tabellerna i en relationsdatabas så används JOIN i SELECT frågan. Det låter dig välja specifik data ur flera tabeller. Det är med hjälp av detta vi kan få tillgång till författarens namn för varje meddelande med hjälp av user\_id kolumnen.
 
+{% tabs %}
+{% tab title="SQL" %}
+```sql
+SELECT meeps.*, users.name FROM meeps JOIN users ON meeps.user_id = users.id;
++----+-----------------------------+--------------------------------------------+---------------------+---------------------+---------+------+
+| id | title                       | body                                       | created_at          | updated_at          | user_id | name |
++----+-----------------------------+--------------------------------------------+---------------------+---------------------+---------+------+
+|  1 | Hello world                 | Lorem ipsum...                             | 2020-09-25 13:02:13 | 2020-09-25 13:21:55 |       1 | jens |
+|  2 | Hello there                 | Lorem ipsum dolor sit...                   | 2020-09-25 13:04:34 | 2020-09-25 13:19:53 |       1 | jens |
+|  3 | Hello                       | Lorem ipsum dolor sit amet...              | 2020-09-25 13:04:49 | 2020-09-25 13:21:41 |       1 | jens |
+|  4 | Hello is anybody out there? | Lorem ipsum dolor sit amet, consectetur... | 2020-09-25 13:05:08 | 2020-09-25 13:21:42 |       1 | jens |
++----+-----------------------------+--------------------------------------------+---------------------+---------------------+---------+------+
+```
+{% endtab %}
+{% endtabs %}
+
+Notera att vi specifierar vilka kolumner vi väljer från tabellerna och syntaxen för detta.
 
