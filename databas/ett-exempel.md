@@ -265,7 +265,29 @@ SELECT meeps.*, users.name FROM meeps JOIN users ON meeps.user_id = users.id;
 
 Notera att vi specificerar vilka kolumner vi väljer från respektive tabell och syntaxen för detta, tabellnamn.column. \* är fortfarande en wildcard och betyder alla kolumner. 
 
-## Dump
+## Exportera och importera
 
+Vi kan använda programmet mysqldump för att exportera databasen. Det fungerar som en backup och formatet går utmärkt att spara på GitHub. Gör en dump av databasen och studera sedan filen.
 
+{% hint style="info" %}
+En mysqldump är en lång lista på SQL frågor för att återskapa en databas.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Bash" %}
+```bash
+mysqldump -u USERNAME -p DATABASENAME > FILENAME.sql
+```
+{% endtab %}
+{% endtabs %}
+
+För att läsa in en dump så används mysql klienten.
+
+{% tabs %}
+{% tab title="Bash" %}
+```bash
+mysql -u USERNAME -p DATABASENAME < FILENAME.sql
+```
+{% endtab %}
+{% endtabs %}
 
