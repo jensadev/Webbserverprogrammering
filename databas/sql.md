@@ -193,7 +193,7 @@ ALTER TABLE users ADD email VARCHAR(255) UNIQUE;
 * ALTER TABLE tabellnamn DROP kolumn, ta bort val.
 * SELECT kolumner FROM tabellnamn, för att välja data.
 
-## Kommandon, skapa data
+## Kommandon, skapa och välja data
 
 För att skapa data i en kolumn används INSERT.
 
@@ -236,5 +236,11 @@ För att välja specifika rader i databasen så väljs dem utifrån värdet. Då
 
 ```sql
 SELECT * FROM users WHERE name = 'username';
+```
+
+Antalet svar kan även sorteras och begränsas.
+
+```sql
+LIMIT BY ORDER BY
 ```
 
