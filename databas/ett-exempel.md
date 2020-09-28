@@ -263,7 +263,7 @@ SELECT meeps.*, users.name FROM meeps JOIN users ON meeps.user_id = users.id;
 {% endtab %}
 {% endtabs %}
 
-Notera att vi specifierar vilka kolumner vi väljer från tabellerna och syntaxen för detta.
+Notera att vi specificerar vilka kolumner vi väljer från respektive tabell och syntaxen för detta, tabellnamn.column. \* är fortfarande en wildcard och betyder alla kolumner. 
 
 ## Mysql cmdline
 
