@@ -165,6 +165,12 @@ Databasmodellen sparas i variabeln pool för användning. Sedan används metoden
 
 ## Databasfråga
 
+Innan du går vidare så behöver du starta mysql-servern och importera databasen från [exemplet](databas-exempel.md).
+
+{% hint style="info" %}
+Databasdump finns [här](https://raw.githubusercontent.com/jensnti/Webbserverprogrammering/master/exempel/meeps.sql).
+{% endhint %}
+
 {% code title="routes/test.js" %}
 ```javascript
 router.get('/', function (req, res, next) {
