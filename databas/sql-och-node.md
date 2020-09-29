@@ -171,6 +171,17 @@ Innan du går vidare så behöver du starta mysql-servern och importera database
 Databasdump finns [här](https://raw.githubusercontent.com/jensnti/Webbserverprogrammering/master/exempel/meeps.sql).
 {% endhint %}
 
+{% tabs %}
+{% tab title="Bash" %}
+```bash
+sudo service mysql restart
+mysql -u USERNAME -p DATABASE < FILENAME
+```
+{% endtab %}
+{% endtabs %}
+
+Ändra sedan test-routen till att innehålla en faktisk SQL fråga. Routen kommer nu att svara på /test och svara med resultatet av databasfrågan i JSON.
+
 {% code title="routes/test.js" %}
 ```javascript
 router.get('/', function (req, res, next) {
