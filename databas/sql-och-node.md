@@ -161,5 +161,5 @@ module.exports = router;
 ```
 {% endcode %}
 
-Databasmodellen sparas i variabeln pool för användning. Sedan används metoden .getConnection för att hämta en uppkoppling från poolen. Sidan visar sedan uppkopplingens id innan uppkopplingen släpps, release. 
+Databasmodellen sparas i variabeln pool för användning. Sedan används metoden `.getConnection()` för att hämta en uppkoppling från poolen. Sidan visar sedan uppkopplingens id innan uppkopplingen släpps, release. Testa vad som sker utan `connection.release()`.
 
