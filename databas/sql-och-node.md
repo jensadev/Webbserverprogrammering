@@ -163,3 +163,21 @@ module.exports = router;
 
 Databasmodellen sparas i variabeln pool för användning. Sedan används metoden `.getConnection()` för att hämta en uppkoppling från poolen. Sidan visar sedan uppkopplingens id innan uppkopplingen släpps, release. Testa vad som sker utan `connection.release()`.
 
+## Databasfråga
+
+{% code title="routes/test.js" %}
+```javascript
+router.get('/', function (req, res, next) {
+  const sql = 'SELECT * FROM meeps';
+
+  pool.query(sql, function (err, result, fields) {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      result
+    });
+  });
+});
+```
+{% endcode %}
+
