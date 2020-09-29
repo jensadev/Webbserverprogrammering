@@ -74,7 +74,92 @@ Sist men inte minst kontrollerar du\(eller skapar\) en .gitignore i projektets r
 ```
 {% endcode %}
 
+För att komma åt värdena från .env filen så behöver paketet laddas in så tidigt som möjligt i applikationen. De återfinns sedan i process.env.
+
+{% code title="app.js" %}
+```javascript
+...
+require('dotenv').config();
+```
+{% endcode %}
+
+Med dotenv blir exemplet med uppkopplingen följande.
+
+{% tabs %}
+{% tab title="JavaScript" %}
+```javascript
+const connection = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_DATABASE
+});
+ 
+connection.connect(function (err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+    return;
+  }
+ 
+  console.log('connected as id ' + connection.threadId);
+});
+```
+{% endtab %}
+{% endtabs %}
+
 ## Databasmodell
 
-För att kommunicera med databasen skapar vi en databas modell. Det är i stort sett 
+För att använda mysql kommer vi att skapa en återanvändbar modell. Denna modell kommer även att använda en pool med uppkopplingar. Modellen kommer att exportera en skapad pool för användning.
+
+Skapa en ny mapp _models_ i projektets root och i den, _db.js_.
+
+{% code title="models/db.js" %}
+```javascript
+const mysql = require('mysql');
+
+const pool = mysql.createPool({
+  connectionLimit: 10,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_DATABASE
+});
+
+module.exports = pool;
+
+```
+{% endcode %}
+
+För att testa modellen skapar vi en testroute och tillhörande filer. Skapa _routes/test.js._
+
+{% code title="app.js" %}
+```javascript
+...
+const testRouter = require('./routes/test');
+...
+app.use('/test', testRouter);
+```
+{% endcode %}
+
+{% code title="routes/test.js" %}
+```javascript
+const express = require('express');
+const router = express.Router();
+const pool = require('../models/db');
+
+pool.getConnection((error, connection) => {
+  if (error) {
+    throw error;
+  }
+
+  res.send('connected as id ' + connection.threadId);
+
+  connection.release();
+});
+
+module.exports = router;
+```
+{% endcode %}
+
+Databasmodellen sparas i variabeln pool för användning. Sedan används metoden .getConnection för att hämta en uppkoppling från poolen. Sidan visar sedan uppkopplingens id innan uppkopplingen släpps, release. 
 
