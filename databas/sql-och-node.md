@@ -180,7 +180,7 @@ mysql -u USERNAME -p DATABASE < FILENAME
 {% endtab %}
 {% endtabs %}
 
-Ändra sedan test-routen till att innehålla en faktisk SQL fråga. Routen kommer nu att svara på /test och svara med resultatet av databasfrågan i JSON.
+Ändra sedan test-routen till att innehålla en faktisk SQL fråga. Routen kommer nu att svara på /test och svara med resultatet av databasfrågan i JSON. Du kan även logga\(console.log\) resulatet från databasfrågan för att se hur objektet ser ut\(det skrivs då i terminalen där du startat node\).
 
 {% code title="routes/test.js" %}
 ```javascript
@@ -197,4 +197,42 @@ router.get('/', function (req, res, next) {
 });
 ```
 {% endcode %}
+
+## Databasresultat till en view
+
+I det här steget ska vi skapa en view som kan visa resultatet av en SQL fråga. Detta för att sammankoppla alla delarna. För att göra detta så behöver routen ändras. Test-routens respons ska använda render metoden med en test-view och resultatets data.
+
+{% code title="routes/test.js" %}
+```javascript
+router.get('/', function (req, res, next) {
+  const sql = 'SELECT * FROM meeps';
+  
+  pool.query(sql, function (err, result, fields) {
+    if (err) throw err;
+    
+    res.render('test', { result: result });
+  });
+});
+```
+{% endcode %}
+
+
+
+
+
+
+
+Skapa en view som heter _test_. I en första test skriver vi ut värdena från mysql resultatet med [interpolation ](https://pugjs.org/language/interpolation.html)i Pug. Det är då viktigt att se till att värden som skrivs ut escapas\(säkerhetsrisk\).
+
+{% code title="views/test.pug" %}
+```javascript
+extends layout
+
+block content
+  each row in result
+    
+```
+{% endcode %}
+
+
 
