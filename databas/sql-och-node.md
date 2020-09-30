@@ -216,7 +216,9 @@ router.get('/', function (req, res, next) {
 ```
 {% endcode %}
 
-Skapa sedan en view som heter _test_. I en första test skriver vi ut värdena från mysql resultatet med [interpolation ](https://pugjs.org/language/interpolation.html)i Pug. Det är då viktigt att se till att värden som skrivs ut [**escapas**](https://en.wikipedia.org/wiki/Escape_character), detta för att skadlig kod eventuellt kan sparas i en databas och sedan reproduceras för en användare på webbplatsen.
+Skapa sedan en view som heter _test_. I en första test skriver vi ut värdena från mysql resultatet med [interpolation ](https://pugjs.org/language/interpolation.html)i Pug. Det är då viktigt att se till att värden som skrivs ut [**escapas**](https://en.wikipedia.org/wiki/Escape_character), detta för att skadlig kod eventuellt kan sparas i en databas och sedan reproduceras för en användare på webbplatsen. 
+
+Resultatet måste loopas igenom, då det skickas till viewen som en array. För att göra det används Pugs each iteration. Om du önskar studera resultatet så logga det i node konsollen.
 
 {% code title="views/test.pug" %}
 ```javascript
@@ -233,7 +235,26 @@ För att få ut den fullständiga information, med författarens namn så behöv
 
 {% code title="routes/test.js" %}
 ```javascript
-  const sql = 'SELECT meeps.*, users.name FROM meeps JOIN users ON meeps.user_id = users.id';
+const sql = 'SELECT meeps.*, users.name FROM meeps JOIN users ON meeps.user_id = users.id';
 ```
 {% endcode %}
+
+Nästa steg blir sedan att utveckla test-viewen för att utveckla layouten. Detta kan med fördel göras som en mixin. Koden som följer skapar ett kort för en post. 
+
+{% code title="views/test.pug" %}
+```javascript
+  .card
+    .card-body
+      p.card-text= result.body
+    .card-footer.d-flex
+      p.small Posted by 
+        a(href="#")= result.name
+        |  on 
+        time(date="#{updated}")= result.updated_at
+```
+{% endcode %}
+
+### Övning
+
+Skapa en mixin att återanvända för varje rad i databasen, antingen skriver du kod för ett eget kort med css eller så använder du ett Bootstrap kort.
 
