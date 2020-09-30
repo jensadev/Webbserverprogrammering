@@ -216,13 +216,7 @@ router.get('/', function (req, res, next) {
 ```
 {% endcode %}
 
-
-
-
-
-
-
-Skapa en view som heter _test_. I en första test skriver vi ut värdena från mysql resultatet med [interpolation ](https://pugjs.org/language/interpolation.html)i Pug. Det är då viktigt att se till att värden som skrivs ut escapas\(säkerhetsrisk\).
+Skapa sedan en view som heter _test_. I en första test skriver vi ut värdena från mysql resultatet med [interpolation ](https://pugjs.org/language/interpolation.html)i Pug. Det är då viktigt att se till att värden som skrivs ut [**escapas**](https://en.wikipedia.org/wiki/Escape_character), detta för att skadlig kod eventuellt kan sparas i en databas och sedan reproduceras för en användare på webbplatsen.
 
 {% code title="views/test.pug" %}
 ```javascript
@@ -230,9 +224,16 @@ extends layout
 
 block content
   each row in result
-    
+    p #{row.body}
+    | #{row.updated_at}
 ```
 {% endcode %}
 
+För att få ut den fullständiga information, med författarens namn så behöver SQL frågan använda en join på users tabellen. Uppdatera koden som följer.
 
+{% code title="routes/test.js" %}
+```javascript
+  const sql = 'SELECT meeps.*, users.name FROM meeps JOIN users ON meeps.user_id = users.id';
+```
+{% endcode %}
 
