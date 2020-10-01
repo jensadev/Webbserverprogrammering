@@ -406,7 +406,7 @@ Surfa sedan till localhost/~USER/info.php med webbläsaren. Fungerar det så ser
 
 ## Node.js
 
-**Node** är en annan webbserver. Node har ett eget avsnitt i denna guide,  [Node och Express]()
+**Node** är en annan webbserver. Node har ett eget avsnitt i denna guide,  [Node och Express](../webbserver/node-introduktion.md)
 
 ## Resultat
 

@@ -41,6 +41,19 @@ connection.connect(function (err) {
 
 Först skapas en const för mysql-paketet, drivrutinen krävs. Efter det så skapas en uppkoppling till mysql-servern utifrån den angivna konfigurationen. Därefter testats uppkopplingen med connect metoden och vid eventuellt fel så loggas det, annars så loggas uppkopplingen. Koden kan testas i app.js eller i en route fil för express om så önskas.
 
+{% hint style="warning" %}
+Node kan få problem med auth till Mysql 8. Då behöver du uppdatera din mysql-användare.
+{% endhint %}
+
+{% tabs %}
+{% tab title="SQL" %}
+```sql
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+FLUSH privileges;
+```
+{% endtab %}
+{% endtabs %}
+
 ## Konfiguration
 
 Det första som behöver åtgärdas är konfigurationsvärdena i exemplet och för det så ska vi använda dotenv paketet. En .env fil är en konfigurationsfil\(eller en fil med miljövariabler, environment\), att filnamnet börjar med en punkt är en Linux standard för att visa att det rör sig om en dold fil.
