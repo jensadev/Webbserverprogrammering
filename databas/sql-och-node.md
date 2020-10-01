@@ -168,8 +168,18 @@ Databasmodellen sparas i variabeln pool för användning. Sedan används metoden
 Innan du går vidare så behöver du starta mysql-servern och importera databasen från [exemplet](databas-exempel.md).
 
 {% hint style="info" %}
-Databasdump finns [här](https://raw.githubusercontent.com/jensnti/Webbserverprogrammering/master/exempel/meeps.sql).
+Databasdump finns [här](https://raw.githubusercontent.com/jensnti/Webbserverprogrammering/master/exempel/meeps.sql). Använd wget för enkelhetens skull.
 {% endhint %}
+
+{% tabs %}
+{% tab title="Bash" %}
+```bash
+wget https://raw.githubusercontent.com/jensnti/Webbserverprogrammering/master/exempel/meeps.sql
+```
+{% endtab %}
+{% endtabs %}
+
+När du laddat ned filen så förbered för att importera den med att skapa en databas\(om det behövs\).
 
 {% tabs %}
 {% tab title="Bash" %}
