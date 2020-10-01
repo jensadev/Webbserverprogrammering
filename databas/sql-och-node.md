@@ -15,7 +15,7 @@ npm install mysql dotenv
 
 ## Koppla upp
 
-Detta exempel är plockat från mysql-paketets [hjälpsida](https://www.npmjs.com/package/mysql), den återfinns även i [Express-dokumentation](https://expressjs.com/en/guide/database-integration.html#mysql). Ofta ser Node-hjälp ut på detta sättet och det kan vara svårt att få svar på var detta ska skrivas\(vi kommer till det\).
+Detta exempel är plockat från mysql-paketets [hjälpsida](https://www.npmjs.com/package/mysql), den återfinns även i [Express-dokumentation](https://expressjs.com/en/guide/database-integration.html#mysql). Ofta ser Node-hjälp ut på detta sättet och det kan vara svårt att få svar på var detta ska skrivas\(vi kommer till det\). Du behöver inte koda detta, men om du gör det så kan du lägga koden i en route.
 
 {% tabs %}
 {% tab title="JavaScript" %}
@@ -96,7 +96,7 @@ require('dotenv').config();
 ```
 {% endcode %}
 
-Med dotenv blir exemplet med uppkopplingen följande.
+Med dotenv blir det ovanstående connection-exemplet som följer.
 
 {% tabs %}
 {% tab title="JavaScript" %}
