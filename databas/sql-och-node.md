@@ -281,3 +281,66 @@ Nästa steg blir sedan att utveckla test-viewen för att utveckla layouten. Dett
 
 Skapa en mixin att återanvända för varje rad i databasen, antingen skriver du kod för ett eget kort med css eller så använder du ett Bootstrap kort.
 
+## Databas selektion
+
+I SQL så kan WHERE användas för att välja rader utifrån ett logiskt uttryck. För att välja en specifik meeps så används ID kolumnen. Det ser ut som följer med resultat.
+
+{% tabs %}
+{% tab title="SQL" %}
+```sql
+SELECT * FROM meeps WHERE id = 2;
++----+-------------+--------------------------+---------------------+---------------------+---------+
+| id | title       | body                     | created_at          | updated_at          | user_id |
++----+-------------+--------------------------+---------------------+---------------------+---------+
+|  2 | Hello there | Lorem ipsum dolor sit... | 2020-09-25 13:04:34 | 2020-09-25 13:19:53 |       1 |
++----+-------------+--------------------------+---------------------+---------------------+---------+
+```
+{% endtab %}
+{% endtabs %}
+
+{% hint style="info" %}
+Du kan självklart välja data utifrån andra fält som user\_id för att välja alla poster från en specifik användare. För wildcard så används %.
+{% endhint %}
+
+### Selektion och node
+
+För att kunna använda selektion utifrån specifika IDs med node så behövs möjligheten att skicka detta till node. För att skicka en parameter behöver en route skapas eller ändras för att tillåta detta. Då används `:PARAMETERNAMN` i routen.
+
+{% tabs %}
+{% tab title="JavaScript" %}
+```javascript
+router.get('/:id', function (req, res, next) {
+  // console.log(req.params); hela objeketet
+  console.log(req.params.id); // id parameterns värde
+});
+```
+{% endtab %}
+{% endtabs %}
+
+Denna route på / läser in en parameter med namnet `:id`. Värdet på parametrarna återfinns i requestens\(req\) parameter-objekt. Du kommer åt detta genom punkt-notation. 
+
+Värdet som skickats med en parameter kan sedan användas i din SQL, detta görs genom en så kallad **prepared statment**. Prepared statements\(även parameterized queries\) används av säkerhetsskäl för att undvika [SQL-injektioner](https://imgs.xkcd.com/comics/exploits_of_a_mom.png).
+
+{% code title="routes/test.js" %}
+```javascript
+router.get('/:id', function (req, res, next) {
+  const sql = 'SELECT * FROM meeps WHERE id = ?';
+
+  pool.query(sql, [req.params.id], function (err, result, fields) {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      id: req.params.id,
+      result: result
+    });
+  });
+});
+```
+{% endcode %}
+
+Ändringen här ovan i test-routen skapar en route för get med en id parameter. Rad 2 skapar SQL-frågan där frågetecknet är en parameter. När sedan frågan körs på rad 4, så ersätts ? med \[req.params.id\]. Det går utmärkt att använda flera parameterar\(tänk post med ett formulär\), det viktiga är att de är satta i korrekt ordning.
+
+Om frågan exekveras korrekt så returneras svaret som json.
+
+##  
+
