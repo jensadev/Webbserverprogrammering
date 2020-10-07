@@ -349,7 +349,7 @@ Skapa länkar till enskilda meeps.
 * test.pug, ge varje meep en länk till /test/:id
 * skapa /test/:id routen
 * skapa SQL som hämtar vald meep utifrån :id
-* skapa en meep.pug views som visar vald meep
+* skapa en meep.pug views som visar vald meep\(ersätt json i exemplet ovan\)
 
 ##  
 
