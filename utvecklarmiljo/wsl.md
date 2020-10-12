@@ -507,7 +507,7 @@ kommando --help
   </tbody>
 </table>
 
-Listan är lång, läs mer [här](https://www.howtoforge.com/linux-commands/).
+Listan är lång, läs mer [här](https://www.howtoforge.com/linux-commands/) och [här](http://www.anotheruiguy.com/ux-design-dev/_book/learning-computers/life-in-the-terminal.html).
 
 ##     
 
