@@ -302,6 +302,10 @@ SELECT * FROM meeps WHERE id = 2;
 Du kan självklart välja data utifrån andra fält som user\_id för att välja alla poster från en specifik användare. För wildcard så används %.
 {% endhint %}
 
+#### Övning
+
+Prova att skriva en SQL fråga som låter dig söka efter mailadresser i databasen. Till exempel ska jag kunna söka efter ett förnamn och få tillbaka matchande adresser. Använd wildcards, %.
+
 ### Selektion och node
 
 För att kunna använda selektion utifrån specifika IDs med node så behövs möjligheten att skicka detta till node. För att skicka en parameter behöver en route skapas eller ändras för att tillåta detta. Då används `:PARAMETERNAMN` i routen.
