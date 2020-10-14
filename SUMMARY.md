@@ -27,6 +27,7 @@
 ## Säkerhet <a id="sakerhet"></a>
 
 * [Introduktion](sakerhet/sakerhet-introduktion.md)
+* [Inloggning](sakerhet/inloggning.md)
 
 ## Tester
 
