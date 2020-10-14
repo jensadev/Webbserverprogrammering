@@ -351,5 +351,165 @@ Skapa länkar till enskilda meeps.
 * skapa SQL som hämtar vald meep utifrån :id \(inklusive join\)
 * skapa en meep.pug views som visar vald meep\(ersätt json i exemplet ovan\)
 
-##  
+##  Databasmodell, asynkrona frågor
+
+Ibland så uppstår problem med databasuppkopplingen eller det behövs flera uppkopplingar. Vid dessa tillfällen så kan du behöva större kontroll över vad som sker och hur data levereras till klienten. En lösning på detta är att göra asynkrona anrop, då kan du styra över att din kod ska vänta på svar.
+
+För att möjliggöra asynkrona anrop till databasen behöver du ändra på databasmodellen.
+
+{% code title="models/db.js" %}
+```javascript
+const mysql = require('mysql');
+
+const pool = mysql.createPool({
+  connectionLimit: 10,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_DATABASE
+});
+
+function query(sql, ...params) {
+  return new Promise((resolve, reject) => {
+    pool.query(sql, params, function (err, result, fields) {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
+}
+
+module.exports = { pool, query };
+
+```
+{% endcode %}
+
+### Flera frågor
+
+Vi kan nu använda `query` funktionen i en route genom att requira den, se följande exempel. Med query funktionen kan vi då ange att routen ska vara asynkron med nyckelordet `async`.
+
+{% hint style="info" %}
+Async tillåter användningen av await vilket gör att vi kan vänta på att det som kallas en promise körs färdigt. Detta resulterar i att den antingen resolves eller rejects, körs eller misslyckas. [MDN async function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function).
+{% endhint %}
+
+I koden nedan så ändras users routen så att vi tillåter användaren att köra den med en parameter `:id`, användarens id. För att illustrera dubbla SQL-frågor så hämtas då även den användarens alla tillhörande meeps. Utan att använda `async` och `await` så väntar aldrig scriptet på att dessa frågor ska köras, utan returnerar ingen data. Jämför koden här nedan och prova båda versionerna.
+
+{% tabs %}
+{% tab title="Sync" %}
+{% code title="" %}
+```javascript
+var express = require('express');
+var router = express.Router();
+const { query } = require('../models/db');
+
+router.get('/', function (req, res, next) {
+  res.render('users', { title: 'Userpage', users: ['Hans', 'Moa', 'Bengt', 'Frans', 'Lisa'] });
+});
+
+router.get('/:id', function (req, res, next) {
+  try {
+    const user = query(
+      'SELECT * FROM users WHERE id = ?',
+      req.params.id
+    );
+
+    const meeps = query(
+      'SELECT * FROM meeps WHERE user_id = ?',
+      req.params.id
+    );
+
+    res.render('users', {
+      id: req.params.id,
+      user: user,
+      meeps: meeps
+    });
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+});
+
+module.exports = router;
+
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Async" %}
+{% code title="routes/users.js" %}
+```javascript
+var express = require('express');
+var router = express.Router();
+const { query } = require('../models/db');
+
+router.get('/', function (req, res, next) {
+  res.render('users', { title: 'Userpage', users: ['Hans', 'Moa', 'Bengt', 'Frans', 'Lisa'] });
+});
+
+router.get('/:id', async function (req, res, next) {
+  try {
+    const user = await query(
+      'SELECT * FROM users WHERE id = ?',
+      req.params.id
+    );
+
+    const meeps = await query(
+      'SELECT * FROM meeps WHERE user_id = ?',
+      req.params.id
+    );
+
+    res.render('users', {
+      id: req.params.id,
+      user: user,
+      meeps: meeps
+    });
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+});
+
+module.exports = router;
+
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Pug" %}
+{% code title="views/users.pug" %}
+```markup
+extends layout
+
+block head
+  -var title = "Användare"
+  title Webbserverprogrammering - #{title}
+
+block content
+  main
+    .container
+      h1= title
+      if users
+        p.lead Här är ett exempel på iteration
+        ul.list
+          each user in users
+            li= user
+
+      if user[0]
+        p= user[0].name
+        h3 Användarens meeps
+        if meeps
+          ul.list
+            each meep in meeps
+              li= meep.body
+```
+{% endcode %}
+{% endtab %}
+{% endtabs %}
+
+Koden väntar på att [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) för båda SQL-frågorna ska bli "klar". När den är klar så renderas users-view med databas frågornas data. Frågorna körs i ett `try` block för att fånga eventuella fel med `catch`. Om ett fel uppstår så fångas det upp och vi använder Express inbyggda [felhanterare](https://expressjs.com/en/guide/error-handling.html), `next(error)`.
+
+I användar-vyn så används selektion i pug koden för att det inte ska visas fel när data saknas\(testa att köra utan if-satserna\). 
+
+{% hint style="info" %}
+[Koden för exempel-projektet finner du här i DB grenen.](https://github.com/jensnti/wsp1-node/tree/db)
+{% endhint %}
 
