@@ -319,7 +319,7 @@ router.get('/:id', function (req, res, next) {
 
 Denna route på / läser in en parameter med namnet `:id`. Värdet på parametrarna återfinns i requestens\(req\) parameter-objekt. Du kommer åt detta genom punkt-notation. 
 
-Värdet som skickats med en parameter kan sedan användas i din SQL, detta görs genom en så kallad **prepared statment**. Prepared statements\(även parameterized queries\) används av säkerhetsskäl för att undvika [SQL-injektioner](https://imgs.xkcd.com/comics/exploits_of_a_mom.png).
+Värdet som skickats med en parameter kan sedan användas i din SQL, detta görs genom en så kallad **prepared statment**. Prepared statements\(även **parameterized query**\) används av säkerhetsskäl för att undvika [SQL-injektioner](https://imgs.xkcd.com/comics/exploits_of_a_mom.png).
 
 {% code title="routes/test.js" %}
 ```javascript
@@ -383,6 +383,8 @@ module.exports = { pool, query };
 ```
 {% endcode %}
 
+Query funktionen accepterar en SQL fråga samt tillhörande parametrar. `...params` delar upp parametrarna i en array vilket låter oss använda dem i en parameterized query.
+
 ### Flera frågor
 
 Vi kan nu använda `query` funktionen i en route genom att requira den, se följande exempel. Med query funktionen kan vi då ange att routen ska vara asynkron med nyckelordet `async`.
@@ -395,7 +397,7 @@ I koden nedan så ändras users routen så att vi tillåter användaren att kör
 
 {% tabs %}
 {% tab title="Sync" %}
-{% code title="" %}
+{% code title="routes/users.js" %}
 ```javascript
 var express = require('express');
 var router = express.Router();
