@@ -519,3 +519,7 @@ I användar-vyn så används selektion i pug koden för att det inte ska visas f
 [Koden för exempel-projektet finner du här i DB grenen.](https://github.com/jensnti/wsp1-node/tree/db)
 {% endhint %}
 
+{% hint style="info" %}
+[Samtliga moment i detta kapitel finns visade i denna speed run.](https://youtu.be/BnweeiRfE_U)
+{% endhint %}
+
