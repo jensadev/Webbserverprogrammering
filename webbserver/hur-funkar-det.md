@@ -238,7 +238,7 @@ För egenskaper som upprepas i Sass-kod är det praktiskt att skapa [**variabler
 
 {% code title="public/stylesheets/style.sass" %}
 ```css
-$font: font-family: 'Roboto', sans-serif
+$font: 'Roboto', sans-serif
 
 h1
   font-family: $font
