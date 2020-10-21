@@ -32,6 +32,10 @@ docker
 
 ## Ett första test med Node
 
+{% hint style="info" %}
+Du hittar all kod här 
+{% endhint %}
+
 Innan du kommer igång så krävs det att du installerar lite programvara lokalt.
 
 ```text
