@@ -3,7 +3,7 @@
 ## Installation
 
 {% hint style="info" %}
-Detta kräver att du har WSL2 installerat. Kontrollera med att i Powershell köra `wsl -l -v`
+Detta kräver att du har WSL2 installerat. Du kan kontrollera din version med Powershell, kör `wsl -l -v`
 {% endhint %}
 
 * Installera Windows Subsystem Linux 2, en guide finns [här](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
