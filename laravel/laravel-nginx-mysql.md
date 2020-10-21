@@ -426,7 +426,7 @@ php artisan migrate
     volumes:
       - ./:/var/www
     working_dir: /var/www/
-    entrypoint: ['npm', '--no-bin-links']
+    entrypoint: ['npm']
     networks:
       - app-network
 ```
