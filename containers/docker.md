@@ -16,5 +16,15 @@ Nästa steg är att konfigurera Docker så att det använder WSL2, se fig 1 och 
 
 ![Fig 2, Resource settings.](../.gitbook/assets/docker_use.png)
 
+Du kan eventuellt behöva starta om datorn, WSL och eller Docker efter detta. Men du ska kunna starta WSL och köra kommandot docker. Docker körs då från Windows, men finns tillgängligt från WSL.
 
+{% tabs %}
+{% tab title="Bash" %}
+```bash
+docker
+```
+{% endtab %}
+{% endtabs %}
+
+ [https://github.com/jensnti/dockerstuff](https://github.com/jensnti/dockerstuff)
 
