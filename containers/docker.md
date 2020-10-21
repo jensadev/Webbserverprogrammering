@@ -32,10 +32,6 @@ docker
 
 ## Ett första test med Node
 
-{% hint style="info" %}
-Du hittar all kod här 
-{% endhint %}
-
 Innan du kommer igång så krävs det att du installerar lite programvara lokalt.
 
 ```text
@@ -162,5 +158,9 @@ block content
 {% endtab %}
 {% endtabs %}
 
- [https://github.com/jensnti/dockerstuff](https://github.com/jensnti/dockerstuff)
+{% hint style="info" %}
+Koden för hela exemplet finns [här](https://github.com/jensnti/wsp1-docker-node).
+{% endhint %}
+
+
 
