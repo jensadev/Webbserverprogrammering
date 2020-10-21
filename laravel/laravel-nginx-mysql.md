@@ -377,11 +377,11 @@ docker-compose exec app php artisan tinker
 
 ### Cache
 
- Du kan köra följande kommando för att skapa en cache för den, vilket snabbar upp din applikation.
-
 {% hint style="danger" %}
 Att cacha en applikation låser konfigurationen. Om du får fel så kan du behöva uppdatera den.
 {% endhint %}
+
+ Du kan köra följande kommando för att skapa en cache för den, vilket snabbar upp din applikation.
 
 ```yaml
 docker-compose exec app php artisan config:cache
