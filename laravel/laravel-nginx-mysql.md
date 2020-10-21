@@ -28,6 +28,16 @@ docker run --rm -v $(pwd):/app composer install
 {% endtab %}
 {% endtabs %}
 
+Ändra sedan rättigheterna på hela mappen. Viktigt för senare.
+
+{% tabs %}
+{% tab title="Bash" %}
+```bash
+sudo chown -R $USER:$USER tweety/
+```
+{% endtab %}
+{% endtabs %}
+
 Skapa följande mappar och filer.
 
 {% tabs %}
@@ -400,7 +410,34 @@ docker-compose exec app php artisan config:cache
 ```bash
 docker-compose exec app bash
 
-php artisan ui vue --auth
+composer require laravel/ui --dev
+php artisan ui bootstrap --auth
+php artisan migrate
+```
+{% endtab %}
+{% endtabs %}
+
+{% code title="docker-compose.yml" %}
+```yaml
+  # NPM
+  npm:
+    image: node:latest
+    container_name: npm
+    volumes:
+      - ./:/var/www
+    working_dir: /var/www/
+    entrypoint: ['npm', '--no-bin-links']
+    networks:
+      - app-network
+```
+{% endcode %}
+
+{% tabs %}
+{% tab title="Bash" %}
+```bash
+docker-compose up -d --build
+docker-compose run --rm npm clean-install
+docker-compose run --rm npm run dev
 ```
 {% endtab %}
 {% endtabs %}
