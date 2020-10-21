@@ -3,11 +3,14 @@
 ## Installation
 
 {% hint style="info" %}
-Detta kräver att du har WSL2 installerat.
+Detta kräver att du har WSL2 installerat. Kontrollera med att i Powershell köra `wsl -l -v`
 {% endhint %}
 
 * Börja med att installera Windows Subsystem Linux 2, en guide finns [här](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
-* När det är klart, installera [Docker desktop](https://www.docker.com/).
+  * Om du installerar en ny distribution:
+    * `sudo apt update`
+    * `sudo apt upgrade -y`
+* När det är klart, installera [Docker desktop](https://www.docker.com/) för Windows.
 * Se till att du har Remote extension för Visual Studio Code, den [här](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl).
 
 Nästa steg är att konfigurera Docker så att det använder WSL2, se fig 1 och att det har tillgång till WSL, fig 2.
