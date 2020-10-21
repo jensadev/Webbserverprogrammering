@@ -4,6 +4,8 @@ description: Allt i en Docker container
 
 # Laravel, Nginx, Mysql
 
+## Docker konfiguration
+
 {% hint style="info" %}
 Vill du läsa hela denna guide på engelska utan redigering så finns den [här](https://www.digitalocean.com/community/tutorials/how-to-set-up-laravel-nginx-and-mysql-with-docker-compose).
 {% endhint %}
@@ -247,7 +249,7 @@ DB_PASSWORD=your_laravel_db_password
 ```
 {% endcode %}
 
-## Kör
+### Kör
 
 Du bör nu vara redo att bygga och starta denna image, det kan ta en stund.
 
@@ -289,4 +291,38 @@ Den grundläggande konfigurationen är nu skapad. Du kan köra följande kommand
 ```yaml
 docker-compose exec app php artisan config:cache
 ```
+
+### MySQL
+
+För att slutföra konfigurationen av MySQL och skapa en användare så kopplar vi upp oss mot Docker imagen. Det ger dig ett bash shell direkt på imagen.
+
+{% tabs %}
+{% tab title="Bash" %}
+```bash
+docker-compose exec db bash
+```
+{% endtab %}
+{% endtabs %}
+
+Starta sedan mysql och skapa en user.
+
+{% tabs %}
+{% tab title="Bash" %}
+```bash
+mysql -u root -p
+```
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
+{% tab title="SQL" %}
+```sql
+CREATE USER 'laraveluser'@'%' IDENTIFIED BY 'Secret123';
+GRANT ALL PRIVILEGES ON laravel.* TO 'laraveluser'@'%';
+FLUSH PRIVILEGES;
+```
+{% endtab %}
+{% endtabs %}
+
+
 
