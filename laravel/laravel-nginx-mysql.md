@@ -391,3 +391,17 @@ docker-compose exec app php artisan config:cache
 
 [https://github.com/jensnti/laravel-tweety](https://github.com/jensnti/laravel-tweety)
 
+## Laracasts
+
+[https://laracasts.com/series/laravel-6-from-scratch/episodes/55](https://laracasts.com/series/laravel-6-from-scratch/episodes/55)
+
+{% tabs %}
+{% tab title="Bash" %}
+```bash
+docker-compose exec app bash
+
+php artisan ui vue --auth
+```
+{% endtab %}
+{% endtabs %}
+
