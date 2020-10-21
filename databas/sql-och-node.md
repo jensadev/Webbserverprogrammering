@@ -48,7 +48,7 @@ Node kan få problem med auth till Mysql 8. Då behöver du uppdatera din mysql-
 {% tabs %}
 {% tab title="SQL" %}
 ```sql
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+ALTER USER 'username'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 FLUSH privileges;
 ```
 {% endtab %}
