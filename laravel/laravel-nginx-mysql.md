@@ -286,11 +286,7 @@ docker-compose exec app php artisan key:generate
 {% endtab %}
 {% endtabs %}
 
-Den grundläggande konfigurationen är nu skapad. Du kan köra följande kommando för att skapa en cache för den, vilket snabbar upp din applikation.
-
-```yaml
-docker-compose exec app php artisan config:cache
-```
+Den grundläggande konfigurationen är nu skapad.
 
 ### MySQL
 
@@ -324,5 +320,70 @@ FLUSH PRIVILEGES;
 {% endtab %}
 {% endtabs %}
 
+Avsluta sedan MySQL och Bash instansen på docker imagen med `exit`.
 
+### Laravel migrate
+
+Nu bör du kunna migrera Laravels databas-tabeller.
+
+{% hint style="info" %}
+Om du får fel, prova att rensa artisan config.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Bash" %}
+```bash
+docker-compose exec app php artisan migrate
+```
+{% endtab %}
+{% endtabs %}
+
+Testa att det fungerar på imagen med tinker.
+
+{% tabs %}
+{% tab title="Bash" %}
+```bash
+docker-compose exec app php artisan tinker
+```
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
+{% tab title="Tinker" %}
+```php
+>>>\DB::table('migrations')->get();
+=> Illuminate\Support\Collection {#3238
+     all: [
+       {#3236
+         +"id": 1,
+         +"migration": "2014_10_12_000000_create_users_table",
+         +"batch": 1,
+       },
+       {#3245
+         +"id": 2,
+         +"migration": "2014_10_12_100000_create_password_resets_table",
+         +"batch": 1,
+       },
+       {#3246
+         +"id": 3,
+         +"migration": "2019_08_19_000000_create_failed_jobs_table",
+         +"batch": 1,
+       },
+     ],
+   }
+```
+{% endtab %}
+{% endtabs %}
+
+### Cache
+
+ Du kan köra följande kommando för att skapa en cache för den, vilket snabbar upp din applikation.
+
+{% hint style="danger" %}
+Att cacha en applikation låser konfigurationen. Om du får fel så kan du behöva uppdatera den.
+{% endhint %}
+
+```yaml
+docker-compose exec app php artisan config:cache
+```
 
