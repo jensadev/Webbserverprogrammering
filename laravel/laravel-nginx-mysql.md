@@ -33,7 +33,7 @@ docker run --rm -v $(pwd):/app composer install
 {% tabs %}
 {% tab title="Bash" %}
 ```bash
-sudo chown -R $USER:$USER tweety/
+sudo chown -R $USER:$USER .
 ```
 {% endtab %}
 {% endtabs %}
@@ -411,7 +411,7 @@ docker-compose exec app php artisan config:cache
 docker-compose exec app bash
 
 composer require laravel/ui --dev
-php artisan ui bootstrap --auth
+php artisan ui:auth
 php artisan migrate
 ```
 {% endtab %}
@@ -436,7 +436,7 @@ php artisan migrate
 {% tab title="Bash" %}
 ```bash
 docker-compose up -d --build
-docker-compose run --rm npm clean-install
+docker-compose run --rm npm install
 docker-compose run --rm npm run dev
 ```
 {% endtab %}
