@@ -170,7 +170,8 @@ Filer för att skapa en image med node, npm och databas.
 * Skapa följande konfigurationsfiler i mappen.
 * Se till att Docker är igång.
 * Kör `docker-compose up -d build`
-* 
+* Du bör nu kunna surfa till [localhost](http://localhost:3000)
+
 {% tabs %}
 {% tab title="Dockerfile" %}
 {% code title="Dockerfile" %}
