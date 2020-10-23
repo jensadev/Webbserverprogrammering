@@ -314,7 +314,6 @@ CMD ["npm", "start"]
 version: "3"
 services:
   node:
-    container_name: nodedev
     image: "node:12"
     user: "node"
     working_dir: /var/www
@@ -333,7 +332,6 @@ services:
   #MySQL Service
   db:
     image: mysql:8.0.22
-    container_name: nodedb
     restart: unless-stopped
     tty: true
     command:
