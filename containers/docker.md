@@ -275,3 +275,13 @@ secure-file-priv = ""
 {% endtab %}
 {% endtabs %}
 
+{% tabs %}
+{% tab title="SQL" %}
+```sql
+CREATE USER 'nodeuser'@'%' IDENTIFIED BY 'Secret123';
+GRANT ALL PRIVILEGES ON nodeproject.* TO 'nodeuser'@'%';
+FLUSH PRIVILEGES;
+```
+{% endtab %}
+{% endtabs %}
+
