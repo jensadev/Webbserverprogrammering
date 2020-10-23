@@ -1,9 +1,17 @@
 # SQL och Node
 
+Installera [mysql paketet](https://www.npmjs.com/package/mysql) för node med npm. 
+
 Installera paketen [mysql](https://www.npmjs.com/package/mysql) och [dotenv ](https://www.npmjs.com/package/dotenv)för Node.
+
+```text
+npm install mysql
+```
 
 * mysql paketet innehåller drivrutiner för att använda mysql med node.
 * dotenv är ett paket för att skapa konfiguarationsfiler. Att [spara konfigurationsdata separerat](https://12factor.net/config) från koden är god praxis.
+
+En databas behöver användaruppgifter för att koppla upp sig till en databasserver. Denna data är känslig och du behöver skydda den, därför är det viktigt att inte ladda upp denna data på GitHub. För att underlätta det används paketet [dotenv](https://www.npmjs.com/package/dotenv). Med dotenv kan vi skapa en konfigurationsfil och med hjälpa av .gitignore så säkerställer vi att den inte laddas upp på GitHub.
 
 {% tabs %}
 {% tab title="Bash" %}
