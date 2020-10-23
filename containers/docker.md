@@ -164,6 +164,107 @@ Koden för hela exemplet finns [här](https://github.com/jensnti/wsp1-docker-nod
 
 ## Praktiskt
 
+Denna instruktion utgår från att du ska klona och köra igång ett repo, i detta fallet Soloäventyret. 
+
+{% tabs %}
+{% tab title="Bash" %}
+```bash
+git clone --single-branch --branch docker https://github.com/jensnti/wsp1-node-solo
+```
+{% endtab %}
+{% endtabs %}
+
+Docker filerna följer med för detta, vill du klona ditt eget soloäventyr så är det följande filer du behöver. Notera mappen för my.cnf.
+
+* [https://raw.githubusercontent.com/jensnti/wsp1-node-solo/docker/docker-compose.yml](https://raw.githubusercontent.com/jensnti/wsp1-node-solo/docker/docker-compose.yml)
+* [https://github.com/jensnti/wsp1-node-solo/blob/docker/Dockerfile](https://github.com/jensnti/wsp1-node-solo/blob/docker/Dockerfile)
+* [https://github.com/jensnti/wsp1-node-solo/blob/docker/mysql/my.cnf](https://github.com/jensnti/wsp1-node-solo/blob/docker/mysql/my.cnf)
+
+Filerna kommer att starta 2 containers.
+
+* nodedev
+  * Kör node:12.
+  * Kör npm start från package.json
+  * På port 3000
+* nodedb
+  * Kör mysql:8
+  * Skapar användare och databas.
+    * database: soloadventure
+    * root password: password123
+
+{% tabs %}
+{% tab title="Bash" %}
+```bash
+cd wsp1-node-solo
+npm install
+cp .env-example .env
+```
+{% endtab %}
+{% endtabs %}
+
+Efter att projektet klonats ned och install är kört så behöver det köras lite kommandon för att få allt att fungera. Kör följande kommando för att bygga en image och starta den som en tjänst.
+
+{% tabs %}
+{% tab title="Bash" %}
+```bash
+docker-compose up -d --build
+```
+{% endtab %}
+{% endtabs %}
+
+Om kommandot fungerar som det ska så startas dina containers, se Fig 3.
+
+![Fig 3, wsp1-node-solo docker.](../.gitbook/assets/solo-dock.png)
+
+Nästa steg blir att slutföra konfigurationen av databasanvändaren och ladda in databasen. För att göra det behöver du koppla upp dig mot databas-containers bash.
+
+{% tabs %}
+{% tab title="Bash" %}
+```bash
+docker-compose exec db bash
+```
+{% endtab %}
+{% endtabs %}
+
+Väl inne startar du mysql som root. Lösenordet ska vara password123.
+
+```yaml
+mysql -u root -p 
+```
+
+Användaren till kontot skapades tillsammans med databasen tidigare, men permissions behövs fortfarande sättas och uppdateras för node.
+
+{% tabs %}
+{% tab title="SQL" %}
+```sql
+CREATE USER 'solouser'@'%' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON soloadventure.* TO 'solouser'@'%';
+ALTER USER 'solouser'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+FLUSH PRIVILEGES;
+```
+{% endtab %}
+{% endtabs %}
+
+När detta är gjort så är det sista steget att importera databasen. Detta kan vi göra med tableplus. Skapa en ny uppkoppling, Fig 4.
+
+![Fig 4, Create new connection.](../.gitbook/assets/solo-conn.png)
+
+Välj databas och sedan Import, databas-dumpen finns [här](https://raw.githubusercontent.com/jensnti/wsp1-node-solo/docker/dump.sql). Se Fig 5.
+
+![Fig 5](../.gitbook/assets/solo-table.png)
+
+Förhoppningsvis så kan du nu surfa till [localhost ](http://localhost:3000/)och testa äventyret. Om du behöver bygga om din image.
+
+{% tabs %}
+{% tab title="Bash" %}
+```bash
+docker-compose up -d --build
+```
+{% endtab %}
+{% endtabs %}
+
+## Snabbstart
+
 Filer för att skapa en image med node, npm och databas.
 
 * Skapa ett nytt Express-projekt eller klona ett från Git.
@@ -190,8 +291,15 @@ RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
 
+# Add user for application
+RUN groupadd -g 1000 www
+RUN useradd -u 1000 -ms /bin/bash -g www www
+
 # Bundle app source
 COPY . .
+
+# Change current user to www
+USER www
 
 EXPOSE 3000
 
@@ -206,7 +314,7 @@ CMD ["npm", "start"]
 version: "3"
 services:
   node:
-    container_name: node_dev
+    container_name: nodedev
     image: "node:12"
     user: "node"
     working_dir: /var/www
@@ -224,15 +332,17 @@ services:
 
   #MySQL Service
   db:
-    image: mysql:latest
-    container_name: node_db
+    image: mysql:8.0.22
+    container_name: nodedb
     restart: unless-stopped
     tty: true
+    command:
+      '--character-set-server=utf8mb4'
     ports:
-      - "3307:3307"
+      - "3306:3306"
     environment:
-      MYSQL_DATABASE: node
-      MYSQL_ROOT_PASSWORD: SuperSecret123
+      MYSQL_DATABASE: databasename
+      MYSQL_ROOT_PASSWORD: password
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
@@ -248,7 +358,7 @@ networks:
 #Volumes
 volumes:
   dbdata:
-
+    driver: local
 ```
 {% endcode %}
 {% endtab %}
@@ -275,12 +385,14 @@ secure-file-priv = ""
 {% endtab %}
 {% endtabs %}
 
+För att konfigurera databasen behöver du koppla upp dig till den, skapa användaren och konfigurera rättigheterna.
+
 {% tabs %}
 {% tab title="SQL" %}
 ```sql
-CREATE USER 'nodeuser'@'%' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON nodeproject.* TO 'nodeuser'@'%';
-ALTER USER 'nodeuser'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+CREATE USER 'username'@'%' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON databasename.* TO 'username'@'%';
+ALTER USER 'username'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
 FLUSH PRIVILEGES;
 ```
 {% endtab %}
