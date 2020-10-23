@@ -162,5 +162,115 @@ block content
 Koden för hela exemplet finns [här](https://github.com/jensnti/wsp1-docker-node).
 {% endhint %}
 
+## Praktiskt
 
+Filer för att skapa en image med node, npm och databas.
+
+* Skapa ett nytt Express-projekt eller klona ett från Git.
+* Skapa följande konfigurationsfiler i mappen.
+* Se till att Docker är igång.
+* Kör `docker-compose up -d build`
+* 
+{% tabs %}
+{% tab title="Dockerfile" %}
+{% code title="Dockerfile" %}
+```yaml
+FROM node:12
+
+# Create app directory
+WORKDIR /var/www
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
+
+RUN npm install
+# If you are building your code for production
+# RUN npm ci --only=production
+
+# Bundle app source
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="docker-compose.yml" %}
+{% code title="docker-compose.yml" %}
+```yaml
+version: "3"
+services:
+  node:
+    container_name: node_dev
+    image: "node:12"
+    user: "node"
+    working_dir: /var/www
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/var/www
+    ports:
+    - ${port:-3000}:3000
+    # expose:
+    #   - "3000"
+    command: "npm start"
+    networks:
+      - node-net
+
+  #MySQL Service
+  db:
+    image: mysql:latest
+    container_name: node_db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3307:3307"
+    environment:
+      MYSQL_DATABASE: node
+      MYSQL_ROOT_PASSWORD: SuperSecret123
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - dbdata:/var/lib/mysql/
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - node-net
+
+#Docker Networks
+networks:
+  node-net:
+    driver: bridge
+#Volumes
+volumes:
+  dbdata:
+
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title=".dockerignore" %}
+{% code title=".dockerignore" %}
+```
+node_modules
+npm-debug.log
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="my.cnf" %}
+{% code title="mysql/my.cnf" %}
+```bash
+[mysqld]
+general_log = 1
+general_log_file = /var/lib/mysql/general.log
+secure-file-priv = ""
+
+```
+{% endcode %}
+{% endtab %}
+{% endtabs %}
 
