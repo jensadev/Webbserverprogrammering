@@ -278,8 +278,9 @@ secure-file-priv = ""
 {% tabs %}
 {% tab title="SQL" %}
 ```sql
-CREATE USER 'nodeuser'@'%' IDENTIFIED BY 'Secret123';
+CREATE USER 'nodeuser'@'%' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON nodeproject.* TO 'nodeuser'@'%';
+ALTER USER 'nodeuser'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
 FLUSH PRIVILEGES;
 ```
 {% endtab %}
