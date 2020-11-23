@@ -18,6 +18,12 @@ För att få ut det mesta ur detta dokument och förstå så är det självklart
 
 ## Installation
 
+{% hint style="info" %}
+Viktigt: [WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+{% endhint %}
+
+Förhoppningsvis kan du vid installationstillfället köra WSL 2. Se följande [guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+
 Windows kräver att du slår på en feature för att kunna installera WSL. Starta Powershell som administratör och kör följande kommando.
 
 {% tabs %}

@@ -186,7 +186,7 @@ I den här uppgiften ska du skapa en footer-vy som ska inkluderas på varje sida
 
 ## Sass
 
-\*\*\*\*[**Sass** ](https://sass-lang.com/)är en språk-utökning för att skapa **css.** Sass förkompileras till färdig css.
+\*\*\*\*[Sass ](https://sass-lang.com/)är en språk-utökning för att skapa **css.** Sass förkompileras till färdig css.
 
 Express generator installerar ett middleware för att kompilera Sass-filer till css-filer. Projektets css skrivs i .sass filen vilken kompileras till .css kod när sidan hämtas från webbservern.
 
@@ -225,7 +225,7 @@ nav > ul
 ```
 {% endcode %}
 
-De här stilarna ger en grundläggande formatering. Placeringen av elementen sker med [**flexbox**](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox). Prova att lägga till en font med [Google fonts](https://fonts.google.com/). Fonten behöver då länkas i layout-vyn, och Sass-stilen behöver uppdateras.
+De här stilarna ger en grundläggande formatering. Placeringen av elementen sker med [flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox). Prova att lägga till en font med [Google fonts](https://fonts.google.com/). Fonten behöver då länkas i layout-vyn, och Sass-stilen behöver uppdateras.
 
 {% code title="views/layout.pug" %}
 ```css
@@ -234,7 +234,7 @@ head
 ```
 {% endcode %}
 
-För egenskaper som upprepas i Sass-kod är det praktiskt att skapa [**variabler**](https://sass-lang.com/documentation/variables). Det gör att du slipper upprepa kod och enkelt kan ändra värden.
+För egenskaper som upprepas i Sass-kod är det praktiskt att skapa [variabler](https://sass-lang.com/documentation/variables). Det gör att du slipper upprepa kod och enkelt kan ändra värden.
 
 {% code title="public/stylesheets/style.sass" %}
 ```css

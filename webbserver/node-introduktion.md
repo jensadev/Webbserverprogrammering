@@ -55,7 +55,7 @@ Nästa steg är att installera **Express** och Express generator. [Express](http
 {% tabs %}
 {% tab title="Bash" %}
 ```bash
-sudo npm i -g express express-generator
+sudo npm install -g express express-generator
 ```
 {% endtab %}
 {% endtabs %}
@@ -145,7 +145,7 @@ Nodemon är ett paket till Node som underlättar utvecklingen av projekt. Det be
 {% tabs %}
 {% tab title="Bash" %}
 ```bash
-npm install --save-dev nodemon
+sudo npm install -g nodemon
 ```
 {% endtab %}
 {% endtabs %}
@@ -169,7 +169,7 @@ Starta sedan servern igen.
 {% tabs %}
 {% tab title="Bash" %}
 ```bash
-sudo npm -g install eslint
+sudo npm install -g eslint
 ```
 {% endtab %}
 {% endtabs %}
