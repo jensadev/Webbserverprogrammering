@@ -14,7 +14,7 @@ Node är byggt på en javascriptmotor \([Chromes V8](https://v8.dev/)\) för att
 
 ## Installation och förberedelse
 
-Den här guiden utgår från materialet kring [**Windows Subsystem for Linux \(WSL\)**](../utvecklarmiljo/wsl.md). Den [Node ](https://nodejs.org/)version som kommer att användas är 12, vilket är Nodes **Long Term Support \(LTS\)** version. För att installera version 12 av Node går det inte att köra apt install node direkt.
+Den här guiden utgår från materialet kring [Windows Subsystem for Linux \(WSL\)](../utvecklarmiljo/wsl.md). Den [Node ](https://nodejs.org/)version som kommer att användas är 12, vilket är Nodes **Long Term Support \(LTS\)** version. För att installera version 12 av Node går det inte att köra apt install node direkt.
 
 {% tabs %}
 {% tab title="Bash" %}
