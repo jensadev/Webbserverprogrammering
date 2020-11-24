@@ -4,7 +4,7 @@ Det här avsnittet handlar om hur **Express** fungerar. För att förstå det s�
 
 ## Pug
 
-Express stöder ett flertal olika **templatmotorer** \(på engelska **template engine**\), den som används här är  [**Pug**](https://pugjs.org/). Pug är snarlikt html och relativt enkelt att komma igång med.
+Express stöder ett flertal olika **templatmotorer** \(på engelska **template engine**\), den som används här är  [Pug](https://pugjs.org/). Pug är snarlikt html och relativt enkelt att komma igång med.
 
 Innehållet på en sida med Pug struktureras med **indentering.** Text i början av en rad representerar generellt en **HTML** **tag**. Taggarna behöver inte stängas \(det sköter indenteringen\). För att **nästla** **element** indenteras de under andra taggar. Läs mer om [taggar](https://pugjs.org/language/tags.html) och [attribut](https://pugjs.org/language/attributes.html) i Pug.
 
@@ -23,7 +23,7 @@ div#idname
 {% endtab %}
 {% endtabs %}
 
-Läs mer om Pug i [dokumentation](https://pugjs.org/)en och använd den vid behov. Det finns även ett antal **extensions** för [**Visual Studio Code**](https://code.visualstudio.com/) \(förkortat till **vscode**\) för att underlätta arbetet med Pug.
+Läs mer om Pug i [dokumentation](https://pugjs.org/)en och använd den vid behov. Det finns även ett antal **extensions** för [Visual Studio Code](https://code.visualstudio.com/) \(förkortat till **vscode**\) för att underlätta arbetet med Pug.
 
 {% hint style="info" %}
 Det går utmärkt att konvertera färdiga HTML-sidor till Pug, det finns flera verktyg för detta, [Google](https://www.google.com/search?q=html+to+pug&oq=html+to+pug&aqs=chrome..69i57j0l6j69i60.4848j0j7&sourceid=chrome&ie=UTF-8).
