@@ -6,7 +6,7 @@ description: WSL
 
 > _“The Windows Subsystem for Linux lets developers run GNU/Linux environment -- including most command-line tools, utilities, and applications -- directly on Windows, unmodified, without the overhead of a virtual machine.”   -_    [Microsoft.com](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
-Det här dokumentet innehåller ett flertal instruktioner för hur du kommer igång och sätter upp en fungerande utvecklarmiljö med **Windows Subsystem for Linux \(WSL\)** och [**Ubuntu**](https://ubuntu.com/).
+Det här dokumentet innehåller ett flertal instruktioner för hur du kommer igång och sätter upp en fungerande utvecklarmiljö med **Windows Subsystem for Linux \(WSL\)** och [Ubuntu](https://ubuntu.com/).
 
 Majoriteten av de kommandon som visas kör du i **terminalen**, genom ett **skal** \(engelska **shell\)**. Det är därför väldigt viktigt att du följer instruktionerna noggrant och att du får kommandona att fungera innan du går vidare. Jag kan inte skriva eller säga det nog många gånger och det är:
 
@@ -95,7 +95,7 @@ Nästa steg är att skapa goda förutsättningar för att arbeta med kod i vscod
 Att samla kod på ett ställe är både praktiskt och bra praxis.
 {% endhint %}
 
-För att enkelt komma åt code-mappen ska du skapa en [**symbolisk länk**](https://sv.wikipedia.org/wiki/Symbolisk_l%C3%A4nk) **\(symlink\)** till den. Navigera till **hem-mappen** i WSL/Ubuntu och skapa länken såhär:
+För att enkelt komma åt code-mappen ska du skapa en [symbolisk länk](https://sv.wikipedia.org/wiki/Symbolisk_l%C3%A4nk) **\(symlink\)** till den. Navigera till **hem-mappen** i WSL/Ubuntu och skapa länken såhär:
 
 {% tabs %}
 {% tab title="Bash" %}
@@ -155,7 +155,7 @@ Gits terminal-kommandon finns i detta [Cheat Sheet](https://github.github.com/tr
 
 ## LAMP server
 
-I webbserver-kursen kommer du att få prova på ett antal olika typer av **webbservrar**. [**LAMP** ](https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29)är en akronym för en typ av server och betyder en webbserver med [**Linux**](https://www.linux.org/), [**Apache**](https://www.apache.org/), [**MySQL**](https://www.mysql.com/) och [**PHP**](https://www.php.net/). Det finns flera varianter av **\*AMP** där första bokstaven byts ut beroende på vilket operativsystem du använder, till exempel **WAMP** och **MAMP**. Eftersom du kör en Linux distribution, Ubuntu, under Windows så installerar du en LAMP-server.
+I webbserver-kursen kommer du att få prova på ett antal olika typer av **webbservrar**. [LAMP ](https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29)är en akronym för en typ av server och betyder en webbserver med [Linux](https://www.linux.org/), [Apache](https://www.apache.org/), [MySQL](https://www.mysql.com/) och [PHP](https://www.php.net/). Det finns flera varianter av **\*AMP** där första bokstaven byts ut beroende på vilket operativsystem du använder, till exempel **WAMP** och **MAMP**. Eftersom du kör en Linux distribution, Ubuntu, under Windows så installerar du en LAMP-server.
 
 Ubuntu har en färdig samling paket för LAMP-server.
 
@@ -191,7 +191,7 @@ Annars står det \[FAIL\].
 Fungerade det att starta din service, \[OK\], så kan du nu öppna en webbläsare och surfa till [http://localhost](http://localhost).
 
 {% hint style="info" %}
-\*\*\*\*[**localhost**](https://en.wikipedia.org/wiki/Localhost) ****är ett alias för din dators loopback interface som har ip-adressen 127.0.0.1.
+\*\*\*\*[localhost](https://en.wikipedia.org/wiki/Localhost) ****är ett alias för din dators loopback interface som har ip-adressen 127.0.0.1.
 {% endhint %}
 
 Om det står ett felmeddelande, \[FAIL\], så behöver det felsökas. Det vanligaste felet när du försöker starta Apache är att **port 80** är blockerad. 
