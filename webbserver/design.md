@@ -4,9 +4,17 @@ description: Lite kort om exempel-projektets design.
 
 # Design - inte så webbserver
 
+## Design och omdesign
+
+Efter att ha skapat den design som omnämns här nedan så hade jag problem med läsbarheten. Jag gjorde även lite extra arbete med [övningssidan ](https://jensnti.github.io/wu-ovningar/)vilket resulterade i en del uppdaterad css. Jag hade även en önskan om att exempelsidan till denna bok skulle fungera med sass-middleware.
+
+Därför gjorde jag om designen, den använder nu en del av koden från övningssidan samt att det nu fungerar med sass-middleware, som en bonus är den nu mycket mer läsbar, om än kanske tristare.
+
+Texten här nedan får stå kvar som reflektion över designarbete.
+
 ## Idé
 
-För projektets design så användes ****[**Figma**](https://www.figma.com/)**,** skisserna finns [här](https://www.figma.com/file/tngmvFgOZ96E1xHm9Igr9o/Webbserver-node?node-id=0%3A1). Det kan underlätta att använda ett digitalt skiss-verktyg, men oftast är det enklast att börja med penna och papper. Design är svårt och en iterativ process som innehåller många ställningstaganden. Under processen så framträder ofta problem med designen, både estetiska och tekniska. Produkten förbättras på så vis stegvis.
+För projektets design så användes ****[Figma](https://www.figma.com/)**,** skisserna finns [här](https://www.figma.com/file/tngmvFgOZ96E1xHm9Igr9o/Webbserver-node?node-id=0%3A1). Det kan underlätta att använda ett digitalt skiss-verktyg, men oftast är det enklast att börja med penna och papper. Design är svårt och en iterativ process som innehåller många ställningstaganden. Under processen så framträder ofta problem med designen, både estetiska och tekniska. Produkten förbättras på så vis stegvis.
 
 ### Färg
 
@@ -28,7 +36,7 @@ Rent praktiskt kan Sass-variabler underlätta arbetet med färger. Sass har äve
 
 ### Bild
 
-Undervattenskänslan i färgschemat ledde sedan till bilden med bubblorna. Bilden skapades i **Adobe Illustrator** med **formatet** [**SVG**](https://developer.mozilla.org/en-US/docs/Web/SVG). Utöver det används ikoner från Material.io och NTI Gymnasiets logotyp, alla i SVG formatet.  
+Undervattenskänslan i färgschemat ledde sedan till bilden med bubblorna. Bilden skapades i **Adobe Illustrator** med **formatet** [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG). Utöver det används ikoner från Material.io och NTI Gymnasiets logotyp, alla i SVG formatet.  
 
 ![Bubblor](../.gitbook/assets/bubbles-v2.svg)
 
