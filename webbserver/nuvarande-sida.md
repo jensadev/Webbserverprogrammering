@@ -10,7 +10,7 @@ Koden för det här avsnittet finner du i denna [commit](https://github.com/jens
 
 ## Mixin
 
-\*\*\*\*[**Mixins**](https://pugjs.org/language/mixins.html) är kodsnuttar i **Pug** som kan återanvändas, en sorts funktioner. För att ge exempel på hur mixins fungerar kommer du att skapa en active navigation länk till exempel-projektet.
+\*\*\*\*[Mixins](https://pugjs.org/language/mixins.html) är kodsnuttar i **Pug** som kan återanvändas, en sorts funktioner. För att ge exempel på hur mixins fungerar kommer du att skapa en active navigation länk till exempel-projektet.
 
 Mixin kan antingen skapas i en enskild fil eller i en pug-templat. I det här exemplet skapas detta mixin i nav-vyn. Skriv mixin koden överst i filen.
 
@@ -29,7 +29,7 @@ mixin nav-link(href, name)
 ```
 {% endcode %}
 
-Studera koden ovan. Nav-link är namnet på den mixin som skapas. Denna mixin tar två **parametrar** \(argument\). Detta är som en [**funktion**](https://sv.wikipedia.org/wiki/Funktion_%28programmering%29) i de flesta programmeringsspråk.
+Studera koden ovan. Nav-link är namnet på den mixin som skapas. Denna mixin tar två **parametrar** \(argument\). Detta är som en [funktion](https://sv.wikipedia.org/wiki/Funktion_%28programmering%29) i de flesta programmeringsspråk.
 
 * href, för den faktiska länken som ska användas
 * name, för titeln som ska visas på länken
