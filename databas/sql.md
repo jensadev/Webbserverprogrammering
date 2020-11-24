@@ -6,9 +6,9 @@ description: SQL är språket och MySQL en databashanterare
 
 ## Introduktion
 
-\*\*\*\*[**Structured Query Language \(SQL\)**](https://en.wikipedia.org/wiki/SQL) ****är ett språk för att arbeta med en [**relationsdatabas**](https://sv.wikipedia.org/wiki/Relationsdatabas). En relationsdatabas är organiserad i relationer. Relationer kallas även **tabeller** och dessa är organiserade i **rader** och **kolumner**.
+\*\*\*\*[Structured Query Language \(SQL\)](https://en.wikipedia.org/wiki/SQL) ****är ett språk för att arbeta med en [relationsdatabas](https://sv.wikipedia.org/wiki/Relationsdatabas). En relationsdatabas är organiserad i relationer. Relationer kallas även **tabeller** och dessa är organiserade i **rader** och **kolumner**.
 
-För att arbeta med SQL krävs en **databashanterare**. Det finns ett stort antal databashanterare som använder SQL språket. Detta dokument behandlar databashanteraren [**MySQL** ](https://www.mysql.com/)och dess **klient** och **server**.
+För att arbeta med SQL krävs en **databashanterare**. Det finns ett stort antal databashanterare som använder SQL språket. Detta dokument behandlar databashanteraren [MySQL ](https://www.mysql.com/)och dess **klient** och **server**.
 
 För att använda MySQL så behöver du köra dess klient och server. I avsnittet [MySQL](../utvecklarmiljo/wsl.md#mysql) finns instruktioner hur du installerar MySQL under Windows Subsystem for Linux \(WSL\).
 
@@ -91,7 +91,7 @@ SHOW databases;
 
 ### Skapa en tabell i en databas
 
-För att spara data behöver först en tabell skapas. När en tabell skapas krävs det att minst en kolumn skapas. Denna kolumn är som oftast en **primär** id-kolumn som databasens motor hanterar, detta är god [**databasdesign**](databasdesign.md).
+För att spara data behöver först en tabell skapas. När en tabell skapas krävs det att minst en kolumn skapas. Denna kolumn är som oftast en **primär** id-kolumn som databasens motor hanterar, detta är god [databasdesign](databasdesign.md).
 
 {% hint style="warning" %}
 Kontrollera att du har valt en databas.
