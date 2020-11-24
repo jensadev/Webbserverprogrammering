@@ -12,6 +12,10 @@ Därför gjorde jag om designen, den använder nu en del av koden från övnings
 
 Texten här nedan får stå kvar som reflektion över designarbete.
 
+{% hint style="info" %}
+Repot hittar du på GitHub, [https://github.com/jensnti/wsp1-node](https://github.com/jensnti/wsp1-node)
+{% endhint %}
+
 ## Idé
 
 För projektets design så användes ****[Figma](https://www.figma.com/)**,** skisserna finns [här](https://www.figma.com/file/tngmvFgOZ96E1xHm9Igr9o/Webbserver-node?node-id=0%3A1). Det kan underlätta att använda ett digitalt skiss-verktyg, men oftast är det enklast att börja med penna och papper. Design är svårt och en iterativ process som innehåller många ställningstaganden. Under processen så framträder ofta problem med designen, både estetiska och tekniska. Produkten förbättras på så vis stegvis.
