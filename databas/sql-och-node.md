@@ -540,6 +540,6 @@ I användar-vyn så används selektion i Pug-koden för att det inte ska visas f
 {% endhint %}
 
 {% hint style="info" %}
-[Samtliga moment i detta kapitel finns visade i denna speed run.](https://youtu.be/BnweeiRfE_U)
+[Samtliga moment i detta kapitel finns visade i denna speedrun.](https://youtu.be/BnweeiRfE_U)
 {% endhint %}
 
