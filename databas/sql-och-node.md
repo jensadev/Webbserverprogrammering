@@ -50,7 +50,7 @@ connection.connect(function (err) {
 Först skapas en const för mysql-paketet, drivrutinen krävs. Efter det så skapas en uppkoppling till mysql-servern utifrån den angivna konfigurationen. Därefter testats uppkopplingen med connect metoden och vid eventuellt fel så loggas det, annars så loggas uppkopplingen. Koden kan testas i app.js eller i en route fil för express om så önskas.
 
 {% hint style="warning" %}
-Node kan få problem med auth till Mysql 8. Då behöver du uppdatera din mysql-användare.
+Node kan få problem med auth till MySql 8. Då behöver du uppdatera din mysql-användare på mysql servern. SQL frågan för detta finns här nedanför.
 {% endhint %}
 
 {% tabs %}
@@ -64,9 +64,9 @@ FLUSH privileges;
 
 ## Konfiguration
 
-Det första som behöver åtgärdas är konfigurationsvärdena i exemplet och för det så ska vi använda dotenv paketet. En .env fil är en konfigurationsfil\(eller en fil med miljövariabler, environment\), att filnamnet börjar med en punkt är en Linux standard för att visa att det rör sig om en dold fil.
+Det första som behöver åtgärdas är konfigurationsvärdena i exemplet och för det så ska vi använda dotenv paketet. En .env fil är en konfigurationsfil\(eller en fil med miljövariabler, environment\),. Filnamnet börjar med en punkt, vilket är en Linux standard för att visa att det rör sig om en dold fil\(vilket ofta konfigurationsfiler är\).
 
-Att arbeta med konfigurationen för ett projekt i en separat fil är en god praxis som låter dig konfigurera upp ett projekt utan att ändra i koden. Det låter oss dessutom skydda känslig konfigurationsdata från att laddas upp på till exempel GitHub. Filen skapas i projektets root, först som .env-example utan konfigurationsvärden. Kopiera sedan filen till .env och fyll i konfigurationsvärdena. För en databaskonfiguration behövs, host, username, password och databas.
+Att arbeta med konfigurationen för ett projekt i en separat fil är en god praxis som låter dig konfigurera upp ett projekt utan att ändra i koden. Att separera konfigurationen skyddar känslig konfigurationsdata\(lösenord, användare api-nycklar\) från att laddas upp på till exempel GitHub. .env filen skapas i projektets root. Skapa först en fil med namnet .env-example utan konfigurationsvärden. Kopiera sedan filen till .env och fyll i konfigurationsvärdena. För en databaskonfiguration behövs, host, username, password och databas.
 
 {% code title=".env-example" %}
 ```bash
@@ -86,7 +86,7 @@ DB_DATABASE=databasename
 ```
 {% endcode %}
 
-Sist men inte minst kontrollerar du\(eller skapar\) en .gitignore i projektets root för att kontrollera så att .env filen inte laddas upp på GitHub.
+Skapa sedan en .gitignore fil i projektets root för att kontrollera så att .env filen inte laddas upp på GitHub.
 
 {% code title=".gitignore" %}
 ```bash
@@ -95,7 +95,11 @@ Sist men inte minst kontrollerar du\(eller skapar\) en .gitignore i projektets r
 ```
 {% endcode %}
 
-För att komma åt värdena från .env filen så behöver paketet laddas in så tidigt som möjligt i applikationen. De återfinns sedan i process.env.
+{% hint style="danger" %}
+Utan .gitignore kvittar det att du skapar .env filerna.
+{% endhint %}
+
+För att komma åt värdena från .env filen så behöver paketet laddas in så tidigt som möjligt i applikationen. Värdena återfinns sedan i objektet `process.env`.
 
 {% code title="app.js" %}
 ```javascript
@@ -104,7 +108,7 @@ require('dotenv').config();
 ```
 {% endcode %}
 
-Med dotenv blir det ovanstående connection-exemplet som följer.
+Med dotenv paketet laddat kan det ovanstående exemplet ändras till.
 
 {% tabs %}
 {% tab title="JavaScript" %}
@@ -130,9 +134,9 @@ connection.connect(function (err) {
 
 ## Databasmodell
 
-För att använda mysql kommer vi att skapa en återanvändbar modell. Denna modell kommer även att använda en pool med uppkopplingar. Modellen kommer att exportera en skapad pool för användning.
+För att använda mysql kommer vi att skapa en återanvändbar modell. Denna modell kommer även att använda en [pool ](https://www.npmjs.com/package/mysql#pooling-connections)med uppkopplingar. Modellen kommer att exportera en skapad pool för användning.
 
-Skapa en ny mapp _models_ i projektets root och i den, _db.js_.
+Skapa en ny mapp _models_ i projektets root och i models en fil med namn, _db.js_.
 
 {% code title="models/db.js" %}
 ```javascript
@@ -151,16 +155,7 @@ module.exports = pool;
 ```
 {% endcode %}
 
-För att testa modellen skapar vi en testroute och tillhörande filer. Skapa _routes/test.js._
-
-{% code title="app.js" %}
-```javascript
-...
-const testRouter = require('./routes/test');
-...
-app.use('/test', testRouter);
-```
-{% endcode %}
+Skapa sedan en ny route fil för att testa modellen, _routes/test.js._
 
 {% code title="routes/test.js" %}
 ```javascript
@@ -182,14 +177,23 @@ module.exports = router;
 ```
 {% endcode %}
 
+{% code title="app.js" %}
+```javascript
+...
+const testRouter = require('./routes/test');
+...
+app.use('/test', testRouter);
+```
+{% endcode %}
+
 Databasmodellen sparas i variabeln pool för användning. Sedan används metoden `.getConnection()` för att hämta en uppkoppling från poolen. Sidan visar sedan uppkopplingens id innan uppkopplingen släpps, release. Testa vad som sker utan `connection.release()`.
 
 ## Databasfråga
 
-Innan du går vidare så behöver du starta mysql-servern och importera databasen från [exemplet](databas-exempel.md).
+För att testa att kommunicera med en databas behöver du starta en mysql-server och importera databasen från [exemplet](databas-exempel.md).
 
 {% hint style="info" %}
-Databasdump finns [här](https://raw.githubusercontent.com/jensnti/Webbserverprogrammering/master/exempel/meeps.sql). Använd wget för enkelhetens skull.
+Databasdump finns [här](https://raw.githubusercontent.com/jensnti/Webbserverprogrammering/master/exempel/meeps.sql). Använd wget för att hämta den.
 {% endhint %}
 
 {% tabs %}
@@ -199,6 +203,10 @@ wget https://raw.githubusercontent.com/jensnti/Webbserverprogrammering/master/ex
 ```
 {% endtab %}
 {% endtabs %}
+
+{% hint style="info" %}
+Du kan också använda [Tableplus ](https://tableplus.com/)för att importera databaser.
+{% endhint %}
 
 När du laddat ned filen så förbered för att importera den med att skapa en databas\(om det behövs\).
 
@@ -247,9 +255,13 @@ router.get('/', function (req, res, next) {
 ```
 {% endcode %}
 
-Skapa sedan en view som heter _test_. I en första test skriver vi ut värdena från mysql resultatet med [interpolation ](https://pugjs.org/language/interpolation.html)i Pug. Det är då viktigt att se till att värden som skrivs ut [**escapas**](https://en.wikipedia.org/wiki/Escape_character), detta för att skadlig kod eventuellt kan sparas i en databas och sedan reproduceras för en användare på webbplatsen. 
+Skapa sedan en view som heter _test_. I en första test skriver vi ut värdena från mysql resultatet med [interpolation ](https://pugjs.org/language/interpolation.html)i Pug. Det är då viktigt att se till att värden som skrivs ut [escapas](https://en.wikipedia.org/wiki/Escape_character), detta för att skadlig kod eventuellt kan sparas i en databas och sedan reproduceras för en användare på webbplatsen. 
 
-Resultatet måste loopas igenom, då det skickas till viewen som en array. För att göra det används Pugs each iteration. Om du önskar studera resultatet så logga det i node konsollen.
+{% hint style="info" %}
+Använd `console.log()` i routen för att felsöka och undersöka data. Detta dumpar datan till den terminal där du startat upp node.
+{% endhint %}
+
+Resultatet måste itereras, eftersom det är en array. För att göra det används Pugs each funktion.
 
 {% code title="views/test.pug" %}
 ```javascript
@@ -270,7 +282,7 @@ const sql = 'SELECT meeps.*, users.name FROM meeps JOIN users ON meeps.user_id =
 ```
 {% endcode %}
 
-Nästa steg blir sedan att utveckla test-viewen för att utveckla layouten. Detta kan med fördel göras som en mixin. Koden som följer skapar ett kort för en post. 
+Nästa steg blir sedan att utveckla test-viewen. Detta kan med fördel göras som en mixin. Koden som följer skapar ett kort för en post. 
 
 {% code title="views/test.pug" %}
 ```javascript
@@ -287,7 +299,7 @@ Nästa steg blir sedan att utveckla test-viewen för att utveckla layouten. Dett
 
 ### Övning
 
-Skapa en mixin att återanvända för varje rad i databasen, antingen skriver du kod för ett eget kort med css eller så använder du ett Bootstrap kort.
+* Skapa en mixin som du kan kalla på för varje rad i databasen, antingen skriver du kod för ett eget kort med css eller så använder du ett Bootstrap kort.
 
 ## Databas selektion
 
@@ -312,11 +324,11 @@ Du kan självklart välja data utifrån andra fält som user\_id för att välja
 
 #### Övning
 
-Prova att skriva en SQL fråga som låter dig söka efter mailadresser i databasen. Till exempel ska jag kunna söka efter ett förnamn och få tillbaka matchande adresser. Använd wildcards, %.
+* Prova att skriva en SQL fråga som låter dig söka efter mailadresser i databasen. Tänka att användaren ska kunna söka efter ett förnamn och få tillbaka matchande adresser. Använd SQL wildcards, %.
 
 ### Selektion och node
 
-För att kunna använda selektion utifrån specifika IDs med node så behövs möjligheten att skicka detta till node. För att skicka en parameter behöver en route skapas eller ändras för att tillåta detta. Då används `:PARAMETERNAMN` i routen.
+För att kunna välja rader från databasen med specifika ID, så måste servern kunna ta emot ID parametern. För att skicka en parameter behöver en route skapas eller ändras för att tillåta detta. Då används `:PARAMETERNAMN` i routen.
 
 {% tabs %}
 {% tab title="JavaScript" %}
@@ -331,7 +343,7 @@ router.get('/:id', function (req, res, next) {
 
 Denna route på / läser in en parameter med namnet `:id`. Värdet på parametrarna återfinns i requestens\(req\) parameter-objekt. Du kommer åt detta genom punkt-notation. 
 
-Värdet som skickats med en parameter kan sedan användas i din SQL, detta görs genom en så kallad **prepared statment**. Prepared statements\(även **parameterized query**\) används av säkerhetsskäl för att undvika [SQL-injektioner](https://imgs.xkcd.com/comics/exploits_of_a_mom.png).
+Värdet som skickats med en parameter kan sedan användas i SQL frågan, det görs genom en så kallad **prepared statment**. Prepared statements\(även **parameterized query**\) används av säkerhetsskäl för att undvika [SQL-injektioner](https://imgs.xkcd.com/comics/exploits_of_a_mom.png).
 
 {% code title="routes/test.js" %}
 ```javascript
@@ -350,9 +362,9 @@ router.get('/:id', function (req, res, next) {
 ```
 {% endcode %}
 
-Ändringen här ovan i test-routen skapar en route för get med en id parameter. Rad 2 skapar SQL-frågan där frågetecknet är en parameter. När sedan frågan körs på rad 4, så ersätts ? med \[req.params.id\]. Det går utmärkt att använda flera parameterar\(tänk post med ett formulär\), det viktiga är att de är satta i korrekt ordning.
+Ändringen i test-routen skapar en route för get som tillåter en id parameter. Rad 2 skapar SQL-frågan där frågetecknet är en parameter. Frågan körs sedan på rad 4,  då ersätts ? med \[req.params.id\]. Det går utmärkt att använda flera parameterar\(tänk post med ett formulär\). Med flera parametrar är det viktigt att de är satta i rätt ordning.
 
-Om frågan exekveras korrekt så returneras svaret som json.
+Om frågan exekveras korrekt så returneras svaret som json till webbläsaren.
 
 ### Övning
 
