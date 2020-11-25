@@ -8,9 +8,9 @@ description: Lite kort om exempel-projektets design.
 
 Efter att ha skapat den design som omnämns här nedan så hade jag problem med läsbarheten. Jag gjorde även lite extra arbete med [övningssidan ](https://jensnti.github.io/wu-ovningar/)vilket resulterade i en del uppdaterad css. Jag hade även en önskan om att exempelsidan till denna bok skulle fungera med sass-middleware.
 
-Därför gjorde jag om designen, den använder nu en del av koden från övningssidan samt att det nu fungerar med sass-middleware, som en bonus är den nu mycket mer läsbar, om än kanske tristare.
+Av den anledningen gjorde jag om designen, den använder nu en del av koden från övningssidan samt att det nu fungerar med sass-middleware, som en bonus är den nu mycket mer läsbar.
 
-Texten här nedan får stå kvar som reflektion över designarbete.
+Texten här nedan får stå kvar som reflektion över ett designarbete.
 
 {% hint style="info" %}
 Repot hittar du på GitHub, [https://github.com/jensnti/wsp1-node](https://github.com/jensnti/wsp1-node)
