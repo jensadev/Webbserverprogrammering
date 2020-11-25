@@ -377,9 +377,9 @@ Skapa länkar till enskilda meeps.
 
 ##  Databasmodell, asynkrona frågor
 
-Ibland så uppstår problem med databasuppkopplingen eller det behövs flera uppkopplingar. Vid dessa tillfällen så kan du behöva större kontroll över vad som sker och hur data levereras till klienten. En lösning på detta är att göra asynkrona anrop, då kan du styra över att din kod ska vänta på svar.
+Ibland så uppstår problem med databasuppkopplingen eller så behövs det flera uppkopplingar. Vid dessa tillfällen så kan du behöva större kontroll över vad som sker och hur data levereras till klienten. En lösning på detta är att göra asynkrona anrop, då kan du styra över att din kod ska invänta svar från databasen.
 
-För att möjliggöra asynkrona anrop till databasen behöver du ändra på databasmodellen.
+För att möjliggöra asynkrona anrop ändras databasmodellen till följande.
 
 {% code title="models/db.js" %}
 ```javascript
@@ -407,17 +407,17 @@ module.exports = { pool, query };
 ```
 {% endcode %}
 
-Query funktionen accepterar en SQL fråga samt tillhörande parametrar. `...params` delar upp parametrarna i en array vilket låter oss använda dem i en parameterized query.
+Query funktionen accepterar en SQL fråga samt tillhörande parametrar. `...params` delar upp parametrarna i en array. Sedan används parametrarna i en parameterized query.
 
 ### Flera frågor
 
-Vi kan nu använda `query` funktionen i en route genom att requira den, se följande exempel. Med query funktionen kan vi då ange att routen ska vara asynkron med nyckelordet `async`.
+Nu kan `query` funktionen användas i en route genom att requira den. Med query funktionen kan routen göras asynkron med nyckelordet `async`.
 
 {% hint style="info" %}
-Async tillåter användningen av await vilket gör att vi kan vänta på att det som kallas en promise körs färdigt. Detta resulterar i att den antingen resolves eller rejects, körs eller misslyckas. [MDN async function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function).
+Async tillåter användningen av await vilket tillåter koden att invänta svar. Det görs genom något som kallas för promises. En promise resulterar i att den antingen resolves eller rejects, körs eller misslyckas. [MDN async function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function).
 {% endhint %}
 
-I koden nedan så ändras users routen så att vi tillåter användaren att köra den med en parameter `:id`, användarens id. För att illustrera dubbla SQL-frågor så hämtas då även den användarens alla tillhörande meeps. Utan att använda `async` och `await` så väntar aldrig scriptet på att dessa frågor ska köras, utan returnerar ingen data. Jämför koden här nedan och prova båda versionerna.
+I koden nedan så ändras users routen för att tillåta användaren att köra den med en parameter `:id`, användarens id. För att illustrera dubbla SQL-frågor så hämtas då även den användarens alla tillhörande meeps. Utan att använda `async` och `await` så väntar aldrig scriptet på att dessa frågor ska köras, utan returnerar ingen data. Jämför koden här nedan och prova båda versionerna.
 
 {% tabs %}
 {% tab title="Sync" %}
@@ -531,9 +531,9 @@ block content
 {% endtab %}
 {% endtabs %}
 
-Koden väntar på att [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) för båda SQL-frågorna ska bli "klar". När den är klar så renderas users-view med databas frågornas data. Frågorna körs i ett `try` block för att fånga eventuella fel med `catch`. Om ett fel uppstår så fångas det upp och vi använder Express inbyggda [felhanterare](https://expressjs.com/en/guide/error-handling.html), `next(error)`.
+Koden väntar på att [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) för båda SQL-frågorna ska bli "klar". När den är klar så renderas users-view med databas-frågornas data. Frågorna körs i ett `try` block för att fånga eventuella fel med `catch`. Om ett fel uppstår så fångas det upp och vi använder Express inbyggda [felhanterare](https://expressjs.com/en/guide/error-handling.html), `next(error)`.
 
-I användar-vyn så används selektion i pug koden för att det inte ska visas fel när data saknas\(testa att köra utan if-satserna\). 
+I användar-vyn så används selektion i Pug-koden för att det inte ska visas fel när data saknas\(testa att köra utan if-satserna\). 
 
 {% hint style="info" %}
 [Koden för exempel-projektet finner du här i DB grenen.](https://github.com/jensnti/wsp1-node/tree/db)
