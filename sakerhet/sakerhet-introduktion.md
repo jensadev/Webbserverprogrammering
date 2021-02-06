@@ -10,7 +10,7 @@ I webbläsaren, genom formulär och javascript.
 
 ### Server
 
-Kontrollera innehållet i data.
+Kontrollera innehållet i data, dess typ.
 
 ## SQL-injektioner
 
