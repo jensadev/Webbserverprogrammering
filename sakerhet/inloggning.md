@@ -55,6 +55,10 @@ I form elementet så använder vi olika former av input element för att hantera
 
 Undersök den data som skickas från ett HTML formulär i webbläsarens utvecklarverktyg. Du hittar denna request under Network fliken.
 
+{% hint style="info" %}
+Ostylade HTML formulär är hemska, så hitta gärna något ramverk du kan använda.
+{% endhint %}
+
 ### Tabell för användare
 
 En användartabell behöver inte så mycket för att fungera. I ett mer utökat system så kan vi behöva spara information för email-verifiering och så vidare. Det är god praxis att spara timestamps kopplat till kontot av säkerhetsskäl.
