@@ -4,6 +4,13 @@ description: Allt i en Docker container
 
 # Laravel, Nginx, Mysql
 
+## Breeze
+
+Det händer mycket med Laravel, som de flesta ramverk. Att manuellt sätta upp docker och konfigurera det behövs egentligen inte. Funktionaliteten med att köra Laravel och den mjukvara som krävs för det finns nu paketerat i något som kallas för Breeze, det gör att den följande guiden inte behövs.
+
+* [https://laravel.com/docs/8.x/installation](https://laravel.com/docs/8.x/installation)
+* [https://laravel.com/docs/8.x/starter-kits](https://laravel.com/docs/8.x/starter-kits)
+
 ## Docker konfiguration
 
 {% hint style="info" %}
