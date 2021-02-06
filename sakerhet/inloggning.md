@@ -28,7 +28,7 @@ npm install nodemon --save-dev
 {% endtabs %}
 
 {% tabs %}
-{% tab title="JavaScript" %}
+{% tab title="JSON" %}
 {% code title="package.json" %}
 ```javascript
 "start": "nodemon ./bin/www"
@@ -38,6 +38,24 @@ npm install nodemon --save-dev
 {% endtabs %}
 
 {% embed url="https://github.com/jensnti/wsp1-login" %}
+
+Du behöver skapa en route för login, med en tillgörande view. Denna view ska visa ett formulär. Ett formulär består av form taggen, denna kräver en metod\(GET eller POST\) samt en action. Form elementets action attribut bestämmer vars formuläret skickar data när det skickas\(submit\).
+
+I form elementet så använder vi olika former av input element för att hantera data från användaren. Här kan en första validering utföras för att öka säkerheten, som typ av fält.
+
+{% tabs %}
+{% tab title="HTML" %}
+```markup
+<form method="post" action="/login">
+    <input type="text" name="username">
+    <input type="password" name="password">
+    <button type="submit">Login</button>
+</form>
+```
+{% endtab %}
+{% endtabs %}
+
+Undersök den data som skickas från ett HTML formulär i webbläsarens utvecklarverktyg. Du hittar denna request under Network fliken.
 
 ### Tabell för användare
 
@@ -60,6 +78,28 @@ mysql> describe users;
 | updated_at | timestamp    | NO   |     | NULL    |                |
 +------------+--------------+------+-----+---------+----------------+
 ```
+{% endtab %}
+{% endtabs %}
+
+### Prata med databasen
+
+Sker som tidigare med databasmodellen från tidigare kapitel.
+
+{% page-ref page="../databas/sql-och-node.md" %}
+
+### Ta emot data
+
+Din login route behöver ta emot och hantera en post request från login formuläret. Den data som routen tar emot sparas i req.body.
+
+{% tabs %}
+{% tab title="JavaScript" %}
+{% code title="routes/login.js" %}
+```javascript
+router.post('/', async function(req, res, next) {
+  console.log(req.body);
+});
+```
+{% endcode %}
 {% endtab %}
 {% endtabs %}
 
