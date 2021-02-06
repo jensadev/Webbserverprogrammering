@@ -37,8 +37,6 @@ npm install nodemon --save-dev
 {% endtab %}
 {% endtabs %}
 
-{% embed url="https://github.com/jensnti/wsp1-login" %}
-
 Du behöver skapa en route för login, med en tillgörande view. Denna view ska visa ett formulär. Ett formulär består av form taggen, denna kräver en metod\(GET eller POST\) samt en action. Form elementets action attribut bestämmer vars formuläret skickar data när det skickas\(submit\).
 
 I form elementet så använder vi olika former av input element för att hantera data från användaren. Här kan en första validering utföras för att öka säkerheten, som typ av fält.
@@ -110,4 +108,10 @@ router.post('/', async function(req, res, next) {
 Databasen behöver en token som även sparas hos användaren, så att en "ihågkommen" inloggning kan kontrolleras.
 
 ## Säkerhet
+
+## Repo
+
+Kopiera inte slutprodukten, då lär du dig inget, gå igenom de commits som är gjorda för att se vad du har missat och kan behöva.
+
+{% embed url="https://github.com/jensnti/wsp1-login" %}
 
