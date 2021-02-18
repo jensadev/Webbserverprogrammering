@@ -31,6 +31,7 @@
 
 ## Tester
 
+* [Automatiserade tester](tester/automatiserade-tester.md)
 * [Kodkvalitet](tester/kodkvalitet.md)
 
 ## Containers
