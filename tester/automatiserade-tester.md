@@ -106,5 +106,54 @@ describe('index route', () => {
 
 ## POST test
 
-Att kunna skicka data med tester är väldigt användbart, då det tar bort ett stort manuellt moment med att 
+Att kunna skicka data med tester är väldigt användbart, då det tar bort ett stort manuellt moment med att  hela tiden behöva mata in data i ett formulär till exempel.
+
+{% tabs %}
+{% tab title="JavaScript" %}
+{% code title="test/logintest.js" %}
+```javascript
+describe('/login', () => {
+  ...
+  describe('POST /', () => {
+    it('should sign in user given a correct request body', (done) => {
+      // routen vi postar till är /login
+      // vi skickar data med form typen
+      // form fälten är username och password
+      // routen som sköter login redirectar användaren
+      // till routen /home vid lyckad login, detta ger http status 302
+      request.post('/login')
+        .type('form')
+        .send({
+          username: 'USERNAME',
+          password: 'PASSWORD'
+        })
+        .expect(302)
+        .expect('Location', '/home')
+        .end((err, res) => {
+          if (err) throw err;
+          return done();
+        });
+    });
+});
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="JavaScript" %}
+{% code title="routes/login.js" %}
+```javascript
+// logik för login, om lyckad result == true
+if (result == true) {
+  // sätt en session
+  req.session.loggedin = true;
+  req.session.username = username;
+  // skicka vidare användaren till Auth skyddad sida
+  res.redirect('/home');
+}
+```
+{% endcode %}
+{% endtab %}
+{% endtabs %}
+
+
 
