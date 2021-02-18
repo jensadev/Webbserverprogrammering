@@ -32,7 +32,7 @@ För att köra test så används npm och ett script kommando från package.json.
 ```
 {% endcode %}
 
-## Ett test
+## Ett test med GET
 
 Den här stilen av test kallas för Behaviour Driven Development\(BDD\), alltså beteende driven utveckling. Med detta menas att vi beskriver något som koden ska utföra och vad vi förväntar oss ska ske då.
 
@@ -103,4 +103,8 @@ describe('index route', () => {
 {% endcode %}
 {% endtab %}
 {% endtabs %}
+
+## POST test
+
+Att kunna skicka data med tester är väldigt användbart, då det tar bort ett stort manuellt moment med att 
 
