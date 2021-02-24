@@ -249,6 +249,8 @@ App.js laddar in serverns routes från routes/ foldern. När en **route** laddas
 
 ### Routes
 
+En route är den väg en request tar i din applikation. Användaren efterfrågar en resurs och i routen så bestämmer du vad som ska ske då.
+
 Routerna som skapas av Express generator är index och users. Index hanterar anrop till / och users till /users. Applikationens router laddas och kopplas till en adress i app.js. 
 
 {% code title="app.js" %}
