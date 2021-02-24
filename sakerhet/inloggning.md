@@ -163,7 +163,7 @@ Ett login-system innehåller oftast alla delar av create, read, update, delete\(
 
 #### SQL
 
-CRUD kan kopplas till ett antal SQL frågor som utför detta. Du ska kunna utföra alla de stegen.
+CRUD kan kopplas till ett antal SQL frågor som utför detta. 
 
 {% tabs %}
 {% tab title="SQL" %}
@@ -175,6 +175,10 @@ DELETE FROM users WHERE id = 1;
 ```
 {% endtab %}
 {% endtabs %}
+
+{% hint style="info" %}
+CRUD rör inte bara databas, utan handlar om att spara data på något sätt i en applikation.
+{% endhint %}
 
 
 
