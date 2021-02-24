@@ -184,6 +184,14 @@ Alla frågorna kan köras genom databasmodellen vi använt och värden bör anv�
 CRUD rör inte bara databas, utan handlar om att spara data på något sätt i en applikation.
 {% endhint %}
 
+### HTML
+
+De värden som används i SQL frågorna kommer i de flesta fall från HTML formulär. Formulären låter användare mata in data. Servern tar sedan emot data, validerar, tvättar och gör sedan något med den.
+
+### Express
+
+I express tas requesten emot. Formulär visas med GET och data tas emot med POST.
+
 ## Övningsprojekt
 
 * Skapa ett login system.
