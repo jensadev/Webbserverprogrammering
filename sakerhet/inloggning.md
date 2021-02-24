@@ -105,6 +105,31 @@ router.post('/', async function(req, res, next) {
 {% endtab %}
 {% endtabs %}
 
+### Lösenord
+
+Användaren kommer att skicka sitt lösenord i klartext till din server\(ett problem med HTTP som åtgärdats med HTTPS\). Det lösenordet är något som vi aldrig ska spara av säkerhetsskäl.
+
+{% hint style="danger" %}
+Spara aldrig lösenord i klartext i databasen.
+{% endhint %}
+
+Det som sparas i databasen ska vara en **hash**, det vill säga en sträng med olika tecken. För att hasha lösenordet används en algoritm som kallas för [bcrypt](https://en.wikipedia.org/wiki/Bcrypt). Bcrypt anses vara säker för detta.
+
+Bcrypt finns som ett node paket.
+
+```text
+npm install bcrypt
+```
+
+Förfarandet blir sedan att.
+
+1. Ta emot användarens lösenord.
+2. Omvandla lösenordet till en hash.
+3. Hämta den sparade hashen av lösenordet från databasen.
+4. Jämföra de två, om det stämmer loggas användaren in.
+
+Bcrypt paketet använder ett par metoder för det, se [manualen](https://www.npmjs.com/package/bcrypt#usage).
+
 ### Kom ihåg att jag är inloggad
 
 För detta så använder du sessions eller kakor.
@@ -127,7 +152,9 @@ req.session.PARAMETERNAME = value;
 {% endtab %}
 {% endtabs %}
 
-## Säkerhet
+## SQL
+
+
 
 ## Repo
 
