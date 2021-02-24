@@ -196,6 +196,7 @@ I express tas requesten emot. Formulär visas med GET och data tas emot med POST
 
 * Skapa ett login system.
 * Låt användaren skriva korta bloggar/inlägg/tweets eller vad det nu kan vara.
+  * Inlägget ska vara kopplat till userns id.
   * Databasdesignen finns [här](../databas/databasdesign.md).
 * Gör så att en användares inlägg visas på deras "hem" sida.
 * Andra användare, som är inloggade, ska kunna läsas andras "hem".
