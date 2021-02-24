@@ -165,7 +165,7 @@ Ett login-system innehåller oftast alla delar av create, read, update, delete\(
 
 ### SQL
 
-CRUD kan kopplas till ett antal SQL frågor som utför detta. 
+CRUD kan kopplas till ett antal SQL frågor som utför detta.
 
 {% tabs %}
 {% tab title="SQL" %}
@@ -198,9 +198,5 @@ CRUD rör inte bara databas, utan handlar om att spara data på något sätt i e
 
 Kopiera inte slutprodukten, då lär du dig inget, gå igenom de commits som är gjorda för att se vad du har missat och kan behöva.
 
-{% embed url="https://github.com/jensnti/te-18login/commits/main" %}
-
-
-
-
+{% embed url="https://github.com/jensnti/te-18login/commits/main" caption="" %}
 
