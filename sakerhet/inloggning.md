@@ -152,7 +152,29 @@ req.session.PARAMETERNAME = value;
 {% endtab %}
 {% endtabs %}
 
-## SQL
+## Create, read, update, delete
+
+Ett login-system innehåller oftast alla delar av create, read, update, delete\(**CRUD**\). [CRUD ](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete)är en akronym för de vanliga operationerna som utförs när data sparas, i ett login-system blir det.
+
+* Skapa en användare, create.
+* Logga in en användare, read.
+* Uppdatera en användare, update.
+* Ta bort en användare, delete.
+
+#### SQL
+
+CRUD kan kopplas till ett antal SQL frågor som utför detta. Du ska kunna utföra alla de stegen.
+
+{% tabs %}
+{% tab title="SQL" %}
+```sql
+SELECT password FROM users WHERE name = name;
+INSERT INTO users (name, password) VALUES ('namn', 'pass');
+UPDATE users SET namn = 'namnet' WHERE id = 1;
+DELETE FROM users WHERE id = 1;
+```
+{% endtab %}
+{% endtabs %}
 
 
 
