@@ -393,7 +393,7 @@ const pool = mysql.createPool({
   database: process.env.DB_DATABASE
 });
 
-function query(sql, ...params) {
+function query(sql, params) {
   return new Promise((resolve, reject) => {
     pool.query(sql, params, function (err, result, fields) {
       if (err) reject(err);
@@ -407,7 +407,7 @@ module.exports = { pool, query };
 ```
 {% endcode %}
 
-Query funktionen accepterar en SQL fråga samt tillhörande parametrar. `...params` delar upp parametrarna i en array. Sedan används parametrarna i en parameterized query.
+Query funktionen accepterar en SQL fråga samt tillhörande parametrar. 
 
 ### Flera frågor
 
