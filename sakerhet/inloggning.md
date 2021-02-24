@@ -202,6 +202,7 @@ I express tas requesten emot. Formulär visas med GET och data tas emot med POST
 * Andra användare, som är inloggade, ska kunna läsas andras "hem".
 * Skapa funktionen för att kommentera på andras inlägg.
   * Bra övning i databasdesign och JOIN i SQL.
+* Styla slutligen alltihopa med Bootstrap och SASS. [Mall](https://getbootstrap.com/docs/5.0/examples/blog/).
 
 ## Repo
 
