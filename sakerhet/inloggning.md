@@ -105,11 +105,27 @@ router.post('/', async function(req, res, next) {
 {% endtab %}
 {% endtabs %}
 
+### Kom ihåg att jag är inloggad
 
+För detta så använder du sessions eller kakor.
 
-### Kom ihåg mig
+{% tabs %}
+{% tab title="Bash" %}
+```bash
+npm install express-session
+```
+{% endtab %}
+{% endtabs %}
 
-Databasen behöver en token som även sparas hos användaren, så att en "ihågkommen" inloggning kan kontrolleras.
+Konfigurationsanvisningar finns på paketets sida, [npmjs.org](https://www.npmjs.com/package/express-session). För att sätta en session parameter så används request objeketet i express.
+
+{% tabs %}
+{% tab title="JavaScript" %}
+```javascript
+req.session.PARAMETERNAME = value;
+```
+{% endtab %}
+{% endtabs %}
 
 ## Säkerhet
 
