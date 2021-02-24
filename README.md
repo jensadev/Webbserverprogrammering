@@ -18,7 +18,7 @@ description: >-
 * [Teckenkodning. Begrepp, standarder och handhavande.](https://jens-andreasson.gitbook.io/webbutveckling/teknisk-orientering/teckenkodning)
 * Kodning och dokumentation enligt vedertagen praxis för vald teknik.
 * [Applikationsarkitektur och separation av olika slags logik.]()
-* [Kvalitetssäkring av dynamiska webbapplikationers funktionalitet, säkerhet och kodkvalitet.](tester/kodkvalitet.md)
+* [Kvalitetssäkring av dynamiska webbapplikationers funktionalitet, säkerhet och kodkvalitet.]()
 * [Grundläggande säkerhet och sätt att identifiera hot och sårbarheter samt hur attacker kan motverkas genom effektiva åtgärder.](sakerhet/sakerhet-introduktion.md)
 
 
