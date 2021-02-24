@@ -198,5 +198,11 @@ CRUD rör inte bara databas, utan handlar om att spara data på något sätt i e
 
 Kopiera inte slutprodukten, då lär du dig inget, gå igenom de commits som är gjorda för att se vad du har missat och kan behöva.
 
-{% embed url="https://github.com/jensnti/wsp1-login" %}
+[https://github.com/jensnti/te-18login/commits/main](https://github.com/jensnti/te-18login/commits/main)
+
+{% page-ref page="inloggning.md" %}
+
+
+
+
 
