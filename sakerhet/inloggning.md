@@ -147,7 +147,9 @@ Konfigurationsanvisningar finns på paketets sida, [npmjs.org](https://www.npmjs
 {% tabs %}
 {% tab title="JavaScript" %}
 ```javascript
-req.session.PARAMETERNAME = value;
+req.session.loggedin = true;
+
+if (req.session.loggedin) // inloggad!
 ```
 {% endtab %}
 {% endtabs %}
@@ -175,6 +177,8 @@ DELETE FROM users WHERE id = 1;
 ```
 {% endtab %}
 {% endtabs %}
+
+Alla frågorna kan köras genom databasmodellen vi använt och värden bör används med förberedda frågor, det vill säga använda platshållare ? för värden.
 
 {% hint style="info" %}
 CRUD rör inte bara databas, utan handlar om att spara data på något sätt i en applikation.
