@@ -163,7 +163,7 @@ Ett login-system innehåller oftast alla delar av create, read, update, delete\(
 * Uppdatera en användare, update.
 * Ta bort en användare, delete.
 
-#### SQL
+### SQL
 
 CRUD kan kopplas till ett antal SQL frågor som utför detta. 
 
@@ -184,7 +184,15 @@ Alla frågorna kan köras genom databasmodellen vi använt och värden bör anv�
 CRUD rör inte bara databas, utan handlar om att spara data på något sätt i en applikation.
 {% endhint %}
 
+## Övningsprojekt
 
+* Skapa ett login system.
+* Låt användaren skriva korta bloggar/inlägg/tweets eller vad det nu kan vara.
+  * Databasdesignen finns [här](../databas/databasdesign.md).
+* Gör så att en användares inlägg visas på deras "hem" sida.
+* Andra användare, som är inloggade, ska kunna läsas andras "hem".
+* Skapa funktionen för att kommentera på andras inlägg.
+  * Bra övning i databasdesign och JOIN i SQL.
 
 ## Repo
 
