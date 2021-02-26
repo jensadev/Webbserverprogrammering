@@ -103,7 +103,6 @@ För att komma åt värdena från .env filen så behöver paketet laddas in så 
 
 {% code title="app.js" %}
 ```javascript
-...
 require('dotenv').config();
 ```
 {% endcode %}
