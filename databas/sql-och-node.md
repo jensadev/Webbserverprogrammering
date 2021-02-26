@@ -395,7 +395,7 @@ const pool = mysql.createPool({
 
 function query(sql, params) {
   return new Promise((resolve, reject) => {
-    pool.query(sql, params, function (err, result, fields) {
+    pool.query(sql, ...params, function (err, result, fields) {
       if (err) reject(err);
       resolve(result);
     });
