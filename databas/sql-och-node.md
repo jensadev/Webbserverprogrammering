@@ -177,6 +177,8 @@ module.exports = router;
 ```
 {% endcode %}
 
+App.js behöver uppdateras för att ladda routen, gör följande ändring där de andra routerna laddas och användas.
+
 {% code title="app.js" %}
 ```javascript
 ...
