@@ -89,6 +89,49 @@ exports.verify = (req, res, next) => {
 
 ## Read, GET routes
 
+Ofta påbörjas arbetet med CRUD genom att kunna skriva ut en resurs, det vill säga att läsa den. Då får resursen skapas manuellt i databasen. Designen för resursen i det här fallet bygger på tidigare kapitel i boken. Det krävs två tabeller för resurserna, meeps och users då meeps innehåller en relation till users tabellen.
+
+{% hint style="info" %}
+Skapa tabellerna och testdata innan du går vidare.
+{% endhint %}
+
+{% tabs %}
+{% tab title="SQL" %}
+```sql
+mysql> describe meeps;
++------------+-----------------+------+-----+---------+----------------+
+| Field      | Type            | Null | Key | Default | Extra          |
++------------+-----------------+------+-----+---------+----------------+
+| id         | bigint unsigned | NO   | PRI | NULL    | auto_increment |
+| user_id    | bigint unsigned | NO   |     | NULL    |                |
+| body       | text            | NO   |     | NULL    |                |
+| created_at | timestamp       | YES  |     | NULL    |                |
+| updated_at | timestamp       | YES  |     | NULL    |                |
++------------+-----------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+```
+{% endtab %}
+
+{% tab title="SQL" %}
+```sql
+mysql> describe users;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int unsigned | NO   | PRI | NULL    | auto_increment |
+| name       | varchar(50)  | NO   | UNI | NULL    |                |
+| password   | varchar(255) | NO   |     | NULL    |                |
+| email      | varchar(255) | NO   | UNI | NULL    |                |
+| created_at | timestamp    | NO   |     | NULL    |                |
+| updated_at | timestamp    | NO   |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+6 rows in set (0.02 sec)
+```
+{% endtab %}
+{% endtabs %}
+
+Routerna för att läsa resurser ser ut som följer. Det handlar först och främst om att hämta resurser med SQL. Frågan använder JOIN för att hämta användarens namn från users tabellen. Utskriften behöver skapas med en template och kallas på genom res.render.
+
 {% tabs %}
 {% tab title="JavaScript" %}
 {% code title="routes/meeps.route.js" %}
@@ -96,7 +139,7 @@ exports.verify = (req, res, next) => {
 /* GET all meeps */
 router.get('/',
   async (req, res, next) => {
-    const sql = 'SELECT meeps.*, users.name FROM meeps JOIN users ON meeps.user_id = users.id';
+    const sql = 'SELECT meeps.*, users.name AS author FROM meeps JOIN users ON meeps.user_id = users.id';
     result = await query(sql);
     res.send(result);
 });
@@ -105,7 +148,7 @@ router.get('/',
 router.get('/:id',
   param('id').isInt(),
   async (req, res, next) => {
-    const sql = 'SELECT meeps.*, users.name FROM meeps JOIN users ON meeps.user_id = users.id WHERE meeps.id = ?';
+    const sql = 'SELECT meeps.*, users.name AS author FROM meeps JOIN users ON meeps.user_id = users.id WHERE meeps.id = ?';
     result = await query(sql, req.params.id);
     res.send(result);
 });
@@ -129,33 +172,17 @@ app.use('/meeps', meepsRouter);
 {% endtab %}
 {% endtabs %}
 
-Du kan nu skapa data i databasen och testa.
-
-{% tabs %}
-{% tab title="SQL" %}
-```sql
-mysql> describe meeps;
-+------------+-----------------+------+-----+---------+----------------+
-| Field      | Type            | Null | Key | Default | Extra          |
-+------------+-----------------+------+-----+---------+----------------+
-| id         | bigint unsigned | NO   | PRI | NULL    | auto_increment |
-| user_id    | bigint unsigned | NO   |     | NULL    |                |
-| body       | text            | NO   |     | NULL    |                |
-| created_at | timestamp       | YES  |     | NULL    |                |
-| updated_at | timestamp       | YES  |     | NULL    |                |
-+------------+-----------------+------+-----+---------+----------------+
-5 rows in set (0.00 sec)
-```
-{% endtab %}
-{% endtabs %}
-
 ## Create, GET och POST routes
 
 Dessa routes kommer att använda verify middlewaren för att autentisera användaren. Routerna kommer även att behöva validera och tvätta input för att säkra systemet.
 
-För att skapa nya meeps används ett formulär, routen för formuläret kommer att vara /new. Det är viktigt att denna route kommer före :id routen\(i koden\) för att hämta enstaka meeps, annars kommer det inte att fungera.
+För att skapa nya resurser används ett webbformulär, routen för att nå formuläret kan till exempel vara /new. Det är viktigt att denna route kommer före :id routen\(i koden\) för att hämta enskilda resurser, annars kommer det inte att fungera.
 
-Själva formuläret kan med fördel skrivas som en komponent och används på visa meeps sidan, home sidan eller en new sida.
+{% hint style="info" %}
+Router som läser parametrar med :PARAM behöver komma efter de andra i ordningen. Det som sker annars är att /new hamnar i /:id parametern.
+{% endhint %}
+
+Själva formuläret kan med fördel skrivas som en komponent och inkluderas på andra sidor för att skapa nya resurser.
 
 {% tabs %}
 {% tab title="JavaScript" %}
@@ -185,7 +212,7 @@ block content
 {% endtab %}
 {% endtabs %}
 
-Formuläret kommer att posta data till /meeps där POST routen hanterar det.
+Formuläret kommer att posta resursen till /meeps där POST routen hanterar det.
 
 {% hint style="danger" %}
 Koden är osäker och hanterar inte XSS, testa genom att skriva html kod i en meep.
