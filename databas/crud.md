@@ -12,23 +12,25 @@ Notera att koden i detta avsnitt kan kräva att du ändrar din databasmodell til
 
 ## Router
 
-Skapa en router för meeps, detta kommer hålla huvuddelen av arbetet. Detta kan implementeras vid sidan av login systemet, sedan kan funktionalitet flyttas till index osv.
+Skapa en router för meeps, detta kommer hålla huvuddelen av arbetet. Detta kan implementeras vid sidan av login systemet, sedan kan funktionalitet flyttas till index eller så.
 
-Routern kommer att behöva följande delar, logiken kan stå i routern eller i en controller.
+Routern kommer att behöva följande delar, börjar med att skapa logiken direkt i routern, men det kommer bli ganska mycket kod så det rekommenderas att du flyttar det du kan till en controller. 
 
-* index, visa alla meeps
-* show, visa en meep med :id
-* create, skapa en meep
-* update, uppdatera en meep
-* destroy, ta bort en meep
+* show, visa alla resurser
+* show/:id, visa en resurs med :id
+* create, skapa en resurs
+  * GET visar ett formulär
+  * POST skapar resursen
+* update/:id, uppdatera en resurs med :id
+  * GET visar ett formulär
+  * POST uppdaterar resursen
+* delete, ta bort en resurs
 
-De router som låter användaren manipulera en meep behöver verifiera att användaren är inloggad. För det ska vi skapa en middleware för att slippa upprepa kod.
-
-Gör ditt bästa för att skapa routern ovan efter din egen förmåga. 
+De router som låter användaren manipulera en resurs behöver verifiera att användaren är inloggad. Grunden till det finns i login systemet. För att förenkla inloggningskontrollen ska  vi skapa en middleware för att sköta det.
 
 ### Verify, middleware
 
-I nuläget så kontrolleras användarens session på varje ställe där inloggning krävs med en if sats, det är tämligen osäkert då kod upprepas flera gånger som måste vara rätt. Denna kod kan enkelt flyttas till en middleware\(ett tillägg som kan kallas på i express\). Verify kallas sedan på i de router som ska skyddas.
+I nuläget så kontrolleras användarens session på varje ställe där inloggning krävs med en if sats, det är både osäkert, besvärligt och svårt att hantera. Koden för att bekräfta användarens session kan flyttas till en middleware\(ett tillägg som kan kallas på i express\). Detta middleware, som vi kallar för verify, anropas sedan på i de router som ska verifieras.
 
 {% tabs %}
 {% tab title="JavaScript" %}
