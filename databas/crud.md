@@ -85,7 +85,7 @@ exports.verify = (req, res, next) => {
 {% endtab %}
 {% endtabs %}
 
-## GET routes för read
+## Read, GET routes
 
 {% tabs %}
 {% tab title="JavaScript" %}
@@ -147,7 +147,7 @@ mysql> describe meeps;
 {% endtab %}
 {% endtabs %}
 
-## GET och POST för create
+## Create, GET och POST routes
 
 Dessa routes kommer att använda verify middlewaren för att autentisera användaren. Routerna kommer även att behöva validera och tvätta input för att säkra systemet.
 
@@ -210,7 +210,7 @@ router.post('/',
 {% endtab %}
 {% endtabs %}
 
-## GET och POST update
+## Update, GET och POST routes
 
 För att uppdatera en resurs används resursens id. Det finns ett antal sätt att skicka med detta på. I det här exemplet kommer meeps formuläret kunna innehålla resursens id för uppdatering. För att göra detta så skapas en get route för update som kräver ett id.
 
@@ -275,4 +275,60 @@ router.post('/update',
 {% endcode %}
 {% endtab %}
 {% endtabs %}
+
+## DELETE, POST route
+
+Här presenteras enbart en POST route för att ta bort en resurs. Denna kan länkas från en lista av meeps eller liknande. Det kan såklart vara bra att låta användaren bekräfta borttagningen av en resurs, då kan javascript används på klient-sidan eller så skapas en GET route för delete, som i sin tur pekar till POST routen.
+
+{% tabs %}
+{% tab title="JavaScript" %}
+{% code title="routes/meeps.route.js" %}
+```javascript
+/* POST to delete a meep */
+router.post('/delete/',
+  body('meepid').isInt(),
+  verify,
+  async (req, res, next) => {
+    const sql = 'DELETE FROM meeps WHERE id = ?';
+    const result = await query(sql, req.body.meepid);
+    if (result.affectedRows > 0) {
+      res.redirect('/meeps');
+    }
+  });
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="JavaScript" %}
+{% code title="routes/meeps.route.js" %}
+```javascript
+...
+// Uppdatering av GET / för att visa alla meeps med en meeps.pug template
+res.render('meeps', { meeps: result });
+...
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Pug" %}
+{% code title="views/meeps.pug" %}
+```javascript
+extends layout 
+
+block content 
+
+  each meep in meeps 
+    div
+      p= meep.body 
+      form(action="/meeps/delete", method="post") 
+        input(type="hidden", name="meepid" value= meep.id)
+        button(type="submit") X
+```
+{% endcode %}
+{% endtab %}
+{% endtabs %}
+
+
+
+
 
