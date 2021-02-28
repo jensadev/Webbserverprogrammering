@@ -311,7 +311,9 @@ router.post('/update',
 
 ## DELETE, POST route
 
-Här presenteras enbart en POST route för att ta bort en resurs. Denna kan länkas från en lista av meeps eller liknande. Det kan såklart vara bra att låta användaren bekräfta borttagningen av en resurs, då kan javascript används på klient-sidan eller så skapas en GET route för delete, som i sin tur pekar till POST routen.
+Här presenteras enbart en POST route för att ta bort en resurs. Denna kan länkas från en lista av resurserna eller liknande. Det kan såklart vara bra att låta användaren bekräfta borttagningen av en resurs, då kan javascript används på klient-sidan eller så skapas en GET route för delete, som i sin tur pekar till POST routen.
+
+Alternativt är en GET route till /delete/:id också en möjlighet för att ta bort resurser.
 
 {% tabs %}
 {% tab title="JavaScript" %}
@@ -363,7 +365,9 @@ block content
 
 ## Summering
 
-Ovan finns alla delarna för att utföra CRUD operationer på en resurs, i detta fall meeps. Systemet kräver fortfarande mycket arbete, med både säkerhet och användbarhet.
+Ovan finns alla delarna för att utföra CRUD operationer på en resurs, i detta fall meeps. Systemet kräver fortfarande mycket arbete, med både säkerhet och användbarhet, men grunden är där.
+
+Den kod som presenteras på sidan hör till största del till routes filen för resursen. Den koden bör landa på ett 100-tal rader utan säkerhet och felhantering. Det är hanterbart, men du bör definitivt flytta delar till en controller om du bygger vidare på systemet.
 
 
 
