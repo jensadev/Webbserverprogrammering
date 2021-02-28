@@ -33,6 +33,8 @@
 ## MVC
 
 * [Model](mvc/model.md)
+* [Controller](mvc/controller.md)
+* [View](mvc/view.md)
 
 ## Tester
 
