@@ -239,11 +239,15 @@ router.post('/',
 {% endtab %}
 {% endtabs %}
 
+För att kontrollera att en resurs skapats så kontrollerar vi att SQL frågans resultat innehåller ett nytt id. När resursen skapats så skickas användaren vidare till GET routen för att visa en resurs med :id.
+
 ## Update, GET och POST routes
 
-För att uppdatera en resurs används resursens id. Det finns ett antal sätt att skicka med detta på. I det här exemplet kommer meeps formuläret kunna innehålla resursens id för uppdatering. För att göra detta så skapas en get route för update som kräver ett id.
+För att uppdatera en resurs används resursens id för att hitta den. Det finns ett antal sätt att skicka med id värdet på. I det här exemplet kommer formuläret innehålla resursens id, värdet skickas i en input med typen hidden.
 
-Resursens id används för att hämta det från databasen så att det faktiskt kan uppdateras, detta skickas med resolve för att visas på formulärsidan. Formuläret uppdateras för detta och använder då den existerande resursens värden för att fylla i det.
+För att komma åt id värdet skapas en GET update route som tar id värdet som en parameter. Värdet läses in och skrivs ut i formuläret.
+
+Resursens id används för att hämta resursen från databasen. Resursen värden behövs så att den faktiskt kan uppdateras, dessa skickas med res.render för att kunna användas på formulärsidan.
 
 {% tabs %}
 {% tab title="JavaScript" %}
@@ -282,7 +286,7 @@ block content
 {% endtab %}
 {% endtabs %}
 
-Post routen som hanterar uppdatering av resursen. Routen behöver fortfarande säkras, validera och tvätta data samt hantera fel.
+Nedan följer den sista delen, post routen till update som hanterar den faktiska uppdateringen av resursen. Routen behöver fortfarande säkras, validera och tvätta data samt hantera fel.
 
 {% tabs %}
 {% tab title="JavaScript" %}
