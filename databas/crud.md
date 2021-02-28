@@ -6,6 +6,10 @@ description: 'Create, read, update, delete'
 
 Ett mer komplett exempel, meeps + login.
 
+{% hint style="danger" %}
+Notera att koden i detta avsnitt kan kräva att du ändrar din databasmodell till att inte använda ..params
+{% endhint %}
+
 ## Router
 
 Skapa en router för meeps, detta kommer hålla huvuddelen av arbetet. Detta kan implementeras vid sidan av login systemet, sedan kan funktionalitet flyttas till index osv.
@@ -244,6 +248,29 @@ block content
     form(action="/meeps", method="post") 
       textarea#body(name="body", cols="30", rows="10") 
       button(type="submit") Post meep
+```
+{% endcode %}
+{% endtab %}
+{% endtabs %}
+
+Post routen som hanterar uppdatering av resursen. Routen behöver fortfarande säkras, validera och tvätta data samt hantera fel.
+
+{% tabs %}
+{% tab title="JavaScript" %}
+{% code title="routes/meeps.route.js" %}
+```javascript
+/* POST a new meep */
+router.post('/update',
+  body('meepid').isInt(),
+  body('body').notEmpty(),
+  verify,
+  async (req, res, next) => {
+    const sql = 'UPDATE meeps SET body = ?, updated_at = now() WHERE id = ?';
+    const result = await query(sql, [req.body.body, req.body.meepid]);
+    if (result.changedRows > 0) {
+      res.redirect('/meeps/' + req.body.meepid);
+    }
+});
 ```
 {% endcode %}
 {% endtab %}
