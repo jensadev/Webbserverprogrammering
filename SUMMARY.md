@@ -30,6 +30,10 @@
 * [Introduktion](sakerhet/sakerhet-introduktion.md)
 * [Inloggning](sakerhet/inloggning.md)
 
+## MVC
+
+* [Model](mvc/model.md)
+
 ## Tester
 
 * [Automatiserade tester](tester/automatiserade-tester.md)
