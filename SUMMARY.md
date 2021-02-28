@@ -23,6 +23,7 @@
 * [Ett exempel](databas/databas-exempel.md)
 * [SQL och Node](databas/sql-och-node.md)
 * [Databasdesign](databas/databasdesign.md)
+* [CRUD](databas/crud.md)
 
 ## Säkerhet <a id="sakerhet"></a>
 
