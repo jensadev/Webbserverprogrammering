@@ -328,7 +328,9 @@ block content
 {% endtab %}
 {% endtabs %}
 
+## Summering
 
+Ovan finns alla delarna för att utföra CRUD operationer på en resurs, i detta fall meeps. Systemet kräver fortfarande mycket arbete, med både säkerhet och användbarhet.
 
 
 
