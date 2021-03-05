@@ -4,9 +4,13 @@ Installera [mysql paketet](https://www.npmjs.com/package/mysql) för node med np
 
 Installera paketen [mysql](https://www.npmjs.com/package/mysql) och [dotenv ](https://www.npmjs.com/package/dotenv)för Node.
 
-```text
+{% tabs %}
+{% tab title="Bash" %}
+```bash
 npm install mysql
 ```
+{% endtab %}
+{% endtabs %}
 
 * mysql paketet innehåller drivrutiner för att använda mysql med node.
 * dotenv är ett paket för att skapa konfiguarationsfiler. Att [spara konfigurationsdata separerat](https://12factor.net/config) från koden är god praxis.
@@ -101,11 +105,15 @@ Utan .gitignore kvittar det att du skapar .env filerna.
 
 För att komma åt värdena från .env filen så behöver paketet laddas in så tidigt som möjligt i applikationen. Värdena återfinns sedan i objektet `process.env`.
 
+{% tabs %}
+{% tab title="JavaScript" %}
 {% code title="app.js" %}
 ```javascript
 require('dotenv').config();
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 Med dotenv paketet laddat kan det ovanstående exemplet ändras till.
 
@@ -137,6 +145,8 @@ För att använda mysql kommer vi att skapa en återanvändbar modell. Denna mod
 
 Skapa en ny mapp _models_ i projektets root och i models en fil med namn, _db.js_.
 
+{% tabs %}
+{% tab title="JavaScript" %}
 {% code title="models/db.js" %}
 ```javascript
 const mysql = require('mysql');
@@ -153,10 +163,14 @@ module.exports = pool;
 
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
-Skapa sedan en ny route fil för att testa modellen, _routes/test.js._
+Skapa sedan en ny route fil för att testa modellen, _routes/dbtest.js._
 
-{% code title="routes/test.js" %}
+{% tabs %}
+{% tab title="JavaScript" %}
+{% code title="routes/dbtest.js" %}
 ```javascript
 const express = require('express');
 const router = express.Router();
@@ -175,17 +189,23 @@ pool.getConnection((error, connection) => {
 module.exports = router;
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 App.js behöver uppdateras för att ladda routen, gör följande ändring där de andra routerna laddas och används.
 
+{% tabs %}
+{% tab title="JavaScript" %}
 {% code title="app.js" %}
 ```javascript
 ...
-const testRouter = require('./routes/test');
+const dbtestRouter = require('./routes/dbtest');
 ...
-app.use('/test', testRouter);
+app.use('/dbtest', dbtestRouter);
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 Databasmodellen sparas i variabeln pool för användning. Sedan används metoden `.getConnection()` för att hämta en uppkoppling från poolen. Sidan visar sedan uppkopplingens id innan uppkopplingen släpps, release. Testa vad som sker utan `connection.release()`.
 
