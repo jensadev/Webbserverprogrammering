@@ -242,7 +242,9 @@ mysql -u USERNAME -p DATABASE < FILENAME
 
 Ändra sedan test-routen till att innehålla en faktisk SQL fråga. Routen kommer nu att svara på /test och svara med resultatet av databasfrågan i JSON. Du kan även logga\(console.log\) resulatet från databasfrågan för att se hur objektet ser ut\(det skrivs då i terminalen där du startat node\).
 
-{% code title="routes/test.js" %}
+{% tabs %}
+{% tab title="JavaScript" %}
+{% code title="routes/dbtest.js" %}
 ```javascript
 router.get('/', function (req, res, next) {
   const sql = 'SELECT * FROM meeps';
@@ -257,12 +259,16 @@ router.get('/', function (req, res, next) {
 });
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 ## Databasresultat till en view
 
 I det här steget ska vi skapa en view som kan visa resultatet av en SQL fråga. Detta för att sammankoppla alla delarna. För att göra detta så behöver routen ändras. Test-routens respons ska använda render metoden med en test-view och resultatets data.
 
-{% code title="routes/test.js" %}
+{% tabs %}
+{% tab title="JavaScript" %}
+{% code title="routes/dbtest.js" %}
 ```javascript
 router.get('/', function (req, res, next) {
   const sql = 'SELECT * FROM meeps';
@@ -275,6 +281,8 @@ router.get('/', function (req, res, next) {
 });
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 Skapa sedan en view som heter _test_. I en första test skriver vi ut värdena från mysql resultatet med [interpolation ](https://pugjs.org/language/interpolation.html)i Pug. Det är då viktigt att se till att värden som skrivs ut [escapas](https://en.wikipedia.org/wiki/Escape_character), detta för att skadlig kod eventuellt kan sparas i en databas och sedan reproduceras för en användare på webbplatsen. 
 
@@ -284,7 +292,9 @@ Använd `console.log()` i routen för att felsöka och undersöka data. Detta du
 
 Resultatet måste itereras, eftersom det är en array. För att göra det används Pugs each funktion.
 
-{% code title="views/test.pug" %}
+{% tabs %}
+{% tab title="Pug" %}
+{% code title="views/dbtest.pug" %}
 ```javascript
 extends layout
 
@@ -294,18 +304,26 @@ block content
     | #{row.updated_at}
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 För att få ut den fullständiga information, med författarens namn så behöver SQL frågan använda en join på users tabellen. Uppdatera koden som följer.
 
-{% code title="routes/test.js" %}
+{% tabs %}
+{% tab title="JavaScript" %}
+{% code title="routes/dbtest.js" %}
 ```javascript
 const sql = 'SELECT meeps.*, users.name FROM meeps JOIN users ON meeps.user_id = users.id';
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 Nästa steg blir sedan att utveckla test-viewen. Detta kan med fördel göras som en mixin. Koden som följer skapar ett kort för en post. 
 
-{% code title="views/test.pug" %}
+{% tabs %}
+{% tab title="Pug" %}
+{% code title="views/dbtest.pug" %}
 ```javascript
   .card
     .card-body
@@ -317,6 +335,8 @@ Nästa steg blir sedan att utveckla test-viewen. Detta kan med fördel göras so
         time(date="#{updated}")= result.updated_at
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 ### Övning
 
@@ -366,7 +386,9 @@ Denna route på / läser in en parameter med namnet `:id`. Värdet på parametra
 
 Värdet som skickats med en parameter kan sedan användas i SQL frågan, det görs genom en så kallad **prepared statment**. Prepared statements\(även **parameterized query**\) används av säkerhetsskäl för att undvika [SQL-injektioner](https://imgs.xkcd.com/comics/exploits_of_a_mom.png).
 
-{% code title="routes/test.js" %}
+{% tabs %}
+{% tab title="JavaScript" %}
+{% code title="routes/dbtest.js" %}
 ```javascript
 router.get('/:id', function (req, res, next) {
   const sql = 'SELECT * FROM meeps WHERE id = ?';
@@ -382,6 +404,8 @@ router.get('/:id', function (req, res, next) {
 });
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 Ändringen i test-routen skapar en route för get som tillåter en id parameter. Rad 2 skapar SQL-frågan där frågetecknet är en parameter. Frågan körs sedan på rad 4,  då ersätts ? med \[req.params.id\]. Det går utmärkt att använda flera parameterar\(tänk post med ett formulär\). Med flera parametrar är det viktigt att de är satta i rätt ordning.
 
@@ -402,6 +426,8 @@ Ibland så uppstår problem med databasuppkopplingen eller så behövs det flera
 
 För att möjliggöra asynkrona anrop ändras databasmodellen till följande.
 
+{% tabs %}
+{% tab title="JavaScript" %}
 {% code title="models/db.js" %}
 ```javascript
 const mysql = require('mysql');
@@ -427,6 +453,8 @@ module.exports = { pool, query };
 
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 Query funktionen accepterar en SQL fråga samt tillhörande parametrar. 
 
