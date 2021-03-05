@@ -6,6 +6,8 @@ description: >-
 
 # Start
 
+Innan du börjar läsa. Den här boken innehåller mycket text och många kodexempel. Du behöver läsa texten och koden för att förstå. Att enbart kopiera kod och försöka få det att fungera är värdelöst, du behöver försöka förstå den.
+
 ## Centralt innehåll
 
 * [Webbserverns och dynamiska webbplatsers funktionalitet.](utvecklarmiljo/wsl.md)
