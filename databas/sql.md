@@ -234,13 +234,21 @@ SELECT kolumn FROM tabell ORDER BY kolumn DESC LIMIT 1;
 
 För att välja specifika rader i databasen så väljs dem utifrån värdet. Då används WHERE.
 
+{% tabs %}
+{% tab title="SQL" %}
 ```sql
 SELECT * FROM users WHERE name = 'username';
 ```
+{% endtab %}
+{% endtabs %}
 
 Antalet svar kan även sorteras och begränsas.
 
+{% tabs %}
+{% tab title="SQL" %}
 ```sql
-LIMIT BY ORDER BY
+LIMIT ORDER BY kolumn DESC/ASC;
 ```
+{% endtab %}
+{% endtabs %}
 
