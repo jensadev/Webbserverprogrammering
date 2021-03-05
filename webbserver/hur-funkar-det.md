@@ -286,6 +286,8 @@ head
 
 För egenskaper som upprepas i Sass-kod är det praktiskt att skapa [variabler](https://sass-lang.com/documentation/variables). Det gör att du slipper upprepa kod och enkelt kan ändra värden.
 
+{% tabs %}
+{% tab title="CSS" %}
 {% code title="public/stylesheets/style.sass" %}
 ```css
 $font: 'Roboto', sans-serif
@@ -294,6 +296,8 @@ h1
   font-family: $font
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 {% hint style="info" %}
 [För att dela upp sass i flera filer se Git.](https://github.com/jensnti/wsp1-node/tree/master/public/stylesheets)
