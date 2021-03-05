@@ -211,7 +211,7 @@ Databasmodellen sparas i variabeln pool för användning. Sedan används metoden
 
 ## Databasfråga
 
-För att testa att kommunicera med en databas behöver du starta en mysql-server och importera databasen från [exemplet](databas-exempel.md).
+För att testa att kommunicera med en databas behöver du starta en mysql-server och importera databasen från föregående kapitels [exempel](databas-exempel.md). 
 
 {% hint style="info" %}
 Databasdump finns [här](https://raw.githubusercontent.com/jensnti/Webbserverprogrammering/master/exempel/meeps.sql). Använd wget för att hämta den.
@@ -240,7 +240,7 @@ mysql -u USERNAME -p DATABASE < FILENAME
 {% endtab %}
 {% endtabs %}
 
-Ändra sedan test-routen till att innehålla en faktisk SQL fråga. Routen kommer nu att svara på /test och svara med resultatet av databasfrågan i JSON. Du kan även logga\(console.log\) resulatet från databasfrågan för att se hur objektet ser ut\(det skrivs då i terminalen där du startat node\).
+Ändra sedan test-routen till att innehålla en faktisk SQL fråga. Routen kommer nu att svara på /test och svara med resultatet av databasfrågan i JSON. Du kan även logga\(console.log eller console.table\) resulatet från databasfrågan för att se hur objektet ser ut\(det skrivs då i terminalen där du startat node\).
 
 {% tabs %}
 {% tab title="JavaScript" %}

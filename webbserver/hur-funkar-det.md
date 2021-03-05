@@ -108,14 +108,18 @@ Med `extends` kan Pug återanvända kod. Det leder till enklare utveckling och m
 
 Du ska nu skapa en navigation. Redigera layout-vyn och skapa ett nav **block** efter body-taggen.
 
+{% tabs %}
+{% tab title="Pug" %}
 {% code title="views/layout.pug" %}
-```text
+```javascript
 body
   block nav
     include nav.pug
   block content
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 Nav-blocket följs av nyckelordet `include` som används för att lägga till innehållet från en annan fil, nav.pug. 
 
@@ -125,8 +129,10 @@ Läs mer om [arv](https://pugjs.org/language/inheritance.html) och att [inkluder
 
 Skapa sedan nav-vyn och lägg till HTML-koden.
 
+{% tabs %}
+{% tab title="Pug" %}
 {% code title="views/nav.pug" %}
-```text
+```javascript
 nav
   ul
     li
@@ -135,6 +141,8 @@ nav
       a(href='/users') Users
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 Spara de redigerade filerna och ladda om sidan i webbläsaren.
 
@@ -142,6 +150,8 @@ Spara de redigerade filerna och ladda om sidan i webbläsaren.
 
 Den users-route som Express generator skapat returnerar enbart en resurs. För att users-routen ska svara med en users-vy behöver `res.render` användas.
 
+{% tabs %}
+{% tab title="JavaScript" %}
 {% code title="routes/users.js" %}
 ```javascript
 router.get('/', function(req, res, next) {
@@ -149,11 +159,15 @@ router.get('/', function(req, res, next) {
 });
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 Koden hänvisar nu till en users-vy som behöver skapas. Basera den på index-vyn.
 
+{% tabs %}
+{% tab title="Pug" %}
 {% code title="views/users.pug" %}
-```text
+```javascript
 extends layout
 
 block content
@@ -161,6 +175,8 @@ block content
     h1= title
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 {% hint style="info" %}
 Spara och ladda om, felsök vid behov.
@@ -168,21 +184,29 @@ Spara och ladda om, felsök vid behov.
 
 För att visa Pugs och Express samspel mellan route och vy ska users-vyn uppdateras för att visa ett flertal användare. Skapa en [array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) i det objekt som bifogas av users-routen.
 
+{% tabs %}
+{% tab title="JavaScript" %}
 {% code title="routes/users.js" %}
 ```javascript
 res.render('users', {'users': ['Hans', 'Moa', 'Bengt', 'Frans', 'Lisa'] });
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 Arrayen från users-routen kan nu användas som en template-local i users-vyn. För att visa innehållet i arrayen kommer en loop att användas. Formen för denna iteration är för varje user i users utför... Uppdatera users-vyn med följande kod.
 
+{% tabs %}
+{% tab title="Pug" %}
 {% code title="views/users.pug" %}
-```text
+```javascript
 ul
   each user in users
     li= user
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 {% hint style="info" %}
 [Läs mer om iteration i Pug.](https://pugjs.org/language/iteration.html)
@@ -216,6 +240,8 @@ Sass-kod kan delas upp i flera filer, det är mycket praktiskt. För att inklude
 
 Sass syntax skiljer något från css, men grunderna är liknande. Precis som Pug förlitar sig Sass på korrekt indentering för att fungera och strukturera. Öppna filen och skriv in följande.
 
+{% tabs %}
+{% tab title="CSS" %}
 {% code title="public/stylesheets/style.sass" %}
 ```css
 html
@@ -242,18 +268,26 @@ nav > ul
     padding-right: 16px
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 De här stilarna ger en grundläggande formatering. Placeringen av elementen sker med [flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox). Prova att lägga till en font med [Google fonts](https://fonts.google.com/). Fonten behöver då länkas i layout-vyn, och Sass-stilen behöver uppdateras.
 
+{% tabs %}
+{% tab title="Pug" %}
 {% code title="views/layout.pug" %}
-```css
+```javascript
 head
   link(href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet")
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 För egenskaper som upprepas i Sass-kod är det praktiskt att skapa [variabler](https://sass-lang.com/documentation/variables). Det gör att du slipper upprepa kod och enkelt kan ändra värden.
 
+{% tabs %}
+{% tab title="CSS" %}
 {% code title="public/stylesheets/style.sass" %}
 ```css
 $font: 'Roboto', sans-serif
@@ -262,6 +296,8 @@ h1
   font-family: $font
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 {% hint style="info" %}
 [För att dela upp sass i flera filer se Git.](https://github.com/jensnti/wsp1-node/tree/master/public/stylesheets)
