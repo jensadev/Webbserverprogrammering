@@ -4,6 +4,10 @@ description: 'Create, read, update, delete'
 
 # CRUD
 
+CRUD är de fyra grundläggande funktionera för att arbeta med data\(create, read, update, delete\). Det är inte kopplat till webben eller databas även om det är väldigt vanligt i det sammanhanget. Konceptet är att data ska kunna skapas, läsas, redigeras och tas bort.
+
+Det som följer här nedan är ett exempel på CRUD. Exemplet är skapat i samma kod som används för [inloggning](../sakerhet/inloggning.md). Inloggningen är dock inget krav och det går utmärkt att skapa detta utan en inloggning. Du behöver då ersätta user fältet med användarens namn, eller skippa det helt.
+
 Ett mer komplett exempel, meeps + login.
 
 {% hint style="danger" %}
