@@ -273,6 +273,10 @@ router.post('/',
 
 För att kontrollera att en resurs skapats så kontrollerar vi att SQL frågans resultat innehåller ett nytt id. När resursen skapats så skickas användaren vidare till GET routen för att visa en resurs med :id.
 
+{% hint style="info" %}
+Utan user\_id med en author så sparar du inte det i databasen utan author. Du använder inte heller då req.session.userid
+{% endhint %}
+
 ## Update, GET och POST routes
 
 För att uppdatera en resurs används resursens id för att hitta den. Det finns ett antal sätt att skicka med id värdet på. I det här exemplet kommer formuläret innehålla resursens id, värdet skickas i en input med typen hidden.
