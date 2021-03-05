@@ -295,3 +295,34 @@ router.get('/test', function (req, res, next) {
 ```
 {% endcode %}
 
+### En till route
+
+Routen ovan finns i index.js filen och är kopplad till / och /test. Prova nu att skapa en test router. Kopiera routes/index.js och döp om den till test.js.
+
+Routen behöver sedan kopplas i app.js filen för att den ska kunna användas.
+
+{% tabs %}
+{% tab title="JavaScript" %}
+{% code title="app.js" %}
+```javascript
+const testRouter = require('./routes/test');
+...
+app.use('/test', testRouter);
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="JavaScript" %}
+{% code title="routes/test.js" %}
+```javascript
+/* GET test page. */
+router.get('/', function (req, res, next) {
+  res.send('Denna route finns på /test/');
+});
+```
+{% endcode %}
+{% endtab %}
+{% endtabs %}
+
+Prova sedan att surfa till [http://localhost:3000/test](http://localhost:3000/test), visas din nya route? Annars så behöver du felsöka detta. Har du kvar en /test route i index.js?
+
