@@ -18,8 +18,10 @@ Mixin kan antingen skapas i en enskild fil eller i en pug-templat. I det här ex
 Mixins kan sparas i separata filer så att du kan återanvända dem mellan olika projekt.
 {% endhint %}
 
+{% tabs %}
+{% tab title="Pug" %}
 {% code title="views/nav.pug" %}
-```text
+```javascript
 mixin nav-link(href, name)
   if name === title
     a.nav-link.active(href=href)= name
@@ -28,6 +30,8 @@ mixin nav-link(href, name)
 
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 Studera koden ovan. Nav-link är namnet på den mixin som skapas. Denna mixin tar två **parametrar** \(argument\). Detta är som en [funktion](https://sv.wikipedia.org/wiki/Funktion_%28programmering%29) i de flesta programmeringsspråk.
 
@@ -38,32 +42,44 @@ I koden används title **variabeln** från layout-vyns head **block**. Variabeln
 
 För att använda ett mixin är koden.
 
-```text
+{% tabs %}
+{% tab title="Pug" %}
+```javascript
 +mixinname(params)
 // dvs. för hem länken
 +nav-link('/', 'Hem)
 ```
+{% endtab %}
+{% endtabs %}
 
 ## Block
 
 I head-taggen på layout-vyn så lägger du till.
 
+{% tabs %}
+{% tab title="Pug" %}
 {% code title="views/layout.pug" %}
-```text
+```javascript
 block head
   title Webbserverprogrammering
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 Först skapas ett **block** med namnet head, i detta initieras en variabel med namnet title som tilldelas värdet Webbserverprogrammering.  Det låter alla sidor som ärver av layout-vyn byta ut innehållet i head blocket. På det sättet kan variabeln tilldelas ett nytt värde i vy filerna.
 
+{% tabs %}
+{% tab title="Pug" %}
 {% code title="views/index.pug" %}
-```text
+```javascript
 block head
   -var title = "Hem"
   title Webbserverprogrammering - #{title}
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 Resultatet blir nu att på index sidan så visas titeln Webbserverprogrammering - Hem, samt att sidans navigation kan kontrollera titel-variabelns värde och lägga till css-klassen active på nuvarande sida.
 
