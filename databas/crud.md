@@ -8,8 +8,6 @@ CRUD är de fyra grundläggande funktionera för att arbeta med data\(create, re
 
 Det som följer här nedan är ett exempel på CRUD. Exemplet är skapat i samma kod som används för [inloggning](../sakerhet/inloggning.md). Inloggningen är dock inget krav och det går utmärkt att skapa detta utan en inloggning. Du behöver då ersätta user fältet med användarens namn, eller skippa det helt.
 
-Ett mer komplett exempel, meeps + login.
-
 {% hint style="danger" %}
 Notera att koden i detta avsnitt kan kräva att du ändrar din databasmodell till att inte använda ..params
 {% endhint %}
