@@ -12,7 +12,7 @@ Pug stöder **variabler**, **iteration** och **mixins**\(funktioner\) bland anna
 
 {% tabs %}
 {% tab title="Pug" %}
-```markup
+```javascript
 div#idname
   h1.classname Rubrik
   p.class1.class2 Brödtext
@@ -35,16 +35,22 @@ Det här projektets vy-struktur utgår från filen layout.pug. Underliggande sid
 
 Filen index.pug ärver från layout.pug med
 
+{% tabs %}
+{% tab title="Pug" %}
 {% code title="views/index.pug" %}
-```text
+```javascript
 extends layout
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 Layout-vyn är projektets HTML-bas så i den filen behövs en validerande HTML grund. Öppna filen och skriv följande kod.
 
+{% tabs %}
+{% tab title="Pug" %}
 {% code title="views/layout.pug" %}
-```markup
+```javascript
 doctype html
 html(lang='sv')
   head
@@ -55,11 +61,15 @@ html(lang='sv')
     block content
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 ### Index
 
 **Index-vyn** är webbsidans startpunkt. Index-routen anropar index-vyn och skapar den HTML-kod som webbläsaren visar. Route filen kallar `res.render()` funktionen för att visa den vy som anges, i det här fallet index.
 
+{% tabs %}
+{% tab title="JavaScript" %}
 {% code title="routes/index.js" %}
 ```javascript
 /* GET home page. */
@@ -68,11 +78,15 @@ router.get('/', function (req, res, next) {
 });
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
-I [render](https://expressjs.com/en/api.html#res.render) funktionen kallas först den vy som ska användas, index, sedan bifogas ett **objekt** till vy-filen. Objeketet innehåller här **egenskapen** title med Express som **värde**.
+I [render](https://expressjs.com/en/api.html#res.render) funktionen kallas först den vy som ska användas, index, sedan bifogas ett **objekt** till vy-filen\(till pug\). Objeketet innehåller här **egenskapen** title med Express som **värde**.
 
+{% tabs %}
+{% tab title="Pug" %}
 {% code title="views/index.pug" %}
-```text
+```javascript
 extends layout
 
 block content
@@ -81,8 +95,12 @@ block content
     p Welcome to #{title}
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
-I index-vyn kan sedan det bifogade objektet användas för att dynamiskt ändra vy-filen. Det kallas för template locals, läs mer om template locals [här](https://pugjs.org/language/interpolation.html).
+I index-vyn kan sedan det bifogade objektet användas för att dynamiskt ändra vy-filen. Det kallas för template locals, läs mer om template locals [här](https://pugjs.org/language/interpolation.html). 
+
+Byt ut title till något annat. Redigera sedan objektet och lägg till en annan egenskap. Visa sedan denna i index.pug.
 
 ### Nav
 
@@ -90,14 +108,18 @@ Med `extends` kan Pug återanvända kod. Det leder till enklare utveckling och m
 
 Du ska nu skapa en navigation. Redigera layout-vyn och skapa ett nav **block** efter body-taggen.
 
+{% tabs %}
+{% tab title="Pug" %}
 {% code title="views/layout.pug" %}
-```text
+```javascript
 body
   block nav
     include nav.pug
   block content
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 Nav-blocket följs av nyckelordet `include` som används för att lägga till innehållet från en annan fil, nav.pug. 
 
@@ -107,8 +129,10 @@ Läs mer om [arv](https://pugjs.org/language/inheritance.html) och att [inkluder
 
 Skapa sedan nav-vyn och lägg till HTML-koden.
 
+{% tabs %}
+{% tab title="Pug" %}
 {% code title="views/nav.pug" %}
-```text
+```javascript
 nav
   ul
     li
@@ -117,6 +141,8 @@ nav
       a(href='/users') Users
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 Spara de redigerade filerna och ladda om sidan i webbläsaren.
 
@@ -124,6 +150,8 @@ Spara de redigerade filerna och ladda om sidan i webbläsaren.
 
 Den users-route som Express generator skapat returnerar enbart en resurs. För att users-routen ska svara med en users-vy behöver `res.render` användas.
 
+{% tabs %}
+{% tab title="JavaScript" %}
 {% code title="routes/users.js" %}
 ```javascript
 router.get('/', function(req, res, next) {
@@ -131,11 +159,15 @@ router.get('/', function(req, res, next) {
 });
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 Koden hänvisar nu till en users-vy som behöver skapas. Basera den på index-vyn.
 
+{% tabs %}
+{% tab title="Pug" %}
 {% code title="views/users.pug" %}
-```text
+```javascript
 extends layout
 
 block content
@@ -143,6 +175,8 @@ block content
     h1= title
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 {% hint style="info" %}
 Spara och ladda om, felsök vid behov.
