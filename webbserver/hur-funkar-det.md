@@ -184,21 +184,29 @@ Spara och ladda om, felsök vid behov.
 
 För att visa Pugs och Express samspel mellan route och vy ska users-vyn uppdateras för att visa ett flertal användare. Skapa en [array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) i det objekt som bifogas av users-routen.
 
+{% tabs %}
+{% tab title="JavaScript" %}
 {% code title="routes/users.js" %}
 ```javascript
 res.render('users', {'users': ['Hans', 'Moa', 'Bengt', 'Frans', 'Lisa'] });
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 Arrayen från users-routen kan nu användas som en template-local i users-vyn. För att visa innehållet i arrayen kommer en loop att användas. Formen för denna iteration är för varje user i users utför... Uppdatera users-vyn med följande kod.
 
+{% tabs %}
+{% tab title="Pug" %}
 {% code title="views/users.pug" %}
-```text
+```javascript
 ul
   each user in users
     li= user
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 {% hint style="info" %}
 [Läs mer om iteration i Pug.](https://pugjs.org/language/iteration.html)
