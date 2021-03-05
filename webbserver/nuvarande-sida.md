@@ -99,6 +99,8 @@ Färdigställ navigationen och koden i users-vyn.
 
 Active-klassens syfte är att ge användaren visuell återkoppling kring vilken sida som är aktiv. Klassen behöver alltså skilja sig från övriga länkar. Skriv följande kod.
 
+{% tabs %}
+{% tab title="CSS" %}
 {% code title="public/stylesheets/style.sass" %}
 ```css
   .active
@@ -107,6 +109,8 @@ Active-klassens syfte är att ge användaren visuell återkoppling kring vilken 
       color: $active-color-hover
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 Notera strukturen och indenteringen. För att skapa `:hover` regeln i dokumentet används &-tecknet samt indraget. Sass tolkar det och skapar klasserna `.active` och `.active:hover` utifrån detta.
 
