@@ -30,6 +30,10 @@ Routern kommer att behöva följande delar, börjar med att skapa logiken direkt
 
 De router som låter användaren manipulera en resurs behöver verifiera att användaren är inloggad. Grunden till det finns i login systemet. För att förenkla inloggningskontrollen ska  vi skapa en middleware för att sköta det.
 
+{% hint style="info" %}
+Om du inte använder inloggningen så behöver du inte heller verifiera en användare. Systemet är då oskyddat, men det går utmärkt att testa.
+{% endhint %}
+
 ### Verify, middleware
 
 I nuläget så kontrolleras användarens session på varje ställe där inloggning krävs med en if sats, det är både osäkert, besvärligt och svårt att hantera. Koden för att bekräfta användarens session kan flyttas till en middleware\(ett tillägg som kan kallas på i express\). Detta middleware, som vi kallar för verify, anropas sedan på i de router som ska verifieras.
