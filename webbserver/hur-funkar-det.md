@@ -240,6 +240,8 @@ Sass-kod kan delas upp i flera filer, det är mycket praktiskt. För att inklude
 
 Sass syntax skiljer något från css, men grunderna är liknande. Precis som Pug förlitar sig Sass på korrekt indentering för att fungera och strukturera. Öppna filen och skriv in följande.
 
+{% tabs %}
+{% tab title="CSS" %}
 {% code title="public/stylesheets/style.sass" %}
 ```css
 html
@@ -266,15 +268,21 @@ nav > ul
     padding-right: 16px
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 De här stilarna ger en grundläggande formatering. Placeringen av elementen sker med [flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox). Prova att lägga till en font med [Google fonts](https://fonts.google.com/). Fonten behöver då länkas i layout-vyn, och Sass-stilen behöver uppdateras.
 
+{% tabs %}
+{% tab title="Pug" %}
 {% code title="views/layout.pug" %}
-```css
+```javascript
 head
   link(href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet")
 ```
 {% endcode %}
+{% endtab %}
+{% endtabs %}
 
 För egenskaper som upprepas i Sass-kod är det praktiskt att skapa [variabler](https://sass-lang.com/documentation/variables). Det gör att du slipper upprepa kod och enkelt kan ändra värden.
 
