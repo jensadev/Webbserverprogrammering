@@ -551,7 +551,7 @@ module.exports = router;
 
 {% tab title="Pug" %}
 {% code title="views/users.pug" %}
-```markup
+```javascript
 extends layout
 
 block head
