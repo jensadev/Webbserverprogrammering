@@ -242,6 +242,10 @@ mysql -u USERNAME -p DATABASE < FILENAME
 
 Ändra sedan test-routen till att innehålla en faktisk SQL fråga. Routen kommer nu att svara på /test och svara med resultatet av databasfrågan i JSON. Du kan även logga\(console.log eller console.table\) resulatet från databasfrågan för att se hur objektet ser ut\(det skrivs då i terminalen där du startat node\).
 
+{% hint style="info" %}
+Lär dig använda console funktionera för att felsöka din kod. Det finns ett antal olika [console funktioner](https://developer.mozilla.org/en-US/docs/Web/API/Console) du kan använda.
+{% endhint %}
+
 {% tabs %}
 {% tab title="JavaScript" %}
 {% code title="routes/dbtest.js" %}
@@ -251,6 +255,7 @@ router.get('/', function (req, res, next) {
 
   pool.query(sql, function (err, result, fields) {
     if (err) throw err;
+    console.table(result);
     res.json({
       status: 200,
       result
