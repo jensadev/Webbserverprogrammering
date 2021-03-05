@@ -138,6 +138,10 @@ mysql> describe users;
 
 Routerna för att läsa resurser ser ut som följer. Det handlar först och främst om att hämta resurser med SQL. Frågan använder JOIN för att hämta användarens namn från users tabellen. Utskriften behöver skapas med en template och kallas på genom res.render.
 
+{% hint style="info" %}
+Skippar du användartabellen så lägger du till author direkt i meeps. Du behöver då inte använda JOIN.
+{% endhint %}
+
 {% tabs %}
 {% tab title="JavaScript" %}
 {% code title="routes/meeps.route.js" %}
@@ -160,6 +164,28 @@ router.get('/:id',
 });
 ```
 {% endcode %}
+{% endtab %}
+
+{% tab title="JavaScript" %}
+```javascript
+// UTAN USERS
+/* GET all meeps */
+router.get('/',
+  async (req, res, next) => {
+    const sql = 'SELECT * FROM meeps';
+    result = await query(sql);
+    res.send(result);
+});
+
+/* GET a meep */
+router.get('/:id',
+  param('id').isInt(),
+  async (req, res, next) => {
+    const sql = 'SELECT * FROM meeps WHERE meeps.id = ?';
+    result = await query(sql, req.params.id);
+    res.send(result);
+});
+```
 {% endtab %}
 {% endtabs %}
 
