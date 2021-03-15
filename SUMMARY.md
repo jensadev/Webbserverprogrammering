@@ -16,6 +16,7 @@
 * [Hur fungerar det?](webbserver/hur-funkar-det.md)
 * [Design - inte så webbserver](webbserver/design.md)
 * [Aktiv sida](webbserver/nuvarande-sida.md)
+* [Praxis](webbserver/praxis.md)
 
 ## Databas
 
