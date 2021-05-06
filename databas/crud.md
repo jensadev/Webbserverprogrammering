@@ -139,6 +139,10 @@ mysql> describe users;
 Routerna för att läsa resurser ser ut som följer. Det handlar först och främst om att hämta resurser med SQL. Frågan använder JOIN för att hämta användarens namn från users tabellen. Utskriften behöver skapas med en template och kallas på genom res.render.
 
 {% hint style="info" %}
+Följande kodexempel använder [query metoden från SQL och Node kapitlet](sql-och-node.md#databasmodell-asynkrona-fragor).
+{% endhint %}
+
+{% hint style="info" %}
 Skippar du användartabellen så lägger du till author direkt i meeps. Du behöver då inte använda JOIN.
 {% endhint %}
 
