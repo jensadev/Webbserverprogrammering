@@ -25,6 +25,7 @@
 * [SQL och Node](databas/sql-och-node.md)
 * [Databasdesign](databas/databasdesign.md)
 * [CRUD](databas/crud.md)
+* [Filmdatabas](databas/filmdatabas.md)
 
 ## Säkerhet <a id="sakerhet"></a>
 
