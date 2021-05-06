@@ -68,12 +68,12 @@ FLUSH privileges;
 
 ## Konfiguration
 
-Det första som behöver åtgärdas är konfigurationsvärdena i exemplet och för det så ska vi använda dotenv paketet. En .env fil är en konfigurationsfil\(eller en fil med miljövariabler, environment\),. Filnamnet börjar med en punkt, vilket är en Linux standard för att visa att det rör sig om en dold fil\(vilket ofta konfigurationsfiler är\).
+Det första som behöver åtgärdas är konfigurationsvärdena i exemplet och för det så ska vi använda [dotenv ](https://www.npmjs.com/package/dotenv)paketet. En dotenv fil är en konfigurationsfil\(eller en fil med miljövariabler, environment\). Filnamnet börjar med en punkt, vilket är en Linux standard för att visa att det rör sig om en dold fil\(vilket ofta konfigurationsfiler är\).
 
-Att arbeta med konfigurationen för ett projekt i en separat fil är en god praxis som låter dig konfigurera upp ett projekt utan att ändra i koden. Att separera konfigurationen skyddar känslig konfigurationsdata\(lösenord, användare api-nycklar\) från att laddas upp på till exempel GitHub. .env filen skapas i projektets root. 
+Att arbeta med konfigurationen för ett projekt i en separat fil är en god praxis som låter dig konfigurera upp ett projekt utan att ändra i koden. Att separera konfigurationen skyddar känslig konfigurationsdata\(lösenord, användare api-nycklar\) från att laddas upp på till exempel GitHub. dotenv filen skapas i projektets root. 
 
-* Skapa först en fil med namnet .env-example utan konfigurationsvärden. 
-* Kopiera sedan filen till en ny fil med namnet .env och fyll i konfigurationsvärdena. 
+1. Skapa först en fil med namnet `.env-example` utan konfigurationsvärden. 
+2. Kopiera sedan filen till en ny fil med namnet `.env` och fyll i konfigurationsvärdena. 
 
 För en databaskonfiguration behövs, host, username, password och databas.
 
@@ -95,7 +95,7 @@ DB_DATABASE=databasename
 ```
 {% endcode %}
 
-Skapa sedan en .gitignore fil i projektets root för att kontrollera så att .env filen inte laddas upp på GitHub.
+Skapa sedan en .gitignore fil i projektets root för att kontrollera så att dotenv filen inte laddas upp på GitHub.
 
 {% code title=".gitignore" %}
 ```bash
@@ -108,7 +108,11 @@ Skapa sedan en .gitignore fil i projektets root för att kontrollera så att .en
 Utan .gitignore kvittar det att du skapar .env filerna.
 {% endhint %}
 
-För att komma åt värdena från .env filen så behöver paketet laddas in så tidigt som möjligt i applikationen. Värdena återfinns sedan i objektet `process.env`.
+För att komma åt värdena från dotenv filen så behöver paketet laddas in så tidigt som möjligt i applikationen. Värdena återfinns sedan i objektet `process.env`.
+
+{% hint style="info" %}
+Kom ihåg att starta om din server efter du ändrat i dotenv filen, så att ändringarna laddas.
+{% endhint %}
 
 {% tabs %}
 {% tab title="JavaScript" %}
