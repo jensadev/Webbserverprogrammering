@@ -2,7 +2,7 @@
 description: 'Create, read, update, delete'
 ---
 
-# CRUD
+# CRUD Meeps
 
 CRUD är de fyra grundläggande funktionera för att arbeta med data\(create, read, update, delete\). Det är inte kopplat till webben eller databas även om det är väldigt vanligt i det sammanhanget. Konceptet är att data ska kunna skapas, läsas, redigeras och tas bort.
 
