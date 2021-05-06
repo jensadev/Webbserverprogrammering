@@ -70,7 +70,12 @@ FLUSH privileges;
 
 Det första som behöver åtgärdas är konfigurationsvärdena i exemplet och för det så ska vi använda dotenv paketet. En .env fil är en konfigurationsfil\(eller en fil med miljövariabler, environment\),. Filnamnet börjar med en punkt, vilket är en Linux standard för att visa att det rör sig om en dold fil\(vilket ofta konfigurationsfiler är\).
 
-Att arbeta med konfigurationen för ett projekt i en separat fil är en god praxis som låter dig konfigurera upp ett projekt utan att ändra i koden. Att separera konfigurationen skyddar känslig konfigurationsdata\(lösenord, användare api-nycklar\) från att laddas upp på till exempel GitHub. .env filen skapas i projektets root. Skapa först en fil med namnet .env-example utan konfigurationsvärden. Kopiera sedan filen till .env och fyll i konfigurationsvärdena. För en databaskonfiguration behövs, host, username, password och databas.
+Att arbeta med konfigurationen för ett projekt i en separat fil är en god praxis som låter dig konfigurera upp ett projekt utan att ändra i koden. Att separera konfigurationen skyddar känslig konfigurationsdata\(lösenord, användare api-nycklar\) från att laddas upp på till exempel GitHub. .env filen skapas i projektets root. 
+
+* Skapa först en fil med namnet .env-example utan konfigurationsvärden. 
+* Kopiera sedan filen till en ny fil med namnet .env och fyll i konfigurationsvärdena. 
+
+För en databaskonfiguration behövs, host, username, password och databas.
 
 {% code title=".env-example" %}
 ```bash
