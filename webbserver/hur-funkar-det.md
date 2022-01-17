@@ -2,13 +2,84 @@
 
 Det här avsnittet handlar om hur **Express** fungerar. För att förstå det så kommer du att skriva om delar av startkoden som Express generator skapat. Du kommer att skapa en meny, redigera vyer och ändra routingen.
 
+{% hint style="warning" %}
+Viktigt! Eftersom vi kört NJK som templates för 11ty så fortsätter vi med NJK för Node och Express. Detta gör att PUG inte används.\
+\
+Jag har dock inte hunnit uppdatera färdigt texten just nu.
+{% endhint %}
+
+## NJK
+
+Installera Nunjucks.
+
+```bash
+npm install nunjucks
+```
+
+För att använda Nunjucks behöver det laddas i `app.js` och konfigureras.
+
+{% code title="app.js" %}
+```javascript
+const nunjucks = require('nunjucks')
+
+nunjucks.configure('views', {
+  autoescape: true,
+  express: app
+});
+```
+{% endcode %}
+
+Nu kan vi skapa views för projektet. Skapa en mapp i roten `/views`. Denna template blir en bas för sidornas layout som vi kan använda med extends.
+
+```html
+<!doctype html>
+<html  lang="en">
+  <head>
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    {% block  content %}
+    {% endblock %}
+  </body>
+</html>
+```
+
+Skapa sedan den specifika view filen för index sidan, `index.njk`.
+
+{% code title="views/index.njk" %}
+```html
+{% extends  layout %}
+{% block  content %}
+  <h1>{{message}}</h1>
+{% endblock %}
+```
+{% endcode %}
+
+För nästa steg så behöver vi redigera routen som använder Nunjucks filerna. Redigera index routen.
+
+{% code title="routes/index.js" %}
+```javascript
+router.get('/', async  function(req, res, next) {
+  let  data = {
+    message: 'Hello world!',
+    layout:  'layout.njk',
+    title: 'Nunjucks example'
+  }
+
+  res.render('index.njk', data)
+})
+```
+{% endcode %}
+
+Testa nu att starta servern igen med `dev` scriptet. Nästa tsteg blir att uppdatera layout grunden till att vara en korrekt HTML5 mall och inkludera css.
+
 ## Pug
 
-Express stöder ett flertal olika **templatmotorer** \(på engelska **template engine**\), den som används här är  [Pug](https://pugjs.org/). Pug är snarlikt html och relativt enkelt att komma igång med.
+Express stöder ett flertal olika **templatmotorer** (på engelska **template engine**), den som används här är  [Pug](https://pugjs.org). Pug är snarlikt html och relativt enkelt att komma igång med.
 
-Innehållet på en sida med Pug struktureras med **indentering.** Text i början av en rad representerar generellt en **HTML** **tag**. Taggarna behöver inte stängas \(det sköter indenteringen\). För att **nästla** **element** indenteras de under andra taggar. Läs mer om [taggar](https://pugjs.org/language/tags.html) och [attribut](https://pugjs.org/language/attributes.html) i Pug.
+Innehållet på en sida med Pug struktureras med **indentering.** Text i början av en rad representerar generellt en **HTML** **tag**. Taggarna behöver inte stängas (det sköter indenteringen). För att **nästla** **element** indenteras de under andra taggar. Läs mer om [taggar](https://pugjs.org/language/tags.html) och [attribut](https://pugjs.org/language/attributes.html) i Pug.
 
-Pug stöder **variabler**, **iteration** och **mixins**\(funktioner\) bland annat.
+Pug stöder **variabler**, **iteration** och **mixins**(funktioner) bland annat.
 
 {% tabs %}
 {% tab title="Pug" %}
@@ -23,15 +94,15 @@ div#idname
 {% endtab %}
 {% endtabs %}
 
-Läs mer om Pug i [dokumentation](https://pugjs.org/)en och använd den vid behov. Det finns även ett antal **extensions** för [Visual Studio Code](https://code.visualstudio.com/) \(förkortat till **vscode**\) för att underlätta arbetet med Pug.
+Läs mer om Pug i [dokumentation](https://pugjs.org)en och använd den vid behov. Det finns även ett antal **extensions** för [Visual Studio Code](https://code.visualstudio.com) (förkortat till **vscode**) för att underlätta arbetet med Pug.
 
 {% hint style="info" %}
-Det går utmärkt att konvertera färdiga HTML-sidor till Pug, det finns flera verktyg för detta, [Google](https://www.google.com/search?q=html+to+pug&oq=html+to+pug&aqs=chrome..69i57j0l6j69i60.4848j0j7&sourceid=chrome&ie=UTF-8).
+Det går utmärkt att konvertera färdiga HTML-sidor till Pug, det finns flera verktyg för detta, [Google](https://www.google.com/search?q=html+to+pug\&oq=html+to+pug\&aqs=chrome..69i57j0l6j69i60.4848j0j7\&sourceid=chrome\&ie=UTF-8).
 {% endhint %}
 
 ### Layout
 
-Det här projektets vy-struktur utgår från filen layout.pug. Underliggande sidor ärver **layout-vyns** struktur för att skapa en färdig HTML-sida. **Nyckelordet** \(på engelska **keyword**\) för detta är `extends`.
+Det här projektets vy-struktur utgår från filen layout.pug. Underliggande sidor ärver **layout-vyns** struktur för att skapa en färdig HTML-sida. **Nyckelordet** (på engelska **keyword**) för detta är `extends`.
 
 Filen index.pug ärver från layout.pug med
 
@@ -81,7 +152,7 @@ router.get('/', function (req, res, next) {
 {% endtab %}
 {% endtabs %}
 
-I [render](https://expressjs.com/en/api.html#res.render) funktionen kallas först den vy som ska användas, index, sedan bifogas ett **objekt** till vy-filen\(till pug\). Objeketet innehåller här **egenskapen** title med Express som **värde**.
+I [render](https://expressjs.com/en/api.html#res.render) funktionen kallas först den vy som ska användas, index, sedan bifogas ett **objekt** till vy-filen(till pug). Objeketet innehåller här **egenskapen** title med Express som **värde**.
 
 {% tabs %}
 {% tab title="Pug" %}
@@ -98,13 +169,13 @@ block content
 {% endtab %}
 {% endtabs %}
 
-I index-vyn kan sedan det bifogade objektet användas för att dynamiskt ändra vy-filen. Det kallas för template locals, läs mer om template locals [här](https://pugjs.org/language/interpolation.html). 
+I index-vyn kan sedan det bifogade objektet användas för att dynamiskt ändra vy-filen. Det kallas för template locals, läs mer om template locals [här](https://pugjs.org/language/interpolation.html).&#x20;
 
 Byt ut title till något annat. Redigera sedan objektet och lägg till en annan egenskap. Visa sedan denna i index.pug.
 
 ### Nav
 
-Med `extends` kan Pug återanvända kod. Det leder till enklare utveckling och mindre fel \([don't repeat yourself, DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)\). Ett bra användningsfall \(engelska [use case](https://en.wikipedia.org/wiki/Use_case)\) för detta är navigation på en webbsida. 
+Med `extends` kan Pug återanvända kod. Det leder till enklare utveckling och mindre fel ([don't repeat yourself, DRY](https://en.wikipedia.org/wiki/Don't\_repeat\_yourself)). Ett bra användningsfall (engelska [use case](https://en.wikipedia.org/wiki/Use\_case)) för detta är navigation på en webbsida.&#x20;
 
 Du ska nu skapa en navigation. Redigera layout-vyn och skapa ett nav **block** efter body-taggen.
 
@@ -121,7 +192,7 @@ body
 {% endtab %}
 {% endtabs %}
 
-Nav-blocket följs av nyckelordet `include` som används för att lägga till innehållet från en annan fil, nav.pug. 
+Nav-blocket följs av nyckelordet `include` som används för att lägga till innehållet från en annan fil, nav.pug.&#x20;
 
 {% hint style="info" %}
 Läs mer om [arv](https://pugjs.org/language/inheritance.html) och att [inkludera](https://pugjs.org/language/includes.html) filer i Pug.
@@ -182,7 +253,7 @@ block content
 Spara och ladda om, felsök vid behov.
 {% endhint %}
 
-För att visa Pugs och Express samspel mellan route och vy ska users-vyn uppdateras för att visa ett flertal användare. Skapa en [array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) i det objekt som bifogas av users-routen.
+För att visa Pugs och Express samspel mellan route och vy ska users-vyn uppdateras för att visa ett flertal användare. Skapa en [array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global\_Objects/Array) i det objekt som bifogas av users-routen.
 
 {% tabs %}
 {% tab title="JavaScript" %}
@@ -228,7 +299,7 @@ I den här uppgiften ska du skapa en footer-vy som ska inkluderas på varje sida
 
 ## Sass
 
-\*\*\*\*[Sass ](https://sass-lang.com/)är en språk-utökning för att skapa **css.** Sass förkompileras till färdig css.
+****[Sass ](https://sass-lang.com)är en språk-utökning för att skapa **css.** Sass förkompileras till färdig css.
 
 Express generator installerar ett middleware för att kompilera Sass-filer till css-filer. Projektets css skrivs i .sass filen vilken kompileras till .css kod när sidan hämtas från webbservern.
 
@@ -271,7 +342,7 @@ nav > ul
 {% endtab %}
 {% endtabs %}
 
-De här stilarna ger en grundläggande formatering. Placeringen av elementen sker med [flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox). Prova att lägga till en font med [Google fonts](https://fonts.google.com/). Fonten behöver då länkas i layout-vyn, och Sass-stilen behöver uppdateras.
+De här stilarna ger en grundläggande formatering. Placeringen av elementen sker med [flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS\_layout/Flexbox). Prova att lägga till en font med [Google fonts](https://fonts.google.com). Fonten behöver då länkas i layout-vyn, och Sass-stilen behöver uppdateras.
 
 {% tabs %}
 {% tab title="Pug" %}
@@ -312,11 +383,10 @@ Detta är en uppgift med eget arbete.
 Testa nu att skapa variabler för ett par färger på sidan. Passa även på att styla User-vyns lista också.
 
 {% hint style="info" %}
-Sidan [coolors.co](https://coolors.co/) har Sass export.
+Sidan [coolors.co](https://coolors.co) har Sass export.
 {% endhint %}
 
 * [ ] Välj 1-5 färger och skapa varaibler för dem
 * [ ] Styla Users-vyn
 
- Läs mer om [Sass](https://sass-lang.com/guide).
-
+&#x20;Läs mer om [Sass](https://sass-lang.com/guide).

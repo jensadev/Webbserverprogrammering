@@ -14,7 +14,7 @@ Node är byggt på en javascriptmotor ([Chromes V8](https://v8.dev)) för att ku
 
 ## Installation och förberedelse
 
-Den här guiden utgår från materialet kring [Windows Subsystem for Linux (WSL)](../utvecklarmiljo/wsl.md). Den [Node ](https://nodejs.org)version som kommer att användas är 16, vilket är Nodes **Long Term Support (LTS)** version. För att installera version 16 av Node går det inte att köra apt install node direkt.
+Den här guiden utgår från materialet kring [Windows Subsystem for Linux (WSL)](../utvecklarmiljo/wsl.md). Den [Node ](https://nodejs.org)version som kommer att användas är 14, vilket är Nodes **Long Term Support (LTS)** version. För att installera version 14 av Node går det inte att köra apt install node direkt.
 
 {% tabs %}
 {% tab title="Bash" %}
@@ -23,14 +23,14 @@ sudo apt update
 sudo apt upgrade
 
 sudo apt install curl dirmngr apt-transport-https lsb-release ca-certificates
-curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 
 sudo apt install nodejs
 ```
 {% endtab %}
 {% endtabs %}
 
-Kontrollera sedan den installerade versionen av Node, bör vara 16.x.
+Kontrollera sedan den installerade versionen av Node, bör vara 14.x.
 
 {% tabs %}
 {% tab title="Bash" %}
@@ -40,7 +40,7 @@ node --version
 {% endtab %}
 {% endtabs %}
 
-Med node följer **Node Package Manager (npm),** bör vara 8.x.
+Med node följer **Node Package Manager (npm),** bör vara 6.x.
 
 {% tabs %}
 {% tab title="Bash" %}
