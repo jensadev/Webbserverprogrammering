@@ -6,15 +6,15 @@ description: Webbserverprogrammering med Node och Express
 
 ## Vad är Node?
 
-**Node.js \(Node\)** är en server. Beskrivningen på [nodejs.org](https://nodejs.org/) kräver dock sin förklaring.
+**Node.js (Node)** är en server. Beskrivningen på [nodejs.org](https://nodejs.org) kräver dock sin förklaring.
 
 > As an asynchronous event-driven JavaScript runtime, Node.js is designed to build scalable network applications.
 
-Node är byggt på en javascriptmotor \([Chromes V8](https://v8.dev/)\) för att kunna använda **Javascript** på en server. Node kan fungera som en en webbserver och fyller samma roll som webbservern Apache i [LAMP](../utvecklarmiljo/wsl.md#lamp-server).
+Node är byggt på en javascriptmotor ([Chromes V8](https://v8.dev)) för att kunna använda **Javascript** på en server. Node kan fungera som en en webbserver och fyller samma roll som webbservern Apache i [LAMP](../utvecklarmiljo/wsl.md#lamp-server).
 
 ## Installation och förberedelse
 
-Den här guiden utgår från materialet kring [Windows Subsystem for Linux \(WSL\)](../utvecklarmiljo/wsl.md). Den [Node ](https://nodejs.org/)version som kommer att användas är 12, vilket är Nodes **Long Term Support \(LTS\)** version. För att installera version 12 av Node går det inte att köra apt install node direkt.
+Den här guiden utgår från materialet kring [Windows Subsystem for Linux (WSL)](../utvecklarmiljo/wsl.md). Den [Node ](https://nodejs.org)version som kommer att användas är 16, vilket är Nodes **Long Term Support (LTS)** version. För att installera version 16 av Node går det inte att köra apt install node direkt.
 
 {% tabs %}
 {% tab title="Bash" %}
@@ -23,14 +23,14 @@ sudo apt update
 sudo apt upgrade
 
 sudo apt install curl dirmngr apt-transport-https lsb-release ca-certificates
-curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 
 sudo apt install nodejs
 ```
 {% endtab %}
 {% endtabs %}
 
-Kontrollera sedan den installerade versionen av Node, bör vara 12.x.
+Kontrollera sedan den installerade versionen av Node, bör vara 16.x.
 
 {% tabs %}
 {% tab title="Bash" %}
@@ -40,7 +40,7 @@ node --version
 {% endtab %}
 {% endtabs %}
 
-Med node följer **Node Package Manager \(npm\),** bör vara 6.x.
+Med node följer **Node Package Manager (npm),** bör vara 8.x.
 
 {% tabs %}
 {% tab title="Bash" %}
@@ -50,7 +50,7 @@ npm --version
 {% endtab %}
 {% endtabs %}
 
-Nästa steg är att installera **Express** och Express generator. [Express](https://expressjs.com/) är ett minimalistiskt ramverk för Node. Express underlättar skapandet av en webbserver med Node. Express kommer att installeras globalt på systemet, något som kräver sudo.
+Nästa steg är att installera **Express** och Express generator. [Express](https://expressjs.com) är ett minimalistiskt ramverk för Node. Express underlättar skapandet av en webbserver med Node. Express kommer att installeras globalt på systemet, något som kräver sudo.
 
 {% tabs %}
 {% tab title="Bash" %}
@@ -75,39 +75,37 @@ express --help
 För att skapa grunden till ett webbprojekt så används Express generator.
 
 {% hint style="info" %}
-Var alltid väldigt noga med att köra kommandon från rätt mapp. Skapa inte Git-repon eller Express-projekt i c:\
+Var alltid väldigt noga med att köra kommandon från rätt mapp. Skapa inte Git-repon eller Express-projekt i c:\\
 {% endhint %}
 
- Skapa en mapp för projektet, gå in i mappen och kör Express.
+&#x20;Skapa en mapp för projektet, gå in i mappen och kör Express.
 
 {% tabs %}
 {% tab title="Bash" %}
 ```bash
 mkdir PROJEKTNAMN
 cd PROJEKTNAMN
-express --view pug --css sass --git
+express --no-view --css sass --git
 ```
 {% endtab %}
 {% endtabs %}
 
-Express generator skapar med detta kommando grund-strukturen för en app. Express generator körs med parametrarna view, css och git. 
+Express generator skapar med detta kommando grund-strukturen för en app. Express generator körs med parametrarna view, css och git.&#x20;
 
-* View väljer den motor \(på engelska **template engine**\), **templatmotor**, som Express anväder. I det här fallet [Pug](https://pugjs.org/).
-* Css väljer att Express ska använda sig av [sass](https://sass-lang.com/) för projektets stilar.
-* Git skapar en [.gitignore](https://help.github.com/en/github/using-git/ignoring-files) fil i projektet för att undvika att filer som inte ska finnas på Git hamnar där\(node\_modules mappen bland annat\).
+* View väljer den motor (på engelska **template engine**), **templatmotor**, som Express anväder. I det här fallet väljer vi att inte använda en motor för detta. Då genereras statiska filer som default. Men vi kommer att installera och använda [Nunjucks](https://mozilla.github.io/nunjucks/) för detta.
+* Css väljer att Express ska använda sig av [sass](https://sass-lang.com)/scss för projektets stilar.
+* Git skapar en [.gitignore](https://help.github.com/en/github/using-git/ignoring-files) fil i projektet för att undvika att filer som inte ska finnas på Git hamnar där(node\_modules mappen bland annat).
 
 Node-projekt kräver i allmänhet ett antal NPM-paket för att fungera. Express är inget undantag och för att slutföra installationen behöver NPM ladda ned de paket som Express kräver. Paketen för ett Node-projekt är alltid listade i filen **package.json**. Paketen för Express installationen är följande.
 
 {% code title="package.json" %}
 ```javascript
 "dependencies": {
-  "cookie-parser": "~1.4.4",
-  "debug": "~2.6.9",
-  "express": "~4.16.1",
-  "http-errors": "~1.6.3",
-  "morgan": "~1.9.1",
-  "node-sass-middleware": "0.11.0",
-  "pug": "2.0.0-beta11"
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "morgan": "~1.9.1",
+    "node-sass-middleware": "0.11.0"
 },
 ```
 {% endcode %}
@@ -122,7 +120,7 @@ npm install
 {% endtab %}
 {% endtabs %}
 
-npm install skapar en fil som heter **package-lock.json**, filen innehåller information om alla paketen som installerats och de paket som de kräver för att fungera i sin tur. Om install-kommandot kördes utan fel \(vid fel står det npm ERR!\) så är servern redo.
+npm install skapar en fil som heter **package-lock.json**, filen innehåller information om alla paketen som installerats och de paket som de kräver för att fungera i sin tur. Om install-kommandot kördes utan fel (vid fel står det npm ERR!) så är servern redo.
 
 {% tabs %}
 {% tab title="Bash" %}
@@ -132,7 +130,7 @@ npm start
 {% endtab %}
 {% endtabs %}
 
-Surfa sedan till [localhost:3000](http://localhost:3000/). Node-servern är startad och kan besökas med värddatorns **ip-adress** och rätt **port** även från andra datorer.
+Surfa sedan till [localhost:3000](http://localhost:3000). Node-servern är startad och kan besökas med värddatorns **ip-adress** och rätt **port** även från andra datorer.
 
 {% hint style="info" %}
 Port 3000 används ofta för att komma åt en utvecklar Node-servern. Detta skiljer sig från HTTP-standardporten som är 80.
@@ -140,7 +138,7 @@ Port 3000 används ofta för att komma åt en utvecklar Node-servern. Detta skil
 
 ### Nodemon
 
-Nodemon är ett paket till Node som underlättar utvecklingen av projekt. Det bevakar och lyssnar efter ändringar i serverns filer. Om filerna sparas \(ändras\) så laddas Node om.
+Nodemon är ett paket till Node som underlättar utvecklingen av projekt. Det bevakar och lyssnar efter ändringar i serverns filer. Om filerna sparas (ändras) så laddas Node om.
 
 {% tabs %}
 {% tab title="Bash" %}
@@ -155,16 +153,20 @@ Uppdatera package.json.
 {% code title="package.json" %}
 ```javascript
 "scripts": {
-  "start": "nodemon ./bin/www"
+  "dev": "nodemon ./bin/www"
 },
 ```
 {% endcode %}
 
 Starta sedan servern igen.
 
+```bash
+npm run dev
+```
+
 ### Eslint
 
-**Visual Studio Code \(vscode\)** kan användas tillsammans med en så kallad **linter** för att hitta fel och formatera kod. Eslint är en linter för Javascript. Det är väldigt praktiskt vid arbete med kod och hjälper dig som utvecklare att följa praxis och skapa kod av hög kvalité. För att kunna köra Eslint kan det behöva installeras globalt, det gör vi med -g parametern.
+**Visual Studio Code (vscode)** kan användas tillsammans med en så kallad **linter** för att hitta fel och formatera kod. Eslint är en linter för Javascript. Det är väldigt praktiskt vid arbete med kod och hjälper dig som utvecklare att följa praxis och skapa kod av hög kvalité. För att kunna köra Eslint kan det behöva installeras globalt, det gör vi med -g parametern.
 
 {% tabs %}
 {% tab title="Bash" %}
@@ -186,7 +188,7 @@ eslint --init
 
 Svara följande:
 
-```text
+```
 ? How would you like to use ESLint? To check syntax, find problems, and enforce code style
 ? What type of modules does your project use? CommonJS (require/exports)
 ? Which framework does your project use? None of these
@@ -199,7 +201,7 @@ Svara följande:
 
 NPM kommer sedan att fråga om paketen ska installeras, välj ja.
 
-I projektets root har Eslint skapat en fil som heter **.eslintrc.js** med inställningarna. Mer information kring  Javascript standard style hittar du på [Standardjs](https://standardjs.com/rules.html). 
+I projektets root har Eslint skapat en fil som heter **.eslintrc.js** med inställningarna. Mer information kring  Javascript standard style hittar du på [Standardjs](https://standardjs.com/rules.html).&#x20;
 
 Eslintrc kan nu redigeras för att ändra inställningarna. För att till exempel ändra formateringsregler så finns de under rules. En sådan regel kan vara att visa fel när semi-kolon saknas.
 
@@ -212,7 +214,7 @@ rules: {
 ```
 {% endcode %}
 
-Till sist så behöver du installera eslint **extension** \(svenska **tillägg**\) i Vscode. Extensions finns i sidomenyn.
+Till sist så behöver du installera eslint **extension** (svenska **tillägg**) i Vscode. Extensions finns i sidomenyn.
 
 ![Extensions i Vscode.](../.gitbook/assets/extensions.png)
 
@@ -224,7 +226,7 @@ Sök efter eslint och installera följande tillägg.
 
 Applikationens grunder är nu installerade tillsammans med ett par verktyg för att underlätta utvecklingen. Nästa steg är att titta på Express filstruktur och hur du arbetar med det. Filstrukturen i Express ser ut såhär efter installationen.
 
-```text
+```
 bin/
   www
 node_modules/
@@ -235,10 +237,6 @@ public/
 routes/
   index.js
   users.js
-views/
-  error.pug
-  index.pug
-  layout.pug
 app.js
 package.json
 ```
@@ -251,7 +249,7 @@ App.js laddar in serverns routes från routes/ foldern. När en **route** laddas
 
 En route är den väg en request tar i din applikation. Användaren efterfrågar en resurs och i routen så bestämmer du vad som ska ske då.
 
-Routerna som skapas av Express generator är index och users. Index hanterar anrop till / och users till /users. Applikationens router laddas och kopplas till en adress i app.js. 
+Routerna som skapas av Express generator är index och users. Index hanterar anrop till / och users till /users. Applikationens router laddas och kopplas till en adress i app.js.&#x20;
 
 {% code title="app.js" %}
 ```javascript
@@ -276,10 +274,6 @@ router.get('/', function (req, res, next) {
 {% endcode %}
 
 En view laddas med ett så kallat **middleware** i app.js. Det sätter en **path** till views-mappen och bestämmer vilken templatmotor som ska användas. Det finns ett stort antal middleware med olika funktioner och det är en viktig del av Express. Enkelt sagt så är middleware insticksprogram som utökar Express funktion.
-
-{% hint style="info" %}
-Om du vill kolla koden innan jag började ändra i det här projektet så kolla igenom repots [commit-historik](https://github.com/jensnti/wsp1-node/commits/master). De commits som visar starten är [följande](https://github.com/jensnti/wsp1-node/tree/ac1733d144ed049550e30fa2a711ae876ef9c3cd), detta för att jag gjorde en del ändringar och bytte view-motor till Pug efter att jag kört Express generator.
-{% endhint %}
 
 ### En egen route
 
@@ -325,4 +319,3 @@ router.get('/', function (req, res, next) {
 {% endtabs %}
 
 Prova sedan att surfa till [http://localhost:3000/test](http://localhost:3000/test), visas din nya route? Annars så behöver du felsöka detta. Har du kvar en /test route i index.js?
-
