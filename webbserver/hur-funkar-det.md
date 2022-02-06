@@ -31,6 +31,7 @@ nunjucks.configure('views', {
 
 Nu kan vi skapa views för projektet. Skapa en mapp i roten `/views`. Denna template blir en bas för sidornas layout som vi kan använda med extends.
 
+{% code title="views/layout.njk" %}
 ```html
 <!doctype html>
 <html  lang="en">
@@ -43,12 +44,13 @@ Nu kan vi skapa views för projektet. Skapa en mapp i roten `/views`. Denna temp
   </body>
 </html>
 ```
+{% endcode %}
 
 Skapa sedan den specifika view filen för index sidan, `index.njk`.
 
 {% code title="views/index.njk" %}
 ```html
-{% extends  layout %}
+{% extends layout %}
 {% block  content %}
   <h1>{{message}}</h1>
 {% endblock %}
